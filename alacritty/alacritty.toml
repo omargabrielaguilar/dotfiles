@@ -3,7 +3,7 @@ general.import = [
 ]
 
 [font]
-size = 12.5
+size = 14.5
 
   [font.bold]
   family = "Monofur"
