@@ -1,5 +1,5 @@
 general.import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/User 77 - Mashup colors.toml"
+  "/usr/lib/node_modules/alacritty-themes/themes/Gruvbox-Dark.toml"
 ]
 
 [font]
@@ -29,4 +29,4 @@ key = "F11"
 history = 50_000
 
 [window]
-opacity = 0.90
+opacity = 0.93
