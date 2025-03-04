@@ -1,8 +1,5 @@
 [general]
-import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/github_dark.toml"
-]
-
+import = [ "/usr/lib/node_modules/alacritty-themes/themes/Fedora.toml" ]
 [font]
 size = 12.5
 
