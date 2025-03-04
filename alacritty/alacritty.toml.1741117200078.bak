@@ -1,5 +1,10 @@
-general.import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/Gruvbox-Dark.toml"
+import = [
+  "/usr/lib/node_modules/alacritty-themes/themes/3024.dark.toml"
+]
+
+[general]
+import = [
+  "/usr/lib/node_modules/alacritty-themes/themes/github_dark.toml"
 ]
 
 [font]
