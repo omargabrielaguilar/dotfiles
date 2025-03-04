@@ -33,7 +33,7 @@ keymap.set("n", "<leader>tp", ":tabp<cr>") --  go to previous tab
 ----------------------
 
 -- vim-maximizer
-keymap.set("n", "<leader>sm", ":MaximizerToggle<cr>") -- toggle split window maximization
+keymap.set("n", "<leader>sm:MaximizerToggle<cr>") -- toggle split window maximization
 
 -- nvim-tree
 keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>") -- toggle file explorer

@@ -88,7 +88,7 @@ return require('packer').startup(function(use)
         }
 
     -- Show git change (change, delete, add) signs in vim sign column
-    use { 'lewis6991/gitsigns.nvim', config = [[require('config.gitsigns')]] }
+    --use { 'lewis6991/gitsigns.nvim', config = [[require('config.gitsigns')]] }
     --------------------------------------------------------------------------------
 
     --------------------------------------------------------------------------------
@@ -103,6 +103,8 @@ return require('packer').startup(function(use)
     --------------------------------------------------------------------------------
     use {'mhinz/vim-startify'}
     use {'sainnhe/gruvbox-material'}
+
+    use { 'projekt0n/github-nvim-theme' }
 
     use {'nvim-tree/nvim-web-devicons'}
 
