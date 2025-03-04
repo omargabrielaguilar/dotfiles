@@ -3,7 +3,7 @@
 vim.opt.termguicolors = true
 
 -- set the colorscheme
-local colorscheme = "gruvbox-material"
+local colorscheme = "slate"  
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then
