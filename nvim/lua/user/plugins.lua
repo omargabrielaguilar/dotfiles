@@ -27,9 +27,9 @@ local use = require('packer').use
 use('wbthomason/packer.nvim')
 
 use({
-  'sainnhe/sonokai',
+  'Shatur/neovim-ayu',
   config = function()
-    vim.cmd('colorscheme sonokai')
+    vim.cmd('colorscheme ayu-dark')
     vim.api.nvim_set_hl(0, 'FloatBorder', {
         fg = vim.api.nvim_get_hl_by_name('Normal', true).background,
         bg = vim.api.nvim_get_hl_by_name('Normal', true).background,
@@ -129,6 +129,23 @@ use({
     vim.g.pasta_disabled_filetypes = { 'fugitive' }
   end,
 })
+
+--fuzzy finder
+use({
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'kyazdani42/nvim-web-devicons',
+      'nvim-telescope/telescope-live-grep-args.nvim',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim', run = 'make'
+      },
+    },
+    config = function ()
+      require('telescope').setup()
+    end,
+})
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
