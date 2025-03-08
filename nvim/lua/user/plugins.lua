@@ -27,9 +27,16 @@ local use = require('packer').use
 use('wbthomason/packer.nvim')
 
 use({
-  'Shatur/neovim-ayu',
+  'danilo-augusto/vim-afterglow',
   config = function()
-    vim.cmd('colorscheme ayu-dark')
+    vim.cmd([[
+      augroup TransparentBackground
+      autocmd!
+      autocmd ColorScheme * highlight Normal ctermbg=none guibg=none
+      autocmd ColorScheme * highlight NonText ctermbg=none guibg=none
+      augroup END
+    ]])
+    vim.cmd('colorscheme afterglow')
     vim.api.nvim_set_hl(0, 'FloatBorder', {
         fg = vim.api.nvim_get_hl_by_name('Normal', true).background,
         bg = vim.api.nvim_get_hl_by_name('Normal', true).background,
@@ -142,7 +149,7 @@ use({
       },
     },
     config = function ()
-      require('telescope').setup()
+      require('user/plugins/telescope')  
     end,
 })
 

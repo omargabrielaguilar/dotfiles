@@ -37,7 +37,7 @@ vim.opt.clipboard = 'unnamedplus' -- Use system clipboard
 
 vim.opt.confirm = true -- ask for confirmation instead of erroring
 
-vim.opt.signcolumn = 'yes:2'
+-- vim.opt.signcolumn = 'yes:2'
 
 vim.opt.undofile = true -- persistent undo
 vim.opt.backup = true -- automatically save a backup file
