@@ -1,6 +1,8 @@
+import = [ "/usr/lib/node_modules/alacritty-themes/themes/Zenburn.toml" ]
+
 [general]
 import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/Spacegray.toml"
+  "/usr/lib/node_modules/alacritty-themes/themes/Ocean.dark.toml"
 ]
 
 [font]

@@ -1,7 +1,5 @@
 [general]
-import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/Spacegray.toml"
-]
+import = [ "/usr/lib/node_modules/alacritty-themes/themes/Tender.toml" ]
 
 [font]
 size = 12.5

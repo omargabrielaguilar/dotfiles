@@ -14,11 +14,11 @@ local packer_bootstrap = ensure_packer()
 require('packer').reset()
 require('packer').init({
   compile_path = vim.fn.stdpath('data')..'/site/plugin/packer_compiled.lua',
-  --display = {
-  --  open_fn = function()
-  --    return require('packer.util').float({ border = 'solid' })
-  --  end,
-  --},
+  display = {
+    open_fn = function()
+      return require('packer.util').float({ border = 'solid' })
+    end,
+  },
 })
 
 local use = require('packer').use
@@ -26,7 +26,16 @@ local use = require('packer').use
 -- Packer can manage itself.
 use('wbthomason/packer.nvim')
 
-use('danilo-augusto/vim-afterglow')
+use({
+  'sainnhe/sonokai',
+  config = function()
+    vim.cmd('colorscheme sonokai')
+    vim.api.nvim_set_hl(0, 'FloatBorder', {
+        fg = vim.api.nvim_get_hl_by_name('Normal', true).background,
+        bg = vim.api.nvim_get_hl_by_name('Normal', true).background,
+      })
+  end,
+})
 
 -- Commenting support.
 use('tpope/vim-commentary')
