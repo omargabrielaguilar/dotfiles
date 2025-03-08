@@ -26,9 +26,10 @@ local use = require('packer').use
 -- Packer can manage itself.
 use('wbthomason/packer.nvim')
 
+use('danilo-augusto/vim-afterglow')
+
 -- Commenting support.
 use('tpope/vim-commentary')
-
 
 -- Add, change, and delete surrounding text.
 use('tpope/vim-surround')
@@ -131,3 +132,4 @@ vim.cmd([[
     autocmd BufWritePost plugins.lua source <afile>
   augroup end
 ]])
+
