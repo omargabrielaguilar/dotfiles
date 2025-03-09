@@ -157,6 +157,24 @@ use({
     end,
   })
 
+--status line 
+use({
+  'nvim-lualine/lualine.nvim',
+  requires = 'kyazdani42/nvim-web-devicons',
+  config = function()
+    require('user/plugins/lualine')
+  end
+})
+
+use({
+   'akinsho/bufferline.nvim',
+   requires = 'kyazdani42/nvim-web-devicons',
+   after = 'vim-afterglow',
+   config = function()
+     require('user/plugins/bufferline')
+   end,
+})
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
