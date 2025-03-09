@@ -274,6 +274,15 @@ use({
    end,
  })
 
+use({
+  "jose-elias-alvarez/null-ls.nvim",
+  requires = { "jayp0521/mason-null-ls.nvim" },
+  config = function()
+    require("user/plugins/null-ls") -- Asegúrate de que este archivo se está cargando
+  end,
+})
+
+
 -- Completion
  use({
    'hrsh7th/nvim-cmp',

@@ -39,7 +39,16 @@ vim.keymap.set('v', '<A-j>', ":move '>+1<CR>gv=gv")
 vim.keymap.set('v', '<A-k>', ":move '<-2<CR>gv=gv")
 
 -- Implementaciones de Omar
-vim.keymap.set('n', 'zz', ':bdelete<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'zz', function()
+  if vim.bo.modified then
+    print("Archivo modificado. Guarda antes de cerrar.")
+    return
+  end
+  vim.cmd("bdelete")
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<C-S-I>", function()
+  vim.lsp.buf.format({ async = true })
+end, { noremap = true, silent = true })
 vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a", { noremap = true, silent = true })
 

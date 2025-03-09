@@ -1,20 +1,27 @@
 -- Setup Mason to automatically install LSP servers
  require('mason').setup()
  require('mason-lspconfig').setup({ automatic_installation = true })
- 
- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
  -- PHP
-require('lspconfig').intelephense.setup({ capabilities = capabilities }) 
+require('lspconfig').intelephense.setup({ capabilities = capabilities })
 
  -- Vue, JavaScript, TypeScript
  require('lspconfig').volar.setup({
   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
  })
- 
  -- Tailwind CSS
- require('lspconfig').tailwindcss.setup({})
- 
+ require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
+ -- JSON
+ require('lspconfig').jsonls.setup({
+   capabilities = capabilities,
+   settings = {
+     json = {
+       schemas = require('schemastore').json.schemas(),
+     },
+   },
+ })
+
  -- Keymaps
  vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
  vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
@@ -24,7 +31,7 @@ require('lspconfig').intelephense.setup({ capabilities = capabilities })
  vim.keymap.set('n', 'gr', ':Telescope lsp_references<CR>')
  vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
  vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
- 
+
  -- Diagnostic configuration
  vim.diagnostic.config({
    virtual_text = false,
@@ -32,7 +39,6 @@ require('lspconfig').intelephense.setup({ capabilities = capabilities })
      source = true,
    }
  })
- 
  -- Sign configuration
  vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
  vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
