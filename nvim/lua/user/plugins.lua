@@ -192,7 +192,6 @@ use({
  })
 
 -- git integrations
-
 use({
    'lewis6991/gitsigns.nvim',
    config = function()
@@ -223,6 +222,22 @@ use({
        highlight link FloatermBorder CursorLineBg
      ]])
    end
+ })
+
+-- treesitter 
+use({
+   'nvim-treesitter/nvim-treesitter',
+   run = function()
+     require('nvim-treesitter.install').update({ with_sync = true })
+   end,
+   requires = {
+     'JoosepAlviste/nvim-ts-context-commentstring',
+     'nvim-treesitter/nvim-treesitter-textobjects',
+   },
+   config = function()
+     require('user/plugins/treesitter')
+     vim.g.skip_ts_context_commentstring_module = true
+   end,
  })
 
 -- Automatically set up your configuration after cloning packer.nvim
