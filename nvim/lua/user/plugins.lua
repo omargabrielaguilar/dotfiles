@@ -50,12 +50,10 @@ use({
     vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
     
     -- Arreglar el fondo de la selección en Telescope
-    vim.api.nvim_set_hl(0, 'TelescopeSelection', { bg = '#2A2A37', fg = '#E6C384', bold = true })
+           vim.api.nvim_set_hl(0, 'TelescopeSelection', { bg = '#2A2A37', fg = '#E6C384', bold = true })
 
   end
 })
-
-
 
 -- Commenting support.
 use('tpope/vim-commentary')
@@ -268,12 +266,31 @@ use({
    'neovim/nvim-lspconfig',
    requires = {
      'williamboman/mason.nvim',
+     'b0o/schemastore.nvim',
      'williamboman/mason-lspconfig.nvim',
    },
    config = function()
      require('user/plugins/lspconfig')
    end,
  })
+
+-- Completion
+ use({
+   'hrsh7th/nvim-cmp',
+   requires = {
+     'hrsh7th/cmp-nvim-lsp',
+     'hrsh7th/cmp-nvim-lsp-signature-help',
+     'hrsh7th/cmp-buffer',
+     'hrsh7th/cmp-path',
+     'L3MON4D3/LuaSnip',
+     'saadparwaiz1/cmp_luasnip',
+     'onsails/lspkind-nvim',
+   },
+   config = function()
+     require('user/plugins/cmp')
+   end,
+ })
+
 
 if packer_bootstrap then
     require('packer').sync()
