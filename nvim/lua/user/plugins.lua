@@ -175,6 +175,23 @@ use({
    end,
 })
 
+-- Display indentation lines.
+ use({
+   'lukas-reineke/indent-blankline.nvim',
+   config = function()
+     require('user/plugins/indent-blankline')
+   end,
+ })
+
+-- Add dashboard
+use({
+   'glepnir/dashboard-nvim',
+   config = function()
+     require('user/plugins/dashboard-nvim')
+   end
+ })
+
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
