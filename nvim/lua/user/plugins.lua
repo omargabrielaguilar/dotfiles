@@ -27,16 +27,31 @@ local use = require('packer').use
 use('wbthomason/packer.nvim')
 
 use({
-  'danilo-augusto/vim-afterglow',
+  'rebelot/kanagawa.nvim',
+  lazy = false,
+  priority = 1000,
+  opts = {},
   config = function()
-    vim.cmd('colorscheme afterglow')
-    vim.api.nvim_set_hl(0, 'FloatBorder', {
-        fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
-        bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
-      })
+    vim.cmd('colorscheme kanagawa-dragon')
     
-    vim.api.nvim_set_hl(0,'NvimTreeIndentMarker', {fg = '#30323E'})
-    end,
+
+    -- Make the cursor line background invisible
+    vim.api.nvim_set_hl(0, 'CursorLineBg', {
+      fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
+      bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
+    })
+
+    vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
+
+    vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
+    
+    local bg_color = vim.api.nvim_get_hl_by_name('Normal', true).background
+    
+    -- Hacer que los números de línea tengan el mismo color de fondo
+    vim.api.nvim_set_hl(0, 'LineNr', { fg = '#5C6773', bg = bg_color })
+    vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#E6C384', bg = bg_color })
+    
+  end
 })
 
 -- Commenting support.
@@ -134,18 +149,19 @@ use({
 
 --fuzzy finder
 use({
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'kyazdani42/nvim-web-devicons',
-      'nvim-telescope/telescope-live-grep-args.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim', run = 'make'
-      },
+  'nvim-telescope/telescope.nvim',
+  requires = {
+    'nvim-lua/plenary.nvim',
+    'kyazdani42/nvim-web-devicons',
+    'nvim-telescope/telescope-live-grep-args.nvim',
+    {
+      'nvim-telescope/telescope-fzf-native.nvim', run = 'make'
     },
-    config = function ()
-      require('user/plugins/telescope')  
-    end,
+  },
+  after = 'kanagawa.nvim',
+  config = function ()
+    require('user/plugins/telescope')  
+  end,
 })
 
 -- file tree sidebar
@@ -169,7 +185,7 @@ use({
 use({
    'akinsho/bufferline.nvim',
    requires = 'kyazdani42/nvim-web-devicons',
-   after = 'vim-afterglow',
+   after = 'kanagawa.nvim',
    config = function()
      require('user/plugins/bufferline')
    end,
@@ -237,6 +253,18 @@ use({
    config = function()
      require('user/plugins/treesitter')
      vim.g.skip_ts_context_commentstring_module = true
+   end,
+ })
+
+-- Language Server Protocol.
+ use({
+   'neovim/nvim-lspconfig',
+   requires = {
+     'williamboman/mason.nvim',
+     'williamboman/mason-lspconfig.nvim',
+   },
+   config = function()
+     require('user/plugins/lspconfig')
    end,
  })
 

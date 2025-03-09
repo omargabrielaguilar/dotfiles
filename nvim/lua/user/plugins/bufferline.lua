@@ -14,12 +14,13 @@ require('bufferline').setup({
         text_align = 'left',
       },
     },
-    separator_style = 'slant',
+    -- separator_style = 'slant',
+    separator_style = { '', '' }, -- Elimina los separadores que agregan espacio
     modified_icon = '',
     custom_areas = {
       left = function()
         return {
-          { text = ' 󱚡 ', fg = '#0a0a0a' },
+          { text = ' 󱚡 ', fg = '#957FB8' },
         }
       end,
     },

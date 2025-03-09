@@ -1,6 +1,6 @@
 [general]
 import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/Afterglow.toml"
+  "/usr/lib/node_modules/alacritty-themes/themes/Kanagawa.toml"
 ]
 
 [font]
