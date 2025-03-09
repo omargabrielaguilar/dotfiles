@@ -33,26 +33,29 @@ use({
   opts = {},
   config = function()
     vim.cmd('colorscheme kanagawa-dragon')
+
+    -- Hacer que el fondo sea transparente
+    vim.api.nvim_set_hl(0, 'Normal', { bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'NormalNC', { bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'SignColumn', { bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'LineNr', { bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'CursorLine', { bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'StatusLine', { bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = "NONE" })
     
-
-    -- Make the cursor line background invisible
-    vim.api.nvim_set_hl(0, 'CursorLineBg', {
-      fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-      bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-    })
-
+    -- Mantener la configuración personalizada
     vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
-
     vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
     
-    local bg_color = vim.api.nvim_get_hl_by_name('Normal', true).background
-    
-    -- Hacer que los números de línea tengan el mismo color de fondo
-    vim.api.nvim_set_hl(0, 'LineNr', { fg = '#5C6773', bg = bg_color })
-    vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#E6C384', bg = bg_color })
-    
+    -- Arreglar el fondo de la selección en Telescope
+    vim.api.nvim_set_hl(0, 'TelescopeSelection', { bg = '#2A2A37', fg = '#E6C384', bold = true })
+
   end
 })
+
+
 
 -- Commenting support.
 use('tpope/vim-commentary')
