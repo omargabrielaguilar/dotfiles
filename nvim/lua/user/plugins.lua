@@ -29,19 +29,14 @@ use('wbthomason/packer.nvim')
 use({
   'danilo-augusto/vim-afterglow',
   config = function()
-    vim.cmd([[
-      augroup TransparentBackground
-      autocmd!
-      autocmd ColorScheme * highlight Normal ctermbg=none guibg=none
-      autocmd ColorScheme * highlight NonText ctermbg=none guibg=none
-      augroup END
-    ]])
     vim.cmd('colorscheme afterglow')
     vim.api.nvim_set_hl(0, 'FloatBorder', {
-        fg = vim.api.nvim_get_hl_by_name('Normal', true).background,
-        bg = vim.api.nvim_get_hl_by_name('Normal', true).background,
+        fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
+        bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
       })
-  end,
+
+    vim.api.nvim_set_hl(0,'NvimTreeIndentMarker', {fg = '#30323E'})
+    end,
 })
 
 -- Commenting support.
@@ -152,6 +147,15 @@ use({
       require('user/plugins/telescope')  
     end,
 })
+
+-- file tree sidebar
+use({
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('user/plugins/nvim-tree')
+    end,
+  })
 
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins

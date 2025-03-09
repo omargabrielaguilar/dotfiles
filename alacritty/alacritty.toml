@@ -1,6 +1,6 @@
 [general]
 import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/Ayu-Dark.toml"
+  "/usr/lib/node_modules/alacritty-themes/themes/Afterglow.toml"
 ]
 
 [font]
