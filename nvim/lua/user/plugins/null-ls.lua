@@ -2,29 +2,25 @@ local null_ls = require("null-ls")
 
 -- Configurar mason-null-ls para instalar herramientas automáticamente
 require("mason-null-ls").setup({
-	ensure_installed = {
-		"prettier",
-		"eslint_d",
-		"stylua",
-		"phpcsfixer",
-		"phpstan",
-	},
+	ensure_installed = { "prettier", "eslint_d", "stylua", "phpcsfixer", "phpstan" },
 	automatic_installation = true,
 	handlers = {},
 })
 
 -- Configurar null-ls
 null_ls.setup({
-	debug = true, -- Habilita logs
+	debug = true, -- Para ver logs si sigue fallando
+	on_attach = function(client)
+		if client.server_capabilities.documentFormattingProvider then
+			vim.cmd([[augroup LspFormatting]])
+			vim.cmd([[autocmd!]])
+			vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false})]])
+			vim.cmd([[augroup END]])
+		end
+	end,
 	sources = {
-		-- Formatters
-		null_ls.builtins.formatting.prettier, -- JS, TS, Vue, JSON, etc.
-		null_ls.builtins.formatting.stylua, -- Lua
-		null_ls.builtins.formatting.phpcsfixer, -- PHP
-
-		-- Linters
-		null_ls.builtins.diagnostics.eslint_d, -- JS, TS, Vue
-		null_ls.builtins.diagnostics.phpstan, -- PHP
+		null_ls.builtins.formatting.phpcsfixer,
+		null_ls.builtins.diagnostics.phpstan,
 	},
 })
 
