@@ -185,7 +185,7 @@ use({
 
 -- Add dashboard
 use({
-   'glepnir/dashboard-nvim',
+   'nvimdev/dashboard-nvim',
    config = function()
      require('user/plugins/dashboard-nvim')
    end
