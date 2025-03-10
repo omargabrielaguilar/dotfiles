@@ -308,6 +308,14 @@ use({
 	end,
 })
 
+use({
+	"tpope/vim-projectionist",
+	requires = "tpope/vim-dispatch",
+	config = function()
+		require("user/plugins/projectionist")
+	end,
+})
+
 if packer_bootstrap then
 	require("packer").sync()
 end
