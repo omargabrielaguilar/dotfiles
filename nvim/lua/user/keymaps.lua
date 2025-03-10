@@ -49,6 +49,18 @@ vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a", { noremap = true, silent = true })
 
+-- vsplit hsplit
+vim.keymap.set("n", "<C-S-Right>", ":vertical resize +5<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-S-Left>", ":vertical resize -5<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-S-Up>", ":resize +5<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-S-Down>", ":resize -5<CR>", { noremap = true, silent = true })
+
+-- Dividir ventanas
+vim.keymap.set("n", "<C-S-Right>", ":vsplit<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-S-Left>", ":vsplit<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-S-Up>", ":split<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-S-Down>", ":split<CR>", { noremap = true, silent = true })
+
 --bufferline
 vim.api.nvim_set_keymap("n", "<A-1>", ":BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<A-2>", ":BufferLineGoToBuffer 2<CR>", { noremap = true, silent = true })

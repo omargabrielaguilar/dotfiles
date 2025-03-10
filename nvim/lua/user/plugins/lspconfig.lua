@@ -36,6 +36,22 @@ require("lspconfig").sqlls.setup({
 	) or vim.fn.getcwd(),
 })
 
+-- emmet || html
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+require("lspconfig").html.setup({
+	capabilities = capabilities,
+	cmd = { "vscode-html-language-server", "--stdio" },
+	filetypes = { "html", "templ" },
+	init_options = {
+		configurationSection = { "html", "css", "javascript" },
+		embeddedLanguages = {
+			css = true,
+			javascript = true,
+		},
+		provideFormatter = true,
+	},
+})
+
 -- Keymaps
 vim.keymap.set("n", "<Leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>")
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
