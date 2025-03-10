@@ -232,7 +232,7 @@ use({
 	config = function()
 		vim.g.floaterm_position = "bottom"
 		vim.g.floaterm_width = 0.8
-		vim.g.floaterm_height = 0.15
+		vim.g.floaterm_height = 0.45
 
 		vim.keymap.set("n", "<F1>", ":FloatermToggle<CR>")
 		vim.keymap.set("t", "<F1>", "<C-\\><C-n>:FloatermToggle<CR>")
@@ -313,6 +313,13 @@ use({
 	requires = "tpope/vim-dispatch",
 	config = function()
 		require("user/plugins/projectionist")
+	end,
+})
+
+use({
+	"vim-test/vim-test",
+	config = function()
+		require("user/plugins/vim-test")
 	end,
 })
 
