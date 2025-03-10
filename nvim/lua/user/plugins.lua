@@ -323,6 +323,15 @@ use({
 	end,
 })
 
+-- vim dadbod
+use({
+	"tpope/vim-dadbod",
+	requires = { "kristijanhusak/vim-dadbod-completion", "kristijanhusak/vim-dadbod-ui" },
+	config = function()
+		require("user/plugins/vim-dadbod")
+	end,
+})
+
 if packer_bootstrap then
 	require("packer").sync()
 end
