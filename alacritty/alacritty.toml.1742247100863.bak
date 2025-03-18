@@ -1,0 +1,35 @@
+[general]
+import = [
+  "/usr/lib/node_modules/alacritty-themes/themes/Oceanic-Next.toml"
+]
+
+
+
+[font]
+size = 10.5
+
+  [font.bold]
+  family = "Monofur"
+  style = "Bold"
+
+  [font.bold_italic]
+  family = "Monofur"
+  style = "Bold Italic"
+
+  [font.italic]
+  family = "Monofur"
+  style = "Italic"
+
+  [font.normal]
+  family = "Monofur"
+  style = "Regular"
+
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F11"
+
+[scrolling]
+history = 50_000
+
+[window]
+opacity = 0.99
