@@ -290,6 +290,45 @@ use({
 	config = function()
 		require("user/plugins/treesitter")
 		vim.g.skip_ts_context_commentstring_module = true
+
+		-- Configurar Treesitter con Blade y PHP
+		require("nvim-treesitter.configs").setup({
+			ensure_installed = { "all", "blade", "php_only" },
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = true,
+			},
+			textobjects = {
+				select = {
+					enable = true,
+					lookahead = true,
+					keymaps = {
+						["if"] = "@function.inner",
+						["af"] = "@function.outer",
+						["ia"] = "@parameter.inner",
+						["aa"] = "@parameter.outer",
+					},
+				},
+			},
+		})
+
+		-- Agregar Blade como un nuevo parser en Treesitter
+		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+		parser_config.blade = {
+			install_info = {
+				url = "https://github.com/EmranMR/tree-sitter-blade",
+				files = { "src/parser.c" },
+				branch = "main",
+			},
+			filetype = "blade",
+		}
+
+		-- Asignar Blade a los archivos .blade.php
+		vim.filetype.add({
+			pattern = {
+				[".*%.blade%.php"] = "blade",
+			},
+		})
 	end,
 })
 
