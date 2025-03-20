@@ -1,6 +1,7 @@
+
 [general]
 import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/vscode.dark.toml"
+  "/usr/lib/node_modules/alacritty-themes/themes/Afterglow.toml"
 ]
 
 [font]
