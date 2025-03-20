@@ -1,4 +1,5 @@
 local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
 
 vim.cmd([[
   highlight link TelescopePromptTitle PMenuSel
