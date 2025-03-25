@@ -27,21 +27,23 @@ local use = require("packer").use
 use("wbthomason/packer.nvim")
 
 use({
-	"scottmckendry/cyberdream.nvim",
+	"oxfist/night-owl.nvim",
 	lazy = false,
 	priority = 1000,
 	config = function()
-		vim.cmd("colorscheme cyberdream")
+		vim.cmd("colorscheme night-owl")
 
 		-- Mejoras en la apariencia
-		vim.api.nvim_set_hl(0, "NvimTreeIndentMarker", { fg = "#3c4048" })
-		vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = "#ff5ea0" })
-		vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#3c4048" })
+		vim.api.nvim_set_hl(0, "NvimTreeIndentMarker", { fg = "#4b6479" }) -- Azul grisáceo del tema
+		vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = "#ecc48d" }) -- Amarillo cálido
+		vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#4b6479" })
 
-		-- Mejoras en Telescope
-		vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#1e2124", fg = "#ffffff", bold = true })
-		vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#5ea1ff" })
-		vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#5ea1ff" })
+		-- Mejoras en Telescope con Night Owl
+		vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#223249", fg = "#ffffff", bold = true }) -- Azul oscuro para selección
+		vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#5f7e97" }) -- Azul suave del tema
+		vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#5f7e97" }) -- Consistencia con el borde del prompt
+		vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#5f7e97" }) -- Agregando borde del preview
+		vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#ecc48d", bold = true }) -- Amarillo cálido para coincidencias
 
 		-- CursorLine para mejor enfoque sin ser molesto
 		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1e2124" })
@@ -62,7 +64,7 @@ use({
 			run = "make",
 		},
 	},
-	before = "cyberdream.nvim", -- Asegura que Cyberdream ya esté aplicado antes de cargar Telescope
+	before = "night-owl.nvim", -- Asegura que Cyberdream ya esté aplicado antes de cargar Telescope
 	config = function()
 		require("user/plugins/telescope")
 	end,
@@ -71,7 +73,7 @@ use({
 use({
 	"akinsho/bufferline.nvim",
 	requires = "kyazdani42/nvim-web-devicons",
-	after = "cyberdream.nvim", -- Se asegura que el esquema de colores ya esté aplicado
+	after = "night-owl.nvim", -- Se asegura que el esquema de colores ya esté aplicado
 	config = function()
 		require("user/plugins/bufferline")
 	end,

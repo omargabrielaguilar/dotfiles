@@ -1,12 +1,7 @@
+[general]
 import = [
   "/usr/lib/node_modules/alacritty-themes/themes/Astromouse.toml"
 ]
-
-[general]
-import = [
-  "/usr/lib/node_modules/alacritty-themes/themes/Oceanic-Next.toml"
-]
-
 [font]
 size = 10.5
 
