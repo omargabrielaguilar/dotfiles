@@ -49,6 +49,21 @@ require("lspconfig").intelephense.setup({
 	end,
 })
 
+require("lspconfig").clangd.setup({
+	capabilities = capabilities,
+	cmd = { "clangd", "--background-index", "--clang-tidy", "--completion-style=detailed", "--header-insertion=never" },
+	filetypes = { "c", "cpp", "objc", "objcpp" },
+	root_dir = require("lspconfig").util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+	settings = {
+		clangd = {
+			fallbackFlags = { "-std=c++20" },
+		},
+	},
+	on_attach = function(client, bufnr)
+		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	end,
+})
+
 -- Vue, JavaScript, TypeScript
 require("lspconfig").volar.setup({
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },

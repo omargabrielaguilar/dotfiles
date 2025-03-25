@@ -33,23 +33,36 @@ use({
 	config = function()
 		vim.cmd("colorscheme night-owl")
 
+		-- Hacer el fondo transparente
+		vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "VertSplit", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "WinBar", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "WinBarNC", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#102a44" }) -- Mantiene el resaltado del cursor
+
 		-- Mejoras en la apariencia
-		vim.api.nvim_set_hl(0, "NvimTreeIndentMarker", { fg = "#4b6479" }) -- Azul grisáceo del tema
-		vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = "#ecc48d" }) -- Amarillo cálido
-		vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#4b6479" })
+		vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NvimTreeIndentMarker", { fg = "#82aaff" }) -- Azul vibrante
+		vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = "#7fdbca" }) -- Turquesa del tema
+		vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#82aaff" }) -- Azul vibrante para líneas de indentación
 
-		-- Mejoras en Telescope con Night Owl
-		vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#223249", fg = "#ffffff", bold = true }) -- Azul oscuro para selección
-		vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#5f7e97" }) -- Azul suave del tema
-		vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#5f7e97" }) -- Consistencia con el borde del prompt
-		vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#5f7e97" }) -- Agregando borde del preview
-		vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#ecc48d", bold = true }) -- Amarillo cálido para coincidencias
+		-- Mejoras en Telescope con Night Owl (Full azul)
+		vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "NONE" }) -- Hace transparente el fondo de Telescope
+		vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#1b2b44", fg = "#ffffff", bold = true }) -- Azul profundo para selección
+		vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#82aaff" }) -- Azul brillante
+		vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#82aaff" }) -- Borde azul
+		vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#82aaff" }) -- Borde azul en preview
+		vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#7fdbca", bold = true }) -- Turquesa para coincidencias
 
-		-- CursorLine para mejor enfoque sin ser molesto
-		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1e2124" })
-
-		-- Mejor contraste en comentarios
-		vim.api.nvim_set_hl(0, "Comment", { fg = "#7b8496", italic = true })
+		-- Comentarios en azul más visible sin gris
+		vim.api.nvim_set_hl(0, "Comment", { fg = "#82aaff", italic = true })
 	end,
 })
 
@@ -64,7 +77,7 @@ use({
 			run = "make",
 		},
 	},
-	before = "night-owl.nvim", -- Asegura que Cyberdream ya esté aplicado antes de cargar Telescope
+	before = "night-owl.nvim", -- Asegura que  ya esté aplicado antes de cargar Telescope
 	config = function()
 		require("user/plugins/telescope")
 	end,
