@@ -2,7 +2,7 @@ local null_ls = require("null-ls")
 
 -- Configurar mason-null-ls para instalar herramientas automáticamente
 require("mason-null-ls").setup({
-	ensure_installed = { "prettier", "eslint_d", "stylua", "phpcsfixer", "phpstan" },
+	ensure_installed = { "prettier", "eslint_d", "stylua" },
 	automatic_installation = true,
 	handlers = {},
 })

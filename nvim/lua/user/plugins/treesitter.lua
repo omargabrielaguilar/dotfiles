@@ -1,5 +1,5 @@
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "php", "blade", "lua", "html", "css", "javascript", "json", "bash", "yaml", "markdown" }, -- Lenguajes específicos
+	ensure_installed = { "php", "lua", "javascript", "json", "bash", "yaml", "markdown" }, -- Lenguajes específicos
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = true,

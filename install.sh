@@ -16,5 +16,3 @@ ln -s $DOTFILES/scripts/t.sh $HOME/.local/bin/t.sh
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
 
-rm -rf $HOME/.config/phpactor
-ln -s $DOTFILES/phpactor $HOME/.config/phpactor

@@ -12,13 +12,13 @@ require("lspconfig").intelephense.setup({
 	settings = {
 		intelephense = {
 			files = {
-				maxSize = 1000000, -- Tamaño máximo de archivos analizados (1MB)
+				maxSize = 1000000,
 			},
 			format = {
-				enable = true, -- Habilita el formateo
+				enable = true,
 			},
 			diagnostics = {
-				enable = true, -- Habilita diagnóstico de errores y advertencias
+				enable = true,
 				undefinedTypes = true,
 				undefinedFunctions = true,
 				undefinedConstants = true,
@@ -26,14 +26,14 @@ require("lspconfig").intelephense.setup({
 				unusedFunctions = true,
 			},
 			completion = {
-				fullyQualifyGlobalConstants = true, -- Agrega prefijo a constantes globales
-				triggerParameterHints = true, -- Muestra información de parámetros en funciones
+				fullyQualifyGlobalConstants = true,
+				triggerParameterHints = true,
 			},
 			environment = {
-				phpVersion = "8.4.0", -- Configurar PHP 8.2
+				phpVersion = "8.4.0",
 			},
 			telemetry = {
-				enabled = false, -- Deshabilita telemetría (recomendado)
+				enabled = false,
 			},
 		},
 	},
@@ -53,8 +53,6 @@ require("lspconfig").intelephense.setup({
 require("lspconfig").volar.setup({
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 })
--- Tailwind CSS
-require("lspconfig").tailwindcss.setup({ capabilities = capabilities })
 
 -- JSON
 require("lspconfig").jsonls.setup({
@@ -63,57 +61,6 @@ require("lspconfig").jsonls.setup({
 		json = {
 			schemas = require("schemastore").json.schemas(),
 		},
-	},
-})
-
--- SQL
-require("lspconfig").sqlls.setup({
-	capabilities = capabilities,
-	cmd = { vim.fn.stdpath("data") .. "/mason/bin/sql-language-server", "up", "--method", "stdio" },
-	root_dir = require("lspconfig.util").root_pattern(
-		".git",
-		"package.json",
-		"sqlconfig.json",
-		".sqllsrc.json",
-		".sqlls.json"
-	) or vim.fn.getcwd(),
-})
-
--- emmet || html
-require("lspconfig").html.setup({
-	capabilities = capabilities,
-	cmd = { "vscode-html-language-server", "--stdio" },
-	filetypes = { "html", "templ" },
-	init_options = {
-		configurationSection = { "html", "css", "javascript" },
-		embeddedLanguages = {
-			css = true,
-			javascript = true,
-		},
-		provideFormatter = true,
-	},
-})
-
-require("lspconfig").emmet_language_server.setup({
-	capabilities = capabilities, -- Asegura compatibilidad con cmp
-	cmd = { "emmet-language-server", "--stdio" },
-	filetypes = {
-		"css",
-		"eruby",
-		"html",
-		"htmldjango",
-		"javascriptreact",
-		"less",
-		"pug",
-		"sass",
-		"scss",
-		"typescriptreact",
-		"htmlangular",
-	},
-	init_options = {
-		showexpandedabbreviation = "always",
-		showabbreviationsuggestions = true,
-		showcursormovementsuggestions = false,
 	},
 })
 

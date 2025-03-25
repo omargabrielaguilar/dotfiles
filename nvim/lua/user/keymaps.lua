@@ -50,10 +50,6 @@ vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true, silent = true })
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a", { noremap = true, silent = true })
 
 -- vsplit hsplit
-vim.keymap.set("n", "<C-S-Right>", ":vertical resize +5<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-S-Left>", ":vertical resize -5<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-S-Up>", ":resize +5<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-S-Down>", ":resize -5<CR>", { noremap = true, silent = true })
 
 -- Dividir ventanas
 vim.keymap.set("n", "<C-S-Right>", ":vsplit<CR>", { noremap = true, silent = true })
