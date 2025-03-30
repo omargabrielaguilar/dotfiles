@@ -49,6 +49,36 @@ require("lspconfig").intelephense.setup({
 	end,
 })
 
+require("lspconfig").gopls.setup({
+    capabilities = capabilities,
+    cmd = { "gopls" },
+    filetypes = { "go", "gomod", "gowork", "gotmpl" },
+    root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+        gopls = {
+            completeUnimported = true,
+            usePlaceholders = true,
+            analyses = {
+                unusedparams = true,
+                nilness = true,
+                shadow = true,
+            },
+            staticcheck = true,
+            gofumpt = true, -- Formateo con gofumpt
+        },
+    },
+    on_attach = function(client, bufnr)
+        if client.server_capabilities.documentFormattingProvider then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.format({ async = false })
+                end,
+            })
+        end
+    end,
+})
+
 -- Vue, JavaScript, TypeScript
 require("lspconfig").volar.setup({
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
