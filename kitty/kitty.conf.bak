@@ -45,6 +45,6 @@ hide_window_decorations yes
 shell zsh
 
 # BEGIN_KITTY_THEME
-# Nightfly
+# Night Owl
 include current-theme.conf
 # END_KITTY_THEME
