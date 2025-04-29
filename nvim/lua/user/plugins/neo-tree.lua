@@ -1,5 +1,5 @@
 require('neo-tree').setup({
-  close_if_last_window = true, -- Cierra si es el último buffer abierto
+  close_if_last_window = true,
   popup_border_style = "solid",
   enable_git_status = true,
   enable_diagnostics = false,
@@ -34,10 +34,27 @@ require('neo-tree').setup({
       hide_dotfiles = false,
       hide_gitignored = false,
     },
+    window = {
+      mappings = {
+        ["o"] = "open_and_clear_filter"
+      },
+    },
+  },
+  commands = {
+    open_and_clear_filter = function(state)
+      local node = state.tree:get_node()
+      if node and node.type == "file" then
+        local file_path = node:get_id()
+        local cmds = require("neo-tree.sources.filesystem.commands")
+        cmds.open(state)
+        cmds.clear_filter(state)
+        require("neo-tree.sources.filesystem").navigate(state, state.path, file_path)
+      end
+    end,
   },
   window = {
-    position = "right", -- Aquí lo ponemos a la derecha bro
-    width = 30,
+    position = "right",  -- Poner el NeoTree a la derecha
+    width = 40,
     mappings = {
       ["<space>"] = "toggle_node",
       ["<cr>"] = "open",
@@ -47,6 +64,14 @@ require('neo-tree').setup({
       ["P"] = { "toggle_preview", config = { use_float = true } },
       ["q"] = "close_window",
       ["R"] = "refresh",
+    },
+  },
+  event_handlers = {
+    {
+      event = "file_open_requested",
+      handler = function()
+        require("neo-tree.command").execute({ action = "close" })
+      end
     },
   },
 })
