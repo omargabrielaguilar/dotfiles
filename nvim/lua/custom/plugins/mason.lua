@@ -28,7 +28,7 @@ return {
           "phpactor",
           "gopls",
           "rnix",
-          "nil_ls",
+          -- "nil_ls",
         },
       })
     end
