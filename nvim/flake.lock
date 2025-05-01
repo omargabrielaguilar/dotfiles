@@ -1,0 +1,214 @@
+{
+  "nodes": {
+    "blade-treesitter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745089943,
+        "narHash": "sha256-zBdE6yP4DATApkf7UDGFBiQbIAuvQo0EMVf/jiXoCOQ=",
+        "owner": "EmranMR",
+        "repo": "tree-sitter-blade",
+        "rev": "fbe5f81b54f0f6153961824ce306ffc805134980",
+        "type": "github"
+      },
+      "original": {
+        "owner": "EmranMR",
+        "repo": "tree-sitter-blade",
+        "type": "github"
+      }
+    },
+    "nixCats": {
+      "locked": {
+        "lastModified": 1745911228,
+        "narHash": "sha256-fKa0Qx29He9fug22n9PYcqshtclvWxQoplLuqti6iXM=",
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "rev": "88363047c9e5ac20001b9f3ee964fdc89cc2eb86",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1745804731,
+        "narHash": "sha256-v/sK3AS0QKu/Tu5sHIfddiEHCvrbNYPv8X10Fpux68g=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "29335f23bea5e34228349ea739f31ee79e267b88",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1745868005,
+        "narHash": "sha256-hZScOyQphT4RUmSEJX+2OxjIlGgLwSd8iW1LNtAWIOs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "330d0a4167924b43f31cc9406df363f71b768a02",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "phpactor-laravel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744481407,
+        "narHash": "sha256-FAe1ECEdqilWxvKYgjvH79cMHYZpMklvG1oFn0qJMNE=",
+        "owner": "adalessa",
+        "repo": "phpactor",
+        "rev": "49d345a320148c13f1e78f6701a04f845a7509d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adalessa",
+        "ref": "feature/laravel-extension",
+        "repo": "phpactor",
+        "type": "github"
+      }
+    },
+    "plugins-git-worktree.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739627460,
+        "narHash": "sha256-fnqJqQTNei+8Gk4vZ2hjRj8iHBXTZT15xp9FvhGB+BQ=",
+        "owner": "polarmutex",
+        "repo": "git-worktree.nvim",
+        "rev": "3ad8c17a3d178ac19be925284389c14114638ebb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "polarmutex",
+        "repo": "git-worktree.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-laravel.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743445528,
+        "narHash": "sha256-wStybbYCULqy5yROBOAGpc1LOSuFW84xkTJDpheUiCk=",
+        "owner": "adalessa",
+        "repo": "laravel.nvim",
+        "rev": "b8df6033e662260242d9e21cc9fd9c820bb2cedd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adalessa",
+        "repo": "laravel.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-menu": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744566899,
+        "narHash": "sha256-VJsUyyNBdvNU8AdxrmwVyYxSLixRbj4tX4trI6sruns=",
+        "owner": "nvzone",
+        "repo": "menu",
+        "rev": "8adb036ec34c679050913864cbc98cc64eb91f6c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvzone",
+        "repo": "menu",
+        "type": "github"
+      }
+    },
+    "plugins-neotest-pest": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718118945,
+        "narHash": "sha256-uSPrvZPCjBhoAYTnAUQdMZ/CSosyRkj4itSQDZgthZ4=",
+        "owner": "V13Axel",
+        "repo": "neotest-pest",
+        "rev": "b665a4881c706eea476fcaf79a21996e9b65514d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "V13Axel",
+        "repo": "neotest-pest",
+        "type": "github"
+      }
+    },
+    "plugins-php-lsp-utils": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744612476,
+        "narHash": "sha256-fNtlsTwSUJ69cXOpjMIxD7sZdVgn+dMHdhrgn7VcuV8=",
+        "owner": "adalessa",
+        "repo": "php-lsp-utils",
+        "rev": "02ce97a78fe886b7fc27242086034bf3be562f6a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adalessa",
+        "repo": "php-lsp-utils",
+        "type": "github"
+      }
+    },
+    "plugins-snacks.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1740868622,
+        "narHash": "sha256-Gw0Bp2YeoESiBLs3NPnqke3xwEjuiQDDU1CPofrhtig=",
+        "owner": "folke",
+        "repo": "snacks.nvim",
+        "rev": "bc0630e43be5699bb94dadc302c0d21615421d93",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "snacks.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-volt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744335032,
+        "narHash": "sha256-6zbcJAY1kH5SyHw1J2GZEFvD8iJvkhBDwMCnIfW1olc=",
+        "owner": "nvzone",
+        "repo": "volt",
+        "rev": "c45d5f48da8e802e608b5c6da471ca4d84276dfb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvzone",
+        "repo": "volt",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "blade-treesitter": "blade-treesitter",
+        "nixCats": "nixCats",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-stable": "nixpkgs-stable",
+        "phpactor-laravel": "phpactor-laravel",
+        "plugins-git-worktree.nvim": "plugins-git-worktree.nvim",
+        "plugins-laravel.nvim": "plugins-laravel.nvim",
+        "plugins-menu": "plugins-menu",
+        "plugins-neotest-pest": "plugins-neotest-pest",
+        "plugins-php-lsp-utils": "plugins-php-lsp-utils",
+        "plugins-snacks.nvim": "plugins-snacks.nvim",
+        "plugins-volt": "plugins-volt"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
