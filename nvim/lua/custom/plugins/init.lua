@@ -51,6 +51,16 @@ return {
     -- use opts = {} for passing setup options
     -- this is equivalent to setup({}) function
   },
+  -- bufferline
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      require("bufferline").setup{}
+    end
+  },
+
   { "nvzone/volt", lazy = true },
   { "nvzone/menu", lazy = true },
 }

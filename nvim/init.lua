@@ -32,10 +32,10 @@ require("nixCatsUtils.lazyCat").setup(nixCats.pawsible({ "allPlugins", "start", 
 
 require("tools")
 
+-- MI CONFIGURACION
 -- vim.cmd.colorscheme("slytherin")
 vim.cmd.colorscheme("onedark")
-
-
 -- Some keymapping que ahorra espacio y tiempo de trabajo
 vim.keymap.set('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 
