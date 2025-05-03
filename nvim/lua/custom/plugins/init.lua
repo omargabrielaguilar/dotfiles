@@ -15,6 +15,19 @@ return {
     end,
   },
   {
+    "navarasu/onedark.nvim",
+    name = "onedark",
+    opts = {
+      style = "darker", -- puedes cambiar a 'warmer', 'cool', etc.
+    },
+    lazy = false,
+    priority = 100,
+    config = function(_, opts)
+      require("onedark").setup(opts)
+      require("onedark").load()
+    end,
+  },
+  {
     "catgoose/nvim-colorizer.lua",
     event = "BufReadPre",
     opts = { -- set to setup table

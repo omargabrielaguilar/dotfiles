@@ -1,13 +1,12 @@
 # 🖋️ Fuente
-font_family      VictorMono Nerd Font
-font_features    VictorMono-Medium +ss01
+font_family      Victor Mono Nerd Font
 bold_font        auto
 italic_font      auto
-font_size        13
+font_size        12.5
 
 
 # 🎯 Transparencia (0.0 totalmente transparente, 1.0 opaco)
-background_opacity 0.98
+background_opacity 0.96
 enable_background_opacity yes
 
 # 🖱️ Scroll infinito (para no perder historial)
@@ -29,9 +28,6 @@ url_style underline
 open_url_with default
 editor nvim
 
-# 🏁 Start in shell, not login
-shell bash --login
-
 # 🔄 Actualización más rápida del render
 repaint_delay 10
 
@@ -46,7 +42,8 @@ map f11 toggle_fullscreen
 hide_window_decorations yes
 shell zsh
 
+
 # BEGIN_KITTY_THEME
-# Mayukai
+# Doom One
 include current-theme.conf
 # END_KITTY_THEME
