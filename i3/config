@@ -134,20 +134,22 @@ bindsym $mod+r mode "resize"
 bar {
     status_command i3blocks
     position top
-    font pango:Victor Mono Nerd Font 8.5
+    font pango:Monofur Nerd Font 10.5
     separator_symbol ""
 
     colors {
-        background #13151a       # fondo oscuro OneDark
-        statusline #abb2bf       # texto principal OneDark
-        separator #5c6370        # separador gris medio
+        background         #1e2326   # más oscuro que #2b3339
+        statusline         #d3c6aa   # texto principal (legible, elegante)
+        separator          #5c6a72   # separador gris medio Everforest
 
-        focused_workspace   #61afef #3e4451 #61afef
-        active_workspace    #98c379 #3e4451 #98c379
-        inactive_workspace  #3e4451 #abb2bf #3e4451
-        urgent_workspace    #e06c75 #282c34 #e06c75
+        # Workspaces
+        focused_workspace  #7fbbb3   #1e2326   #7fbbb3   # cian suave sobre fondo oscuro
+        active_workspace   #a7c080   #1e2326   #a7c080   # verde Everforest
+        inactive_workspace #2b3339   #5c6a72   #2b3339   # gris fondo + gris texto
+        urgent_workspace   #e67e80   #1e2326   #e67e80   # rojo alerta
     }
 }
+
 
 
 # CONFIGURACIONES
@@ -160,3 +162,6 @@ for_window [class=".*"] title_format ""
 bindsym $mod+Shift+x exec ~/bin/lock.sh
 bindsym $mod+Shift+f exec kitty -e ranger
 bindsym Print exec --no-startup-id flameshot gui
+
+
+

@@ -7,7 +7,7 @@ enable_ligatures yes
 
 
 # 🎯 Transparencia (0.0 totalmente transparente, 1.0 opaco)
-background_opacity 0.96
+background_opacity 0.99
 enable_background_opacity yes
 
 # 🖱️ Scroll infinito (para no perder historial)
@@ -45,6 +45,6 @@ shell zsh
 
 
 # BEGIN_KITTY_THEME
-# Doom One
+# One Dark
 include current-theme.conf
 # END_KITTY_THEME
