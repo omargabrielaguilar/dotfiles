@@ -12,7 +12,7 @@ return {
           local icon = level:match("error") and " " or " "
           return icon .. count
         end,
-        separator_style = "slant", -- "slant" | "thick" | "thin"
+        separator_style = "thick", -- "slant" | "thick" | "thin"
         show_buffer_close_icons = true, -- Mostrar el icono de cerrar en los buffers
         show_close_icon = true, -- Icono de cerrar en la parte de la derecha
         always_show_bufferline = true,
