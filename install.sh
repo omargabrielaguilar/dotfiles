@@ -10,3 +10,6 @@ ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
+
+rm -rf $HOME/.config/i3
+ln -s $DOTFILES/i3 $HOME/.config/i3
