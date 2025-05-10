@@ -138,19 +138,17 @@ bar {
     separator_symbol ""
 
     colors {
-        background         #1a1c1f   # más oscuro que One Dark (#282c34)
-        statusline         #abb2bf   # texto principal, típico en One Dark
-        separator          #3e4451   # gris medio, estilo One Dark
+        background         #1e2326   # fondo base más oscuro (Everforest Dark Hard)
+        statusline         #d3c6aa   # color de texto principal (claro, legible)
+        separator          #5c6a72   # gris medio Everforest
 
     # Workspaces
-        focused_workspace  #61afef   #1a1c1f   #61afef   # azul/cyan One Dark
-        active_workspace   #98c379   #1a1c1f   #98c379   # verde One Dark
-        inactive_workspace #282c34   #5c6370   #282c34   # gris oscuro y texto tenue
-        urgent_workspace   #e06c75   #1a1c1f   #e06c75   # rojo alerta One Dark
+        focused_workspace  #7fbbb3   #1e2326   #7fbbb3   # cyan suave (resalta sin molestar)
+        active_workspace   #a7c080   #1e2326   #a7c080   # verde oliva claro (activo)
+        inactive_workspace #1e2326   #5c6a72   #1e2326   # fondo y gris tenue para inactivos
+        urgent_workspace   #e67e80   #1e2326   #e67e80   # rojo cálido para urgencias
     }
 }
-
-
 
 # CONFIGURACIONES
 exec --no-startup-id feh --bg-scale ~/Pictures/wall.png
@@ -162,6 +160,3 @@ for_window [class=".*"] title_format ""
 bindsym $mod+Shift+x exec ~/bin/lock.sh
 bindsym $mod+Shift+f exec kitty -e ranger
 bindsym Print exec --no-startup-id flameshot gui
-
-
-
