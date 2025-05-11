@@ -1,6 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="jonathan"
+ZSH_THEME="ubunly"
 
 plugins=(
     git
@@ -42,7 +42,13 @@ export PATH=$PATH:$HOME/go/bin
 export PATH="$HOME/.cargo/bin:$PATH"
 
 . "/home/omar/.deno/env"
-alias ls='eza --icons'
-alias ll='eza -lh --icons'
-alias la='eza -lha --icons'
+
+# ls  - exa
+alias ls='exa --icons'
+alias l='exa --icons -lh'
+alias ll='exa --icons -lah'
+alias la='exa --icons -A'
+alias lm='exa --icons -m'
+alias lr='exa --icons -R'
+alias lg='exa --icons -l --group-directories-first'
 
