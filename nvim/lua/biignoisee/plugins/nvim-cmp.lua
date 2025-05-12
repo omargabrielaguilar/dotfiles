@@ -1,10 +1,10 @@
 return {
     "hrsh7th/nvim-cmp",
     -- event = "InsertEnter",
-    branch = "main", -- fix for deprecated functions coming in nvim 0.13
+    branch = "main",          -- fix for deprecated functions coming in nvim 0.13
     dependencies = {
         "hrsh7th/cmp-buffer", -- source for text in buffer
-        "hrsh7th/cmp-path", -- source for file system paths
+        "hrsh7th/cmp-path",   -- source for file system paths
         {
             "L3MON4D3/LuaSnip",
             -- follow latest release.
@@ -12,10 +12,10 @@ return {
             -- install jsregexp (optional!).
             build = "make install_jsregexp",
         },
-        "saadparwaiz1/cmp_luasnip", -- autocompletion
+        "saadparwaiz1/cmp_luasnip",     -- autocompletion
         "rafamadriz/friendly-snippets", -- snippets
         "nvim-treesitter/nvim-treesitter",
-        "onsails/lspkind.nvim", -- vs-code pictograms
+        "onsails/lspkind.nvim",         -- vs-code pictograms
         "roobert/tailwindcss-colorizer-cmp.nvim",
     },
     config = function()
@@ -129,7 +129,7 @@ return {
 
         -- custom smart tabs function
         local smart_tab = function(opts)
-            local keys = nil 
+            local keys = nil
             if vim.o.expandtab then
                 keys = '<Tab>' -- Neovim will insert spaces.
             else
@@ -213,10 +213,10 @@ return {
             },
             window = {
                 documentation = {
-                    border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+                    border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
                 },
                 completion = {
-                    border = {'┌', '─', '┐', '│', '┘', '─', '└', '│'},
+                    border = { '┌', '─', '┐', '│', '┘', '─', '└', '│' },
                 }
 
             },
@@ -230,9 +230,9 @@ return {
             sources = cmp.config.sources({
                 { name = "luasnip" }, -- snippets
                 { name = "lazydev" },
-                { name = "nvim_lsp"},
+                { name = "nvim_lsp" },
                 { name = "buffer" }, -- text within current buffer
-                { name = "path" }, -- file system paths
+                { name = "path" },   -- file system paths
                 { name = "tailwindcss-colorizer-cmp" },
             }),
             -- mapping = cmp.mapping.preset.insert({
@@ -366,7 +366,8 @@ return {
             local current_line_contents = vim.fn.getline('.')
             local character_after_cursor = current_line_contents:sub(cursor_column, cursor_column)
 
-            local should_enable_ghost_text = character_after_cursor == '' or vim.fn.match(character_after_cursor, [[\k]]) == -1
+            local should_enable_ghost_text = character_after_cursor == '' or
+            vim.fn.match(character_after_cursor, [[\k]]) == -1
 
             local current = config.get().experimental.ghost_text
             if current ~= should_enable_ghost_text then
@@ -381,7 +382,6 @@ return {
         vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorMovedI' }, {
             callback = toggle_ghost_text,
         })
-        -- ! Ghost text stuff ! -- 
-
+        -- ! Ghost text stuff ! --
     end,
 }
