@@ -81,6 +81,9 @@ vim.keymap.set("n", "<leader>fp", function()
   print("File path copied to clipboard: " .. filePath) -- Optional: print message to confirm
 end, { desc = "Copy file path to clipboard" })
 
+
+vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Seleccionar todo el archivo" })
+
 -- Toggle LSP diagnostics visibility
 local isLspDiagnosticsVisible = true
 vim.keymap.set("n", "<leader>lx", function()
