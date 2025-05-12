@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(
     {
         { import = "biignoisee.plugins" },
+        { import = "biignoisee.plugins.lsp"}
     },
     {
         checker = {

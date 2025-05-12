@@ -104,37 +104,7 @@ return {
                 }
             },
             image = {
-                enabled = true,
-                doc = {
-                    float = false,
-                    inline = true, -- if you want show image on cursor hover
-                    max_width = 50,
-                    max_height = 30,
-                    wo = {
-                        wrap = true,
-                    },
-                },
-                convert = {
-                    notify = true,
-                    command = "magick"
-                },
-                img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments","Archives/All-Vault-Images/", "~/Library", "~/Downloads" },
-            },
-            dashboard = {
-                enabled = true,
-                sections = {
-                    { section = "header" },
-                    { section = "keys", gap = 1, padding = 1 },
-                    { section = "startup" },
-                    {
-                        section = "terminal",
-                        cmd = "ascii-image-converter ~/Desktop/Others/profiles.JPG -C -c",
-                        random = 10,
-                        pane = 2,
-                        indent = 4,
-                        height = 30,
-                    },
-                },
+                enabled = false,
             },
         },
         -- NOTE: Keymaps
