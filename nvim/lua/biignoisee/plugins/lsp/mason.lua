@@ -57,6 +57,8 @@ return {
 				"php-cs-fixer", -- PHP-CS-Fixer
 				"phpstan", -- PHP static analysis
 				"golangci-lint",
+				"debugpy",
+				"php-debug-adapter",
 			},
 		})
 	end,
