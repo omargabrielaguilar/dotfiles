@@ -106,6 +106,54 @@ return {
 				},
 			},
 		})
+
+		-- phpactor (php)
+		lspconfig.phpactor.setup({
+			capabilities = capabilities,
+			cmd = { "phpactor", "language-server" },
+			filetypes = { "php" },
+			root_dir = function(fname)
+				-- Patrones para encontrar el directorio raíz del proyecto
+				local root_files = {
+					"composer.json",
+					".git",
+					".phpactor.json",
+					".phpactor.yml",
+					"phpunit.xml",
+					"phpunit.xml.dist",
+				}
+
+				return lspconfig.util.root_pattern(unpack(root_files))(fname)
+					or lspconfig.util.find_git_ancestor(fname)
+					or vim.fn.getcwd()
+			end,
+			init_options = {
+				["language_server_phpstan.enabled"] = false,
+				["language_server_psalm.enabled"] = false,
+				["code_transform.import_globals"] = true,
+				["code_transform.import_name.enable"] = true,
+			},
+			handlers = {
+				["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+					virtual_text = true,
+					signs = true,
+					update_in_insert = false,
+				}),
+			},
+			settings = {
+				phpactor = {
+					completion = {
+						enabled = true,
+						priority = 100,
+					},
+					codeTransform = {
+						importClass = true,
+						importFunction = true,
+					},
+				},
+			},
+		})
+
 		-- emmet_ls
 		lspconfig.emmet_ls.setup({
 			capabilities = capabilities,
@@ -194,117 +242,6 @@ return {
 					},
 
 					buildFlags = { "-tags=integration" }, -- agrega tags personalizados si usas test especiales
-				},
-			},
-		})
-
-		-- intelephense (PHP)
-		lspconfig.intelephense.setup({
-			capabilities = capabilities,
-			settings = {
-				intelephense = {
-					-- 🔑 Tu clave de licencia
-					licenceKey = "00D0IEADQVBNA0K", -- 🔁 Reemplaza esto con tu key real (sin espacios)
-
-					environment = {
-						includePaths = {
-							"/usr/include/php", -- por si trabajas con libs del sistema
-						},
-					},
-
-					files = {
-						maxSize = 5000000, -- permite archivos grandes
-						associations = { "*.php", "*.inc" },
-						exclude = {
-							"**/.git/**",
-							"**/node_modules/**",
-							"**/vendor/**/{Test,test,Tests,tests}/**",
-						},
-					},
-
-					stubs = {
-						"apache",
-						"bcmath",
-						"bz2",
-						"calendar",
-						"com_dotnet",
-						"Core",
-						"ctype",
-						"curl",
-						"date",
-						"dba",
-						"dom",
-						"enchant",
-						"exif",
-						"FFI",
-						"fileinfo",
-						"filter",
-						"fpm",
-						"ftp",
-						"gd",
-						"gettext",
-						"gmp",
-						"hash",
-						"iconv",
-						"imap",
-						"intl",
-						"json",
-						"ldap",
-						"libxml",
-						"mbstring",
-						"meta",
-						"mcrypt",
-						"mysql",
-						"mysqli",
-						"password",
-						"pcntl",
-						"pcre",
-						"PDO",
-						"pdo_mysql",
-						"pdo_sqlite",
-						"Phar",
-						"posix",
-						"readline",
-						"Reflection",
-						"session",
-						"SimpleXML",
-						"soap",
-						"sockets",
-						"sodium",
-						"SPL",
-						"sqlite3",
-						"standard",
-						"superglobals",
-						"sysvmsg",
-						"sysvsem",
-						"sysvshm",
-						"tidy",
-						"tokenizer",
-						"xml",
-						"xmlreader",
-						"xmlrpc",
-						"xmlwriter",
-						"xsl",
-						"Zend OPcache",
-						"zip",
-						"zlib",
-					},
-
-					diagnostics = {
-						enable = true,
-						undefinedTypes = true,
-						undefinedFunctions = true,
-						undefinedConstants = true,
-						undefinedVariables = true,
-					},
-
-					format = {
-						enable = true, -- usa el formateador interno de intelephense
-					},
-
-					telemetry = {
-						enabled = false,
-					},
 				},
 			},
 		})
