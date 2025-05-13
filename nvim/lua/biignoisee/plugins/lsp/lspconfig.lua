@@ -1,311 +1,363 @@
 return {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-        -- "saghen/blink.cmp",
-        { "antosha417/nvim-lsp-file-operations", config = true },
-    },
-    config = function()
-        -- NOTE: LSP Keybinds
+	"neovim/nvim-lspconfig",
+	event = { "BufReadPre", "BufNewFile" },
+	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
+		-- "saghen/blink.cmp",
+		{ "antosha417/nvim-lsp-file-operations", config = true },
+	},
+	config = function()
+		-- NOTE: LSP Keybinds
 
-        vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-            callback = function(ev)
-                -- Buffer local mappings
-                -- Check `:help vim.lsp.*` for documentation on any of the below functions
-                local opts = { buffer = ev.buf, silent = true }
+		vim.api.nvim_create_autocmd("LspAttach", {
+			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+			callback = function(ev)
+				local opts = { buffer = ev.buf, silent = true }
 
-                -- keymaps
-                opts.desc = "Show LSP references"
-                vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+				-- LSP keymaps con prefijo "l" por "lsp"
+				opts.desc = "Show LSP references"
+				vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", opts)
 
-                opts.desc = "Go to declaration"
-                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+				opts.desc = "Go to declaration"
+				vim.keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, opts)
 
-                opts.desc = "Show LSP definitions"
-                vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+				opts.desc = "Show LSP definitions"
+				vim.keymap.set("n", "<leader>ld", "<cmd>Telescope lsp_definitions<CR>", opts)
 
-                opts.desc = "Show LSP implementations"
-                vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+				opts.desc = "Show LSP implementations"
+				vim.keymap.set("n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", opts)
 
-                opts.desc = "Show LSP type definitions"
-                vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+				opts.desc = "Show LSP type definitions"
+				vim.keymap.set("n", "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
-                opts.desc = "See available code actions"
-                vim.keymap.set({ "n", "v" }, "<leader>vca", function() vim.lsp.buf.code_action() end, opts) -- see available code actions, in visual mode will apply to selection
+				opts.desc = "See available code actions"
+				vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts)
 
-                opts.desc = "Smart rename"
-                vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+				opts.desc = "Smart rename"
+				vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, opts)
 
-                opts.desc = "Show buffer diagnostics"
-                vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+				opts.desc = "Show buffer diagnostics"
+				vim.keymap.set("n", "<leader>lDg", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
-                opts.desc = "Show line diagnostics"
-                vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+				opts.desc = "Show line diagnostics"
+				vim.keymap.set("n", "<leader>ldg", vim.diagnostic.open_float, opts)
 
-                opts.desc = "Show documentation for what is under cursor"
-                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+				opts.desc = "Show documentation for what is under cursor"
+				vim.keymap.set("n", "<leader>lh", vim.lsp.buf.hover, opts)
 
-                opts.desc = "Restart LSP"
-                vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+				opts.desc = "Restart LSP"
+				vim.keymap.set("n", "<leader>llr", ":LspRestart<CR>", opts)
 
-                vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-            end,
-        })
+				opts.desc = "Signature help"
+				vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+			end,
+		})
 
+		-- NOTE : Moved all this to Mason including local variables
+		-- used to enable autocompletion (assign to every lsp server config)
+		-- local capabilities = cmp_nvim_lsp.default_capabilities()
+		-- Change the Diagnostic symbols in the sign column (gutter)
 
-        -- NOTE : Moved all this to Mason including local variables
-        -- used to enable autocompletion (assign to every lsp server config)
-        -- local capabilities = cmp_nvim_lsp.default_capabilities()
-        -- Change the Diagnostic symbols in the sign column (gutter)
+		-- Define sign icons for each severity
+		local signs = {
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.HINT] = "󰠠 ",
+			[vim.diagnostic.severity.INFO] = " ",
+		}
 
-        -- Define sign icons for each severity
-        local signs = {
-            [vim.diagnostic.severity.ERROR] = " ",
-            [vim.diagnostic.severity.WARN]  = " ",
-            [vim.diagnostic.severity.HINT]  = "󰠠 ",
-            [vim.diagnostic.severity.INFO]  = " ",
-        }
+		-- Set the diagnostic config with all icons
+		vim.diagnostic.config({
+			signs = {
+				text = signs, -- Enable signs in the gutter
+			},
+			virtual_text = true, -- Specify Enable virtual text for diagnostics
+			underline = true, -- Specify Underline diagnostics
+			update_in_insert = false, -- Keep diagnostics active in insert mode
+		})
 
-        -- Set the diagnostic config with all icons
-        vim.diagnostic.config({
-            signs = {
-                text = signs -- Enable signs in the gutter
-            },
-            virtual_text = true,  -- Specify Enable virtual text for diagnostics
-            underline = true,     -- Specify Underline diagnostics
-            update_in_insert = false,  -- Keep diagnostics active in insert mode
-        })
+		-- NOTE :
+		-- Moved back from mason_lspconfig.setup_handlers from mason.lua file
+		-- as mason setup_handlers is deprecated & its causing issues with lsp settings
+		--
+		-- Setup servers
+		local lspconfig = require("lspconfig")
+		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		local capabilities = cmp_nvim_lsp.default_capabilities()
 
+		-- Config lsp servers here
+		-- lua_ls
+		lspconfig.lua_ls.setup({
+			capabilities = capabilities,
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+					completion = {
+						callSnippet = "Replace",
+					},
+					workspace = {
+						library = {
+							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+							[vim.fn.stdpath("config") .. "/lua"] = true,
+						},
+					},
+				},
+			},
+		})
+		-- emmet_ls
+		lspconfig.emmet_ls.setup({
+			capabilities = capabilities,
+			filetypes = {
+				"html",
+				"typescriptreact",
+				"javascriptreact",
+				"css",
+				"sass",
+				"scss",
+				"less",
+				"svelte",
+			},
+		})
 
-        -- NOTE : 
-        -- Moved back from mason_lspconfig.setup_handlers from mason.lua file
-        -- as mason setup_handlers is deprecated & its causing issues with lsp settings
-        --
-        -- Setup servers
-        local lspconfig = require("lspconfig")
-        local cmp_nvim_lsp = require("cmp_nvim_lsp")
-        local capabilities = cmp_nvim_lsp.default_capabilities()
+		-- emmet_language_server
+		lspconfig.emmet_language_server.setup({
+			capabilities = capabilities,
+			filetypes = {
+				"css",
+				"eruby",
+				"html",
+				"javascript",
+				"javascriptreact",
+				"less",
+				"sass",
+				"scss",
+				"pug",
+				"typescriptreact",
+			},
+			init_options = {
+				includeLanguages = {},
+				excludeLanguages = {},
+				extensionsPath = {},
+				preferences = {},
+				showAbbreviationSuggestions = true,
+				showExpandedAbbreviation = "always",
+				showSuggestionsAsSnippets = false,
+				syntaxProfiles = {},
+				variables = {},
+			},
+		})
 
-        -- Config lsp servers here
-        -- lua_ls
-        lspconfig.lua_ls.setup({
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim" },
-                    },
-                    completion = {
-                        callSnippet = "Replace",
-                    },
-                    workspace = {
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.stdpath("config") .. "/lua"] = true,
-                        },
-                    },
-                },
-            },
-        })
-        -- emmet_ls
-        lspconfig.emmet_ls.setup({
-            capabilities = capabilities,
-            filetypes = {
-                "html",
-                "typescriptreact",
-                "javascriptreact",
-                "css",
-                "sass",
-                "scss",
-                "less",
-                "svelte",
-            },
-        })
+		-- denols
+		lspconfig.denols.setup({
+			capabilities = capabilities,
+			root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+		})
 
-        -- emmet_language_server
-        lspconfig.emmet_language_server.setup({
-            capabilities = capabilities,
-            filetypes = {
-                "css",
-                "eruby",
-                "html",
-                "javascript",
-                "javascriptreact",
-                "less",
-                "sass",
-                "scss",
-                "pug",
-                "typescriptreact",
-            },
-            init_options = {
-                includeLanguages = {},
-                excludeLanguages = {},
-                extensionsPath = {},
-                preferences = {},
-                showAbbreviationSuggestions = true,
-                showExpandedAbbreviation = "always",
-                showSuggestionsAsSnippets = false,
-                syntaxProfiles = {},
-                variables = {},
-            },
-        })
+		-- gopls (Golang)
+		lspconfig.gopls.setup({
+			capabilities = capabilities,
+			root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
+			settings = {
+				gopls = {
+					gofumpt = true, -- Usa gofumpt para formato más estricto (mejor estilo)
+					staticcheck = true, -- Activa análisis estático (como golangci-lint)
+					usePlaceholders = true, -- Autocompletado con placeholders
+					completeUnimported = true, -- Completa paquetes no importados
 
-        -- denols
-        lspconfig.denols.setup({
-            capabilities = capabilities,
-            root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-        })
+					analyses = {
+						unusedparams = true,
+						fieldalignment = true, -- Sugiere alinear structs para optimizar memoria
+						nilness = true,
+						shadow = true, -- Detecta variables sombreadas (evita bugs)
+						unusedwrite = true,
+						useany = true,
+					},
 
-        -- gopls (Golang)
-       lspconfig.gopls.setup({
-            capabilities = capabilities,
-            root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
-            settings = {
-                gopls = {
-                    gofumpt = true,            -- Usa gofumpt para formato más estricto (mejor estilo)
-                    staticcheck = true,       -- Activa análisis estático (como golangci-lint)
-                    usePlaceholders = true,   -- Autocompletado con placeholders
-                    completeUnimported = true, -- Completa paquetes no importados
+					hints = {
+						assignVariableTypes = true,
+						compositeLiteralFields = true,
+						compositeLiteralTypes = true,
+						constantValues = true,
+						functionTypeParameters = true,
+						parameterNames = true,
+						rangeVariableTypes = true,
+					},
 
-                    analyses = {
-                        unusedparams = true,
-                        fieldalignment = true, -- Sugiere alinear structs para optimizar memoria
-                        nilness = true,
-                        shadow = true,         -- Detecta variables sombreadas (evita bugs)
-                        unusedwrite = true,
-                        useany = true,
-                    },
+					codelenses = {
+						generate = true, -- `go generate` lens
+						gc_details = true, -- detalles de recolección de basura
+						tidy = true, -- auto `go mod tidy`
+						upgrade_dependency = true,
+						vendor = true,
+					},
 
-                    hints = {
-                        assignVariableTypes = true,
-                        compositeLiteralFields = true,
-                        compositeLiteralTypes = true,
-                        constantValues = true,
-                        functionTypeParameters = true,
-                        parameterNames = true,
-                        rangeVariableTypes = true,
-                    },
+					buildFlags = { "-tags=integration" }, -- agrega tags personalizados si usas test especiales
+				},
+			},
+		})
 
-                    codelenses = {
-                        generate = true,       -- `go generate` lens
-                        gc_details = true,     -- detalles de recolección de basura
-                        tidy = true,           -- auto `go mod tidy`
-                        upgrade_dependency = true,
-                        vendor = true,
-                    },
+		-- intelephense (PHP)
+		lspconfig.intelephense.setup({
+			capabilities = capabilities,
+			settings = {
+				intelephense = {
+					-- 🔑 Tu clave de licencia
+					licenceKey = "00D0IEADQVBNA0K", -- 🔁 Reemplaza esto con tu key real (sin espacios)
 
-                    buildFlags = { "-tags=integration" }, -- agrega tags personalizados si usas test especiales
-                },
-            },
-        })
+					environment = {
+						includePaths = {
+							"/usr/include/php", -- por si trabajas con libs del sistema
+						},
+					},
 
-        -- intelephense (PHP)
-        lspconfig.intelephense.setup({
-            capabilities = capabilities,
-            settings = {
-                intelephense = {
-                    -- 🔑 Tu clave de licencia
-                    licenceKey = "00D0IEADQVBNA0K", -- 🔁 Reemplaza esto con tu key real (sin espacios)
+					files = {
+						maxSize = 5000000, -- permite archivos grandes
+						associations = { "*.php", "*.inc" },
+						exclude = {
+							"**/.git/**",
+							"**/node_modules/**",
+							"**/vendor/**/{Test,test,Tests,tests}/**",
+						},
+					},
 
-                    environment = {
-                        includePaths = {
-                            "/usr/include/php", -- por si trabajas con libs del sistema
-                        },
-                    },
+					stubs = {
+						"apache",
+						"bcmath",
+						"bz2",
+						"calendar",
+						"com_dotnet",
+						"Core",
+						"ctype",
+						"curl",
+						"date",
+						"dba",
+						"dom",
+						"enchant",
+						"exif",
+						"FFI",
+						"fileinfo",
+						"filter",
+						"fpm",
+						"ftp",
+						"gd",
+						"gettext",
+						"gmp",
+						"hash",
+						"iconv",
+						"imap",
+						"intl",
+						"json",
+						"ldap",
+						"libxml",
+						"mbstring",
+						"meta",
+						"mcrypt",
+						"mysql",
+						"mysqli",
+						"password",
+						"pcntl",
+						"pcre",
+						"PDO",
+						"pdo_mysql",
+						"pdo_sqlite",
+						"Phar",
+						"posix",
+						"readline",
+						"Reflection",
+						"session",
+						"SimpleXML",
+						"soap",
+						"sockets",
+						"sodium",
+						"SPL",
+						"sqlite3",
+						"standard",
+						"superglobals",
+						"sysvmsg",
+						"sysvsem",
+						"sysvshm",
+						"tidy",
+						"tokenizer",
+						"xml",
+						"xmlreader",
+						"xmlrpc",
+						"xmlwriter",
+						"xsl",
+						"Zend OPcache",
+						"zip",
+						"zlib",
+					},
 
-                    files = {
-                        maxSize = 5000000, -- permite archivos grandes
-                        associations = { "*.php", "*.inc" },
-                        exclude = {
-                            "**/.git/**",
-                            "**/node_modules/**",
-                            "**/vendor/**/{Test,test,Tests,tests}/**",
-                        },
-                    },
+					diagnostics = {
+						enable = true,
+						undefinedTypes = true,
+						undefinedFunctions = true,
+						undefinedConstants = true,
+						undefinedVariables = true,
+					},
 
-                    stubs = {
-                        "apache", "bcmath", "bz2", "calendar", "com_dotnet", "Core",
-                        "ctype", "curl", "date", "dba", "dom", "enchant", "exif", "FFI",
-                        "fileinfo", "filter", "fpm", "ftp", "gd", "gettext", "gmp", "hash",
-                        "iconv", "imap", "intl", "json", "ldap", "libxml", "mbstring",
-                        "meta", "mcrypt", "mysql", "mysqli", "password", "pcntl", "pcre",
-                        "PDO", "pdo_mysql", "pdo_sqlite", "Phar", "posix", "readline",
-                        "Reflection", "session", "SimpleXML", "soap", "sockets", "sodium",
-                        "SPL", "sqlite3", "standard", "superglobals", "sysvmsg", "sysvsem",
-                        "sysvshm", "tidy", "tokenizer", "xml", "xmlreader", "xmlrpc",
-                        "xmlwriter", "xsl", "Zend OPcache", "zip", "zlib",
-                    },
+					format = {
+						enable = true, -- usa el formateador interno de intelephense
+					},
 
-                    diagnostics = {
-                        enable = true,
-                        undefinedTypes = true,
-                        undefinedFunctions = true,
-                        undefinedConstants = true,
-                        undefinedVariables = true,
-                    },
+					telemetry = {
+						enabled = false,
+					},
+				},
+			},
+		})
 
-                    format = {
-                        enable = true, -- usa el formateador interno de intelephense
-                    },
+		-- pyright (Python)
+		lspconfig.pyright.setup({
+			capabilities = capabilities,
+			settings = {
+				python = {
+					analysis = {
+						autoImportCompletions = true, -- autocompletado de imports
+						autoSearchPaths = true, -- busca automáticamente los paths correctos
+						diagnosticMode = "workspace", -- analiza todo el workspace, no solo el buffer abierto
+						typeCheckingMode = "strict", -- ⚠️ Cambia a "basic" si es muy estricto para tu proyecto
+						useLibraryCodeForTypes = true, -- usa código de libs para entender mejor los tipos
+						logLevel = "Information", -- puedes cambiar a "Trace" si estás debuggeando
 
-                    telemetry = {
-                        enabled = false,
-                    },
-                },
-            },
-        })
+						diagnosticSeverityOverrides = {
+							reportMissingImports = "warning",
+							reportMissingTypeStubs = "none",
+							reportUndefinedVariable = "error",
+							reportUnboundVariable = "error",
+							reportGeneralTypeIssues = "warning",
+						},
+					},
+					venvPath = vim.fn.expand("~/.virtualenvs"), -- si usas virtualenvwrapper o poetry
+				},
+			},
+			root_dir = require("lspconfig").util.root_pattern(
+				"pyrightconfig.json",
+				"pyproject.toml",
+				"setup.py",
+				"setup.cfg",
+				"requirements.txt",
+				".git"
+			),
+		})
 
-        -- pyright (Python)
-        lspconfig.pyright.setup({
-            capabilities = capabilities,
-            settings = {
-                python = {
-                    analysis = {
-                        autoImportCompletions = true, -- autocompletado de imports
-                        autoSearchPaths = true,       -- busca automáticamente los paths correctos
-                        diagnosticMode = "workspace", -- analiza todo el workspace, no solo el buffer abierto
-                        typeCheckingMode = "strict",  -- ⚠️ Cambia a "basic" si es muy estricto para tu proyecto
-                        useLibraryCodeForTypes = true, -- usa código de libs para entender mejor los tipos
-                        logLevel = "Information",      -- puedes cambiar a "Trace" si estás debuggeando
-
-                        diagnosticSeverityOverrides = {
-                            reportMissingImports = "warning",
-                            reportMissingTypeStubs = "none",
-                            reportUndefinedVariable = "error",
-                            reportUnboundVariable = "error",
-                            reportGeneralTypeIssues = "warning",
-                        },
-                    },
-                    venvPath = vim.fn.expand("~/.virtualenvs"), -- si usas virtualenvwrapper o poetry
-                },
-            },
-            root_dir = require("lspconfig").util.root_pattern(
-                "pyrightconfig.json",
-                "pyproject.toml",
-                "setup.py",
-                "setup.cfg",
-                "requirements.txt",
-                ".git"
-            ),
-        })
-
-        -- ts_ls (replaces tsserver)
-        lspconfig.ts_ls.setup({
-            capabilities = capabilities,
-            root_dir = function(fname)
-                local util = lspconfig.util
-                return not util.root_pattern("deno.json", "deno.jsonc")(fname)
-                    and util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")(fname)
-            end,
-            single_file_support = false,
-            init_options = {
-                preferences = {
-                    includeCompletionsWithSnippetText = true,
-                    includeCompletionsForImportStatements = true,
-                },
-            },
-        })
-    end,
+		-- ts_ls (replaces tsserver)
+		lspconfig.ts_ls.setup({
+			capabilities = capabilities,
+			root_dir = function(fname)
+				local util = lspconfig.util
+				return not util.root_pattern("deno.json", "deno.jsonc")(fname)
+					and util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")(fname)
+			end,
+			single_file_support = false,
+			init_options = {
+				preferences = {
+					includeCompletionsWithSnippetText = true,
+					includeCompletionsForImportStatements = true,
+				},
+			},
+		})
+	end,
 }

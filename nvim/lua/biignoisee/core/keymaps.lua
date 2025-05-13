@@ -43,26 +43,30 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "x", '"_x', opts)
 
 -- Replace the word cursor is on globally
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = "Replace word cursor is on globally" })
+vim.keymap.set(
+	"n",
+	"<leader>s",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Replace word cursor is on globally" }
+)
 
 -- Executes shell command from in here making file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
 
 -- Hightlight yanking
 vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking (copying) text",
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-    callback = function()
-        vim.hl.on_yank()
-    end,
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.hl.on_yank()
+	end,
 })
 
 -- tab stuff
-vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>")   --open new tab
+vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>") --open new tab
 vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>") --close current tab
-vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>")     --go to next
-vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>")     --go to pre
+vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>") --go to next
+vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>") --go to pre
 vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>") --open current tab in new tab
 
 --split management
@@ -76,20 +80,19 @@ vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current spli
 
 -- Copy filepath to the clipboard
 vim.keymap.set("n", "<leader>fp", function()
-  local filePath = vim.fn.expand("%:~") -- Gets the file path relative to the home directory
-  vim.fn.setreg("+", filePath) -- Copy the file path to the clipboard register
-  print("File path copied to clipboard: " .. filePath) -- Optional: print message to confirm
+	local filePath = vim.fn.expand("%:~") -- Gets the file path relative to the home directory
+	vim.fn.setreg("+", filePath) -- Copy the file path to the clipboard register
+	print("File path copied to clipboard: " .. filePath) -- Optional: print message to confirm
 end, { desc = "Copy file path to clipboard" })
-
 
 vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Seleccionar todo el archivo" })
 
 -- Toggle LSP diagnostics visibility
 local isLspDiagnosticsVisible = true
 vim.keymap.set("n", "<leader>lx", function()
-    isLspDiagnosticsVisible = not isLspDiagnosticsVisible
-    vim.diagnostic.config({
-        virtual_text = isLspDiagnosticsVisible,
-        underline = isLspDiagnosticsVisible
-    })
+	isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+	vim.diagnostic.config({
+		virtual_text = isLspDiagnosticsVisible,
+		underline = isLspDiagnosticsVisible,
+	})
 end, { desc = "Toggle LSP diagnostics" })
