@@ -23,7 +23,24 @@ return {
 						return #diag > 0
 					end,
 				},
+				["php-cs-fixer"] = {
+					command = "php-cs-fixer",
+					args = {
+						"fix",
+						"$FILENAME",
+						"--rules=@PSR12",
+						"--using-cache=no",
+						"--allow-risky=yes", -- opcional
+					},
+					stdin = false,
+				},
+				["blade-formatter"] = {
+					command = "blade-formatter",
+					args = { "--stdin" },
+					stdin = true,
+				},
 			},
+
 			formatters_by_ft = {
 				javascript = { "prettier" },
 				typescript = { "prettier" },

@@ -52,3 +52,4 @@ alias lm='exa --icons -m'
 alias lr='exa --icons -R'
 alias lg='exa --icons -l --group-directories-first'
 
+export PATH="$HOME/.composer/vendor/bin:$PATH"
