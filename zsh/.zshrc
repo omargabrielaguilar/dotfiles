@@ -53,3 +53,6 @@ alias lr='exa --icons -R'
 alias lg='exa --icons -l --group-directories-first'
 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+#python
+alias so='source .venv/bin/activate'
