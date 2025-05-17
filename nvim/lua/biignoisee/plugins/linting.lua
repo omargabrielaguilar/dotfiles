@@ -16,6 +16,7 @@ return {
 			python = { "pylint" },
 			php = { "phpstan" }, -- usa "php" si no tienes phpstan
 			go = { "golangci_lint" },
+			solidity = { "solhint" },
 		}
 
 		eslint.args = {
@@ -27,6 +28,24 @@ return {
 			function()
 				return vim.fn.expand("%:p")
 			end,
+		}
+
+		-- Solidity
+		lint.linters.solhint = {
+			cmd = "solhint",
+			args = {
+				"--formatter",
+				"unix",
+				function()
+					return vim.fn.expand("%:p")
+				end,
+			},
+			stdin = false,
+			ignore_exitcode = true,
+			parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
+				source = "solhint",
+				severity = vim.diagnostic.severity.WARN,
+			}),
 		}
 
 		-- Python: pylint
@@ -51,44 +70,44 @@ return {
 		}
 
 		-- PHP: phpstan
-		lint.linters.phpstan = {
-			cmd = "phpstan",
-			args = {
-				"analyse",
-				"--error-format",
-				"raw",
-				"--no-progress",
-				function()
-					return vim.fn.expand("%:p")
-				end,
-			},
-			stdin = false,
-			ignore_exitcode = true,
-			parser = require("lint.parser").from_errorformat("%f:%l %m", {
-
-				source = "phpstan",
-				severity = vim.diagnostic.severity.WARN,
-			}),
-		}
-
-		-- Go: golangci-lint
-		lint.linters.golangci_lint = {
-			cmd = "golangci-lint",
-			args = { "run", "--out-format", "tab" },
-			stdin = false,
-			ignore_exitcode = true,
-			parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
-				source = "golangci-lint",
-				severity = vim.diagnostic.severity.WARN,
-			}),
-		}
-
-		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-			group = lint_augroup,
-			callback = function()
-				lint.try_lint()
-			end,
-		})
+		-- lint.linters.phpstan = {
+		-- 	cmd = "phpstan",
+		-- 	args = {
+		-- 		"analyse",
+		-- 		"--error-format",
+		-- 		"raw",
+		-- 		"--no-progress",
+		-- 		function()
+		-- 			return vim.fn.expand("%:p")
+		-- 		end,
+		-- 	},
+		-- 	stdin = false,
+		-- 	ignore_exitcode = true,
+		-- 	parser = require("lint.parser").from_errorformat("%f:%l %m", {
+		--
+		-- 		source = "phpstan",
+		-- 		severity = vim.diagnostic.severity.WARN,
+		-- 	}),
+		-- }
+		--
+		-- -- Go: golangci-lint
+		-- lint.linters.golangci_lint = {
+		-- 	cmd = "golangci-lint",
+		-- 	args = { "run", "--out-format", "tab" },
+		-- 	stdin = false,
+		-- 	ignore_exitcode = true,
+		-- 	parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
+		-- 		source = "golangci-lint",
+		-- 		severity = vim.diagnostic.severity.WARN,
+		-- 	}),
+		-- }
+		--
+		-- vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+		-- 	group = lint_augroup,
+		-- 	callback = function()
+		-- 		lint.try_lint()
+		-- 	end,
+		-- })
 
 		-- Definición del mapeo de teclas para el líder 'l' en modo normal
 		vim.keymap.set("n", "<leader>l", function()
@@ -102,6 +121,8 @@ return {
 				cmd = "golangci-lint run --out-format tab " .. file
 			elseif ft == "python" then
 				cmd = "pylint --output-format text --score n " .. file
+			elseif ft == "solidity" then
+				cmd = "solhint " .. file
 			elseif
 				ft == "javascript"
 				or ft == "typescript"

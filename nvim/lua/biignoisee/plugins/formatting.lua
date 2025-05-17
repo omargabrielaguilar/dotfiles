@@ -53,6 +53,7 @@ return {
 				yaml = { "prettier" },
 				graphql = { "prettier" },
 				liquid = { "prettier" },
+				solidity = { "prettier" },
 				lua = { "stylua" },
 				python = { "black" },
 				markdown = { "prettier" },

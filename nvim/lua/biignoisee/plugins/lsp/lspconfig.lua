@@ -108,51 +108,51 @@ return {
 		})
 
 		-- phpactor (php)
-		lspconfig.phpactor.setup({
-			capabilities = capabilities,
-			cmd = { "phpactor", "language-server" },
-			filetypes = { "php" },
-			root_dir = function(fname)
-				-- Patrones para encontrar el directorio raíz del proyecto
-				local root_files = {
-					"composer.json",
-					".git",
-					".phpactor.json",
-					".phpactor.yml",
-					"phpunit.xml",
-					"phpunit.xml.dist",
-				}
-
-				return lspconfig.util.root_pattern(unpack(root_files))(fname)
-					or lspconfig.util.find_git_ancestor(fname)
-					or vim.fn.getcwd()
-			end,
-			init_options = {
-				["language_server_phpstan.enabled"] = false,
-				["language_server_psalm.enabled"] = false,
-				["code_transform.import_globals"] = true,
-				["code_transform.import_name.enable"] = true,
-			},
-			handlers = {
-				["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-					virtual_text = true,
-					signs = true,
-					update_in_insert = false,
-				}),
-			},
-			settings = {
-				phpactor = {
-					completion = {
-						enabled = true,
-						priority = 100,
-					},
-					codeTransform = {
-						importClass = true,
-						importFunction = true,
-					},
-				},
-			},
-		})
+		-- lspconfig.phpactor.setup({
+		-- 	capabilities = capabilities,
+		-- 	cmd = { "phpactor", "language-server" },
+		-- 	filetypes = { "php" },
+		-- 	root_dir = function(fname)
+		-- 		-- Patrones para encontrar el directorio raíz del proyecto
+		-- 		local root_files = {
+		-- 			"composer.json",
+		-- 			".git",
+		-- 			".phpactor.json",
+		-- 			".phpactor.yml",
+		-- 			"phpunit.xml",
+		-- 			"phpunit.xml.dist",
+		-- 		}
+		--
+		-- 		return lspconfig.util.root_pattern(unpack(root_files))(fname)
+		-- 			or lspconfig.util.find_git_ancestor(fname)
+		-- 			or vim.fn.getcwd()
+		-- 	end,
+		-- 	init_options = {
+		-- 		["language_server_phpstan.enabled"] = false,
+		-- 		["language_server_psalm.enabled"] = false,
+		-- 		["code_transform.import_globals"] = true,
+		-- 		["code_transform.import_name.enable"] = true,
+		-- 	},
+		-- 	handlers = {
+		-- 		["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+		-- 			virtual_text = true,
+		-- 			signs = true,
+		-- 			update_in_insert = false,
+		-- 		}),
+		-- 	},
+		-- 	settings = {
+		-- 		phpactor = {
+		-- 			completion = {
+		-- 				enabled = true,
+		-- 				priority = 100,
+		-- 			},
+		-- 			codeTransform = {
+		-- 				importClass = true,
+		-- 				importFunction = true,
+		-- 			},
+		-- 		},
+		-- 	},
+		-- })
 
 		-- emmet_ls
 		lspconfig.emmet_ls.setup({
@@ -204,47 +204,47 @@ return {
 		})
 
 		-- gopls (Golang)
-		lspconfig.gopls.setup({
-			capabilities = capabilities,
-			root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
-			settings = {
-				gopls = {
-					gofumpt = true, -- Usa gofumpt para formato más estricto (mejor estilo)
-					staticcheck = true, -- Activa análisis estático (como golangci-lint)
-					usePlaceholders = true, -- Autocompletado con placeholders
-					completeUnimported = true, -- Completa paquetes no importados
-
-					analyses = {
-						unusedparams = true,
-						fieldalignment = true, -- Sugiere alinear structs para optimizar memoria
-						nilness = true,
-						shadow = true, -- Detecta variables sombreadas (evita bugs)
-						unusedwrite = true,
-						useany = true,
-					},
-
-					hints = {
-						assignVariableTypes = true,
-						compositeLiteralFields = true,
-						compositeLiteralTypes = true,
-						constantValues = true,
-						functionTypeParameters = true,
-						parameterNames = true,
-						rangeVariableTypes = true,
-					},
-
-					codelenses = {
-						generate = true, -- `go generate` lens
-						gc_details = true, -- detalles de recolección de basura
-						tidy = true, -- auto `go mod tidy`
-						upgrade_dependency = true,
-						vendor = true,
-					},
-
-					buildFlags = { "-tags=integration" }, -- agrega tags personalizados si usas test especiales
-				},
-			},
-		})
+		-- lspconfig.gopls.setup({
+		-- 	capabilities = capabilities,
+		-- 	root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
+		-- 	settings = {
+		-- 		gopls = {
+		-- 			gofumpt = true, -- Usa gofumpt para formato más estricto (mejor estilo)
+		-- 			staticcheck = true, -- Activa análisis estático (como golangci-lint)
+		-- 			usePlaceholders = true, -- Autocompletado con placeholders
+		-- 			completeUnimported = true, -- Completa paquetes no importados
+		--
+		-- 			analyses = {
+		-- 				unusedparams = true,
+		-- 				fieldalignment = true, -- Sugiere alinear structs para optimizar memoria
+		-- 				nilness = true,
+		-- 				shadow = true, -- Detecta variables sombreadas (evita bugs)
+		-- 				unusedwrite = true,
+		-- 				useany = true,
+		-- 			},
+		--
+		-- 			hints = {
+		-- 				assignVariableTypes = true,
+		-- 				compositeLiteralFields = true,
+		-- 				compositeLiteralTypes = true,
+		-- 				constantValues = true,
+		-- 				functionTypeParameters = true,
+		-- 				parameterNames = true,
+		-- 				rangeVariableTypes = true,
+		-- 			},
+		--
+		-- 			codelenses = {
+		-- 				generate = true, -- `go generate` lens
+		-- 				gc_details = true, -- detalles de recolección de basura
+		-- 				tidy = true, -- auto `go mod tidy`
+		-- 				upgrade_dependency = true,
+		-- 				vendor = true,
+		-- 			},
+		--
+		-- 			buildFlags = { "-tags=integration" }, -- agrega tags personalizados si usas test especiales
+		-- 		},
+		-- 	},
+		-- })
 
 		-- pyright (Python)
 		lspconfig.pyright.setup({
@@ -278,6 +278,29 @@ return {
 				"requirements.txt",
 				".git"
 			),
+		})
+
+		-- solidity-language-server on focus web3
+		lspconfig.solidity.setup({
+			cmd = { "solidity-language-server", "--stdio" },
+			filetypes = { "solidity" },
+			capabilities = capabilities, -- usa el mismo capabilities que tienes para pyright
+			root_dir = lspconfig.util.root_pattern(
+				"hardhat.config.js",
+				"hardhat.config.ts",
+				"foundry.toml",
+				"truffle-config.js",
+				".git"
+			),
+			settings = {
+				-- Opcional: puedes agregar settings si más adelante quieres tunear.
+				solidity = {
+					includePath = "node_modules",
+					remapping = {
+						["@openzeppelin/"] = "node_modules/@openzeppelin/",
+					},
+				},
+			},
 		})
 
 		-- ts_ls (replaces tsserver)
