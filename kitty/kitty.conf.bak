@@ -2,7 +2,7 @@
 font_family      Monofur Nerd Font
 bold_font        auto
 italic_font      auto
-font_size        15.5
+font_size        13.8
 
 # 🎯 Transparencia (0.0 totalmente transparente, 1.0 opaco)
 background_opacity 0.90
@@ -40,8 +40,12 @@ map f11 toggle_fullscreen
 hide_window_decorations yes
 shell zsh
 
+# 🔧 Eliminar cualquier padding interno
+padding_width 0
+margin_width 0
+
 
 # BEGIN_KITTY_THEME
-# Rosé Pine
+# One Dark
 include current-theme.conf
 # END_KITTY_THEME

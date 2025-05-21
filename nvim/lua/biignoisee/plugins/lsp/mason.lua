@@ -34,9 +34,9 @@ return {
 				"html", -- HTML LSP
 				"cssls", -- CSS LSP
 				"tailwindcss", -- Tailwind CSS LSP
-				--"gopls", -- Go LSP
+				"gopls", -- Go LSP
 				"emmet_ls", -- Emmet for HTML/CSS
-				--"phpactor", -- PHP LSP (alternative to intelephense)
+				"phpactor", -- PHP LSP (alternative to intelephense)
 				"marksman", -- Markdown LSP
 				"clangd", -- C/C++/Rust LSP
 				"rust_analyzer", -- Rust LSP
@@ -50,16 +50,16 @@ return {
 				"stylua", -- lua formatter
 				"isort", -- python formatter
 				"pylint", -- Python linter
-				-- "clangd", -- C/C++/Rust toolchain
-				-- "denols", -- Deno LSP (for Deno/TypeScript)
+				"clangd", -- C/C++/Rust toolchain
+				"denols", -- Deno LSP (for Deno/TypeScript)
 				"eslint_d", -- ESLint daemon
-				-- "phpcs", -- PHP CodeSniffer
-				--"php-cs-fixer", -- PHP-CS-Fixer
-				--"phpstan", -- PHP static analysis
-				--"golangci-lint",
+				"phpcs", -- PHP CodeSniffer
+				"php-cs-fixer", -- PHP-CS-Fixer
+				"phpstan", -- PHP static analysis
+				"golangci-lint",
 				"debugpy",
 				"php-debug-adapter",
-				--"php-debug-adapter",
+				"php-debug-adapter",
 			},
 		})
 	end,

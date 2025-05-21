@@ -138,8 +138,8 @@ bar {
     separator_symbol ""
 
     colors {
-        background         #13161A   # un pelín más oscuro que el base (#1F1F28)
-        statusline         #DCD7BA   # texto principal (Kanagawa text)
+        background         #1f2226  # un pelín más oscuro que el base (#1F1F28)
+        statusline         #bbbadc   # texto principal (Kanagawa text)
         separator          #54546D   # gris tenue de Kanagawa
 
         # Workspaces
