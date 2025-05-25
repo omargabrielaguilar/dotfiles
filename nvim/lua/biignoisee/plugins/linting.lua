@@ -29,6 +29,8 @@ return {
 				return vim.fn.expand("%:p")
 			end,
 		}
+		eslint.format = "json"
+		eslint.stream = "stdin"
 
 		-- Solidity
 		lint.linters.solhint = {

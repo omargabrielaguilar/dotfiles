@@ -154,47 +154,23 @@ return {
 			},
 		})
 
-		-- emmet_ls
-		lspconfig.emmet_ls.setup({
-			capabilities = capabilities,
-			filetypes = {
-				"html",
-				"typescriptreact",
-				"javascriptreact",
-				"css",
-				"sass",
-				"scss",
-				"less",
-				"svelte",
-			},
-		})
-
 		-- emmet_language_server
-		lspconfig.emmet_language_server.setup({
+		lspconfig.emmet_ls.setup({
+			cmd = { "emmet-ls", "--stdio" },
 			capabilities = capabilities,
 			filetypes = {
-				"css",
-				"eruby",
 				"html",
-				"javascript",
+				"css",
+				"typescriptreact",
 				"javascriptreact",
+				"svelte",
 				"less",
 				"sass",
 				"scss",
-				"pug",
-				"typescriptreact",
 			},
-			init_options = {
-				includeLanguages = {},
-				excludeLanguages = {},
-				extensionsPath = {},
-				preferences = {},
-				showAbbreviationSuggestions = true,
-				showExpandedAbbreviation = "always",
-				showSuggestionsAsSnippets = false,
-				syntaxProfiles = {},
-				variables = {},
-			},
+			root_dir = function()
+				return vim.loop.cwd()
+			end,
 		})
 
 		-- denols
