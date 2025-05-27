@@ -13,10 +13,10 @@ return {
 			typescriptreact = { "eslint_d" },
 			svelte = { "eslint_d" },
 			vue = { "eslint_d" },
-			python = { "pylint" },
-			php = { "phpstan" }, -- usa "php" si no tienes phpstan
-			go = { "golangci_lint" },
-			solidity = { "solhint" },
+			-- python = { "pylint" },
+			php = { "phpstan" },
+            -- go = { "golangci_lint" },
+			-- solidity = { "solhint" },
 		}
 
 		eslint.args = {
@@ -32,44 +32,26 @@ return {
 		eslint.format = "json"
 		eslint.stream = "stdin"
 
-		-- Solidity
-		lint.linters.solhint = {
-			cmd = "solhint",
-			args = {
-				"--formatter",
-				"unix",
-				function()
-					return vim.fn.expand("%:p")
-				end,
-			},
-			stdin = false,
-			ignore_exitcode = true,
-			parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
-				source = "solhint",
-				severity = vim.diagnostic.severity.WARN,
-			}),
-		}
-
 		-- Python: pylint
-		lint.linters.pylint = {
-			cmd = "pylint",
-			args = {
-				"--output-format",
-				"text",
-				"--score",
-				"n",
-				"--msg-template",
-				"{path}:{line}:{column}: {msg} ({msg_id})",
-				function()
-					return vim.fn.expand("%:p")
-				end,
-			},
-			stdin = false,
-			parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
-				source = "pylint",
-				severity = vim.diagnostic.severity.WARN,
-			}),
-		}
+		-- lint.linters.pylint = {
+		-- 	cmd = "pylint",
+		-- 	args = {
+		-- 		"--output-format",
+		-- 		"text",
+		-- 		"--score",
+		-- 		"n",
+		-- 		"--msg-template",
+		-- 		"{path}:{line}:{column}: {msg} ({msg_id})",
+		-- 		function()
+		-- 			return vim.fn.expand("%:p")
+		-- 		end,
+		-- 	},
+		-- 	stdin = false,
+		-- 	parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
+		-- 		source = "pylint",
+		-- 		severity = vim.diagnostic.severity.WARN,
+		-- 	}),
+		-- }
 
 		-- PHP: phpstan
 		lint.linters.phpstan = {
@@ -93,16 +75,16 @@ return {
 		}
 
 		-- Go: golangci-lint
-		lint.linters.golangci_lint = {
-			cmd = "golangci-lint",
-			args = { "run", "--out-format", "tab" },
-			stdin = false,
-			ignore_exitcode = true,
-			parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
-				source = "golangci-lint",
-				severity = vim.diagnostic.severity.WARN,
-			}),
-		}
+		-- lint.linters.golangci_lint = {
+		-- 	cmd = "golangci-lint",
+		-- 	args = { "run", "--out-format", "tab" },
+		-- 	stdin = false,
+		-- 	ignore_exitcode = true,
+		-- 	parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
+		-- 		source = "golangci-lint",
+		-- 		severity = vim.diagnostic.severity.WARN,
+		-- 	}),
+		-- }
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 			group = lint_augroup,
@@ -119,12 +101,6 @@ return {
 
 			if ft == "php" then
 				cmd = "phpstan analyse --error-format raw --no-progress " .. file
-			elseif ft == "go" then
-				cmd = "golangci-lint run --out-format tab " .. file
-			elseif ft == "python" then
-				cmd = "pylint --output-format text --score n " .. file
-			elseif ft == "solidity" then
-				cmd = "solhint " .. file
 			elseif
 				ft == "javascript"
 				or ft == "typescript"
