@@ -36,7 +36,8 @@ return {
 				"tailwindcss", -- Tailwind CSS LSP
 				-- "gopls", -- Go LSP
 				"emmet_ls", -- Emmet for HTML/CSS
-				"phpactor", -- PHP LSP (alternative to intelephense)
+				"dockerls",
+				"intelephense", -- PHP LSP (alternative to intelephense)
 				-- "marksman", -- Markdown LSP
 				-- "clangd", -- C/C++/Rust LSP
 				-- "rust_analyzer", -- Rust LSP

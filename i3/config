@@ -138,15 +138,15 @@ bar {
     separator_symbol ""
 
     colors {
-        background         #1f2226  # un pelín más oscuro que el base (#1F1F28)
+        background         #0d0d0d  # un pelín más oscuro que el base (#1F1F28)
         statusline         #bbbadc   # texto principal (Kanagawa text)
-        separator          #54546D   # gris tenue de Kanagawa
+        separator          #4d4d4d   # gris tenue de Kanagawa
 
         # Workspaces
-        focused_workspace  #7E9CD8   #1F1F28   #7E9CD8   # azul brillante (activo y enfocado)
-        active_workspace   #957FB8   #1F1F28   #957FB8   # lavanda activa
-        inactive_workspace #1F1F28   #54546D   #1F1F28   # fondo kanagawa + gris medio
-        urgent_workspace   #E46876   #1F1F28   #E46876   # rojo alerta
+        focused_workspace  #5e81ac   #1F1F28   #7E9CD8   # azul brillante (activo y enfocado)
+        active_workspace   #88c0d0   #1F1F28   #88c0d0   # lavanda activa
+        inactive_workspace #3b3b3b   #54546D   #1F1F28   # fondo kanagawa + gris medio
+        urgent_workspace   #bf616a   #1F1F28   #E46876   # rojo alerta
     }
 }
 

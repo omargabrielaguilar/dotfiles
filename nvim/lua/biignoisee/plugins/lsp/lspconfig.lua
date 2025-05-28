@@ -107,20 +107,18 @@ return {
 			},
 		})
 
-		-- phpactor (php)
-		lspconfig.phpactor.setup({
+		-- intelephense (php)
+		lspconfig.intelephense.setup({
 			capabilities = capabilities,
-			cmd = { "phpactor", "language-server" },
+			cmd = { "intelephense", "--stdio" },
 			filetypes = { "php" },
 			root_dir = function(fname)
-				-- Patrones para encontrar el directorio raíz del proyecto
 				local root_files = {
 					"composer.json",
 					".git",
-					".phpactor.json",
-					".phpactor.yml",
 					"phpunit.xml",
 					"phpunit.xml.dist",
+					".intelephense",
 				}
 
 				return lspconfig.util.root_pattern(unpack(root_files))(fname)
@@ -128,10 +126,8 @@ return {
 					or vim.fn.getcwd()
 			end,
 			init_options = {
-				["language_server_phpstan.enabled"] = false,
-				["language_server_psalm.enabled"] = false,
-				["code_transform.import_globals"] = true,
-				["code_transform.import_name.enable"] = true,
+				licenceKey = "00D0IEADQVBNA0K",
+				globalStoragePath = vim.fn.expand("~/.intelephense"),
 			},
 			handlers = {
 				["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -141,14 +137,95 @@ return {
 				}),
 			},
 			settings = {
-				phpactor = {
-					completion = {
-						enabled = true,
-						priority = 100,
+				intelephense = {
+					environment = {
+						phpVersion = "8.3", -- Ajusta a tu versión
+						includePaths = { "./vendor" },
 					},
-					codeTransform = {
-						importClass = true,
-						importFunction = true,
+					diagnostics = {
+						enable = true,
+						undefinedTypes = true,
+						undefinedFunctions = true,
+						undefinedConstants = true,
+						undefinedClassConstants = true,
+						undefinedMethods = true,
+						undefinedProperties = true,
+						undefinedVariables = true,
+						unusedVariables = true,
+						undefinedExceptions = true,
+					},
+					completion = {
+						maxItems = 100,
+						insertUseDeclaration = true,
+						fullyQualifyGlobalConstantsAndFunctions = true,
+					},
+					format = {
+						enable = true,
+						braces = "psr12",
+					},
+					files = {
+						maxSize = 5000000,
+						exclude = {
+							"**/.git/**",
+							-- "**/vendor/**",
+							"**/node_modules/**",
+						},
+					},
+					stubs = {
+						"apache",
+						"bcmath",
+						"bz2",
+						"calendar",
+						"Core",
+						"curl",
+						"date",
+						"dom",
+						"fileinfo",
+						"filter",
+						"gd",
+						"gettext",
+						"hash",
+						"iconv",
+						"imap",
+						"intl",
+						"json",
+						"libxml",
+						"mbstring",
+						"mysqli",
+						"oci8",
+						"openssl",
+						"pcntl",
+						"pcre",
+						"PDO",
+						"pdo_mysql",
+						"pdo_pgsql",
+						"Phar",
+						"posix",
+						"readline",
+						"Reflection",
+						"session",
+						"SimpleXML",
+						"soap",
+						"sockets",
+						"SPL",
+						"sqlite3",
+						"standard",
+						"superglobals",
+						"sysvmsg",
+						"tidy",
+						"tokenizer",
+						"xml",
+						"zip",
+						"laravel",
+						"livewire",
+						"phpunit",
+						"psr-http-message",
+						"redis",
+						"swoole",
+						"carbon",
+						"mockery",
+						"php-di",
+						"phpdocumentor",
 					},
 				},
 			},
@@ -171,6 +248,13 @@ return {
 			root_dir = function()
 				return vim.loop.cwd()
 			end,
+		})
+
+		lspconfig.dockerls.setup({
+			cmd = { "docker-langserver", "--stdio" },
+			filetypes = { "dockerfile" },
+			root_dir = lspconfig.util.root_pattern("Dockerfile"),
+			single_file_support = true,
 		})
 
 		-- denols
