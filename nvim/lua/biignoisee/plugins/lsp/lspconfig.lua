@@ -226,6 +226,8 @@ return {
 						"mockery",
 						"php-di",
 						"phpdocumentor",
+						"random",
+						"memcached",
 					},
 				},
 			},
@@ -261,106 +263,6 @@ return {
 		lspconfig.denols.setup({
 			capabilities = capabilities,
 			root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-		})
-
-		-- gopls (Golang)
-		lspconfig.gopls.setup({
-			capabilities = capabilities,
-			root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
-			settings = {
-				gopls = {
-					gofumpt = true, -- Usa gofumpt para formato más estricto (mejor estilo)
-					staticcheck = true, -- Activa análisis estático (como golangci-lint)
-					usePlaceholders = true, -- Autocompletado con placeholders
-					completeUnimported = true, -- Completa paquetes no importados
-
-					analyses = {
-						unusedparams = true,
-						fieldalignment = true, -- Sugiere alinear structs para optimizar memoria
-						nilness = true,
-						shadow = true, -- Detecta variables sombreadas (evita bugs)
-						unusedwrite = true,
-						useany = true,
-					},
-
-					hints = {
-						assignVariableTypes = true,
-						compositeLiteralFields = true,
-						compositeLiteralTypes = true,
-						constantValues = true,
-						functionTypeParameters = true,
-						parameterNames = true,
-						rangeVariableTypes = true,
-					},
-
-					codelenses = {
-						generate = true, -- `go generate` lens
-						gc_details = true, -- detalles de recolección de basura
-						tidy = true, -- auto `go mod tidy`
-						upgrade_dependency = true,
-						vendor = true,
-					},
-
-					buildFlags = { "-tags=integration" }, -- agrega tags personalizados si usas test especiales
-				},
-			},
-		})
-
-		-- pyright (Python)
-		lspconfig.pyright.setup({
-			capabilities = capabilities,
-			settings = {
-				python = {
-					analysis = {
-						autoImportCompletions = true, -- autocompletado de imports
-						autoSearchPaths = true, -- busca automáticamente los paths correctos
-						diagnosticMode = "workspace", -- analiza todo el workspace, no solo el buffer abierto
-						typeCheckingMode = "strict", -- ⚠️ Cambia a "basic" si es muy estricto para tu proyecto
-						useLibraryCodeForTypes = true, -- usa código de libs para entender mejor los tipos
-						logLevel = "Information", -- puedes cambiar a "Trace" si estás debuggeando
-
-						diagnosticSeverityOverrides = {
-							reportMissingImports = "warning",
-							reportMissingTypeStubs = "none",
-							reportUndefinedVariable = "error",
-							reportUnboundVariable = "error",
-							reportGeneralTypeIssues = "warning",
-						},
-					},
-					venvPath = vim.fn.expand("~/.virtualenvs"), -- si usas virtualenvwrapper o poetry
-				},
-			},
-			root_dir = require("lspconfig").util.root_pattern(
-				"pyrightconfig.json",
-				"pyproject.toml",
-				"setup.py",
-				"setup.cfg",
-				"requirements.txt",
-				".git"
-			),
-		})
-
-		-- solidity-language-server on focus web3
-		lspconfig.solidity.setup({
-			cmd = { "solidity-language-server", "--stdio" },
-			filetypes = { "solidity" },
-			capabilities = capabilities, -- usa el mismo capabilities que tienes para pyright
-			root_dir = lspconfig.util.root_pattern(
-				"hardhat.config.js",
-				"hardhat.config.ts",
-				"foundry.toml",
-				"truffle-config.js",
-				".git"
-			),
-			settings = {
-				-- Opcional: puedes agregar settings si más adelante quieres tunear.
-				solidity = {
-					includePath = "node_modules",
-					remapping = {
-						["@openzeppelin/"] = "node_modules/@openzeppelin/",
-					},
-				},
-			},
 		})
 
 		-- ts_ls (replaces tsserver)

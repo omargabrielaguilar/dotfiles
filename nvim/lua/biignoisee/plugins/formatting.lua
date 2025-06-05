@@ -53,15 +53,10 @@ return {
 				yaml = { "prettier" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
-				-- python = { "black" },
 				markdown = { "prettier" },
 				["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
 				php = { "php-cs-fixer" },
 				blade = { "blade-formatter" },
-				-- go = { "gofmt" },
-				-- java = { "google-java-format" },
-				-- rust = { "rustfmt" },
-				-- c = { "clang-format" },
 			},
 
 			format_on_save = {

@@ -39,6 +39,28 @@ return {
 		end,
 	},
 	{
+		"sainnhe/everforest",
+		name = "everforest",
+		priority = 1000,
+		config = function()
+			vim.g.everforest_background = "hard" -- 'soft', 'medium', 'hard'
+			vim.g.everforest_enable_italic = 0
+			vim.g.everforest_enable_bold = 1
+			vim.g.everforest_transparent_background = 2 -- 1: bg transparente, 2: total transparency
+
+			vim.cmd("colorscheme everforest")
+
+			-- Custom highlight overrides (opcional, igual que tu rose-pine)
+			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+			vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#3b444d" }) -- columna guía
+			vim.api.nvim_set_hl(0, "Pmenu", { bg = "NONE", fg = "#d3c6aa" })
+			vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#5c6a72", fg = "#fdf6e3" })
+			vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#374145" })
+			vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#a7c080" })
+		end,
+	},
+
+	{
 		"scottmckendry/cyberdream.nvim",
 		name = "cyberdream",
 		lazy = false, -- o true si prefieres cargarlo bajo demanda

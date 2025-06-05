@@ -46,6 +46,6 @@ margin_width 0
 window_margin_width 0
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Latte
+# Nightfox
 include current-theme.conf
 # END_KITTY_THEME

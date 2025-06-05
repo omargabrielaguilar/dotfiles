@@ -13,10 +13,7 @@ return {
 			typescriptreact = { "eslint_d" },
 			svelte = { "eslint_d" },
 			vue = { "eslint_d" },
-			-- python = { "pylint" },
 			php = { "phpstan" },
-            -- go = { "golangci_lint" },
-			-- solidity = { "solhint" },
 		}
 
 		eslint.args = {
@@ -31,27 +28,6 @@ return {
 		}
 		eslint.format = "json"
 		eslint.stream = "stdin"
-
-		-- Python: pylint
-		-- lint.linters.pylint = {
-		-- 	cmd = "pylint",
-		-- 	args = {
-		-- 		"--output-format",
-		-- 		"text",
-		-- 		"--score",
-		-- 		"n",
-		-- 		"--msg-template",
-		-- 		"{path}:{line}:{column}: {msg} ({msg_id})",
-		-- 		function()
-		-- 			return vim.fn.expand("%:p")
-		-- 		end,
-		-- 	},
-		-- 	stdin = false,
-		-- 	parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
-		-- 		source = "pylint",
-		-- 		severity = vim.diagnostic.severity.WARN,
-		-- 	}),
-		-- }
 
 		-- PHP: phpstan
 		lint.linters.phpstan = {
@@ -73,18 +49,6 @@ return {
 				severity = vim.diagnostic.severity.WARN,
 			}),
 		}
-
-		-- Go: golangci-lint
-		-- lint.linters.golangci_lint = {
-		-- 	cmd = "golangci-lint",
-		-- 	args = { "run", "--out-format", "tab" },
-		-- 	stdin = false,
-		-- 	ignore_exitcode = true,
-		-- 	parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
-		-- 		source = "golangci-lint",
-		-- 		severity = vim.diagnostic.severity.WARN,
-		-- 	}),
-		-- }
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 			group = lint_augroup,
