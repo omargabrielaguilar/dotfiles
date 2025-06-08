@@ -30,6 +30,16 @@ return {
 					frecency = true,
 					cwd_bonus = false,
 				},
+				sources = {
+					explorer = {
+						severity = {
+							icons = true, -- show severity icons
+							level = false, -- show severity level
+							---@type "left"|"right"
+							pos = "right", -- position of the diagnostics
+						},
+					},
+				},
 				formatters = {
 					file = {
 						filename_first = false,
