@@ -34,14 +34,10 @@ return {
 				"html", -- HTML LSP
 				"cssls", -- CSS LSP
 				"tailwindcss", -- Tailwind CSS LSP
-				-- "gopls", -- Go LSP
 				"emmet_ls", -- Emmet for HTML/CSS
 				"dockerls",
 				"intelephense", -- PHP LSP (alternative to intelephense)
-				-- "marksman", -- Markdown LSP
-				-- "clangd", -- C/C++/Rust LSP
-				-- "rust_analyzer", -- Rust LSP
-				-- "pyright", -- Python LSP
+				"marksman", -- Markdown LSP
 			},
 		})
 
@@ -49,16 +45,11 @@ return {
 			ensure_installed = {
 				"prettier", -- prettier formatter for JavaScript/HTML
 				"stylua", -- lua formatter
-				-- "isort", -- python formatter
-				-- "pylint", -- Python linter
-				-- "clangd", -- C/C++/Rust toolchain
 				"denols", -- Deno LSP (for Deno/TypeScript)
 				"eslint_d", -- ESLint daemon
 				"phpcs", -- PHP CodeSniffer
 				"php-cs-fixer", -- PHP-CS-Fixer
 				"phpstan", -- PHP static analysis
-				-- "golangci-lint",
-				-- "debugpy",
 				"php-debug-adapter",
 			},
 		})

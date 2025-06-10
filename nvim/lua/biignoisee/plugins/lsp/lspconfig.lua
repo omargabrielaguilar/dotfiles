@@ -107,6 +107,36 @@ return {
 			},
 		})
 
+		--elixir
+		lspconfig.elixirls.setup({
+			cmd = {
+				-- Ruta donde Mason instaló el elixir-ls
+				vim.fn.stdpath("data") .. "/mason/packages/elixir-ls/language_server.sh",
+			},
+			capabilities = capabilities,
+			filetypes = { "elixir", "eelixir" },
+			root_dir = function(fname)
+				-- Busca mix.exs para detectar raíz del proyecto Elixir
+				return lspconfig.util.root_pattern("mix.exs")(fname)
+					or lspconfig.util.find_git_ancestor(fname)
+					or vim.fn.getcwd()
+			end,
+			settings = {
+				elixirLS = {
+					dialyzerEnabled = false, -- Puedes activar si quieres dialyzer
+					fetchDeps = false,
+					suggestSpecs = true,
+				},
+			},
+			handlers = {
+				["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+					virtual_text = true,
+					signs = true,
+					update_in_insert = false,
+				}),
+			},
+		})
+
 		-- intelephense (php)
 		lspconfig.intelephense.setup({
 			capabilities = capabilities,
