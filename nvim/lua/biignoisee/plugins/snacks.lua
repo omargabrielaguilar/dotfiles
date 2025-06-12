@@ -181,6 +181,13 @@ return {
 				desc = "Lazygit Logs",
 			},
 			{
+				"<leader>ñ",
+				function()
+					require("snacks").terminal()
+				end,
+				"Toggle terminal",
+			},
+			{
 				"<leader>rN",
 				function()
 					require("snacks").rename.rename_file()

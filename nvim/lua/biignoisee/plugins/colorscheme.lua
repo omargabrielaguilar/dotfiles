@@ -39,6 +39,40 @@ return {
 		end,
 	},
 	{
+		"Shatur/neovim-ayu",
+		name = "ayu",
+		config = function()
+			require("ayu").setup({
+				mirage = false, -- false = dark, true = light-ish mirage
+				overrides = {
+					Normal = { bg = "none" },
+					ColorColumn = { bg = "#1C1C21" },
+					Pmenu = { bg = "#0F1419", fg = "#e0def4" },
+					PmenuSel = { bg = "#4a465d", fg = "#f8f5f2" },
+					PmenuSbar = { bg = "#0F1419" },
+					PmenuThumb = { bg = "#E6B450" },
+				},
+			})
+
+			-- set colorscheme
+			vim.cmd("colorscheme ayu-dark")
+		end,
+	},
+	{
+		"oxfist/night-owl.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("night-owl").setup({
+				bold = true,
+				italics = true,
+				underline = true,
+				undercurl = true,
+				transparent_background = true,
+			})
+		end,
+	},
+	{
 		"sainnhe/everforest",
 		name = "everforest",
 		priority = 1000,

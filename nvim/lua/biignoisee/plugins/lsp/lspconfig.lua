@@ -156,7 +156,7 @@ return {
 					or vim.fn.getcwd()
 			end,
 			init_options = {
-				licenceKey = "00D0IEADQVBNA0K",
+				licenceKey = "",
 				globalStoragePath = vim.fn.expand("~/.intelephense"),
 			},
 			handlers = {
