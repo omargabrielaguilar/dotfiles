@@ -24,13 +24,15 @@ return {
 					end,
 				},
 				["php-cs-fixer"] = {
-					command = "php-cs-fixer",
+					command = "env",
 					args = {
+						"PHP_CS_FIXER_IGNORE_ENV=1",
+						"php-cs-fixer",
 						"fix",
 						"$FILENAME",
 						"--rules=@PSR12",
 						"--using-cache=no",
-						"--allow-risky=yes", -- opcional
+						"--allow-risky=yes",
 					},
 					stdin = false,
 				},

@@ -156,7 +156,7 @@ return {
 					or vim.fn.getcwd()
 			end,
 			init_options = {
-				licenceKey = "",
+				licenceKey = "00D0IEADQVBNA0K",
 				globalStoragePath = vim.fn.expand("~/.intelephense"),
 			},
 			handlers = {
@@ -169,7 +169,7 @@ return {
 			settings = {
 				intelephense = {
 					environment = {
-						phpVersion = "8.3", -- Ajusta a tu versión
+						phpVersion = "8.4", -- Ajusta a tu versión
 						includePaths = { "./vendor" },
 					},
 					diagnostics = {
