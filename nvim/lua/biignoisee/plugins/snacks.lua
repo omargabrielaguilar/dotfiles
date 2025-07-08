@@ -155,7 +155,7 @@ return {
 					{ section = "startup" },
 					{
 						section = "terminal",
-						cmd = "ascii-image-converter /home/omar/Desktop/Others/profiles.JPG -C -c --width=100",
+						cmd = "ascii-image-converter /home/biignoisee/Documentos/wallpaper/dot1.png -C -c --width=100",
 						pane = 2,
 						indent = 2,
 						height = 30,
