@@ -74,6 +74,17 @@ return {
 				},
 			}
 
+			local dap = require("dap")
+
+			dap.adapters.java = function(callback, config)
+				-- Adaptador de Microsoft Java Debug (funciona como un servidor)
+				callback({
+					type = "server",
+					host = "127.0.0.1",
+					port = config.port or 5005, -- Puerto para el debug
+				})
+			end
+
 			-- Auto abrir/cerrar UI
 			dap.listeners.after.event_initialized["dapui_config"] = function()
 				dapui.open()

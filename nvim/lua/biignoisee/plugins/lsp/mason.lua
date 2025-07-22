@@ -38,6 +38,7 @@ return {
 				"dockerls",
 				"intelephense", -- PHP LSP (alternative to intelephense)
 				"marksman", -- Markdown LSP
+				"jdtls",
 			},
 		})
 
