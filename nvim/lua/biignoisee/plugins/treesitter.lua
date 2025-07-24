@@ -4,18 +4,13 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
 		config = function()
-			-- import nvim-treesitter plugin
 			local treesitter = require("nvim-treesitter.configs")
 
-			-- configure treesitter
-			treesitter.setup({ -- enable syntax highlighting
+			treesitter.setup({
 				highlight = {
 					enable = true,
 				},
-				-- enable indentation
 				indent = { enable = true },
-
-				-- ensure these languages parsers are installed
 				ensure_installed = {
 					"json",
 					"javascript",
@@ -30,15 +25,17 @@ return {
 					"markdown_inline",
 					"graphql",
 					"bash",
-					"blade", -- para Blade templates de Laravel
-					"toml", -- por si usas tools modernas (como Deno, cargo, etc.)
-					"phpdoc", -- para documentación PHP
+					"blade",
+					"toml",
+					"phpdoc",
 					"lua",
 					"dockerfile",
 					"gitignore",
 					"query",
 					"vimdoc",
 					"elixir",
+					"java", -- ⬅️ AÑADIDO
+					"xml", -- opcional si usas XML en Java EE
 				},
 				incremental_selection = {
 					enable = true,
@@ -52,19 +49,20 @@ return {
 			})
 		end,
 	},
-	-- NOTE: js,ts,jsx,tsx Auto Close Tags
+
+	-- Autotag para HTML/XML/PHP/etc
 	{
 		"windwp/nvim-ts-autotag",
 		ft = {
 			"html",
-			"xml",
+			"xml", -- ⬅️ Ya soportado por autotag
 			"javascript",
 			"typescript",
 			"javascriptreact",
 			"typescriptreact",
 			"elixir",
-			"php", -- para Laravel / Blade
-			"blade", -- Blade syntax
+			"php",
+			"blade",
 		},
 		config = function()
 			require("nvim-ts-autotag").setup({
@@ -87,7 +85,10 @@ return {
 						enable_close = true,
 					},
 					["elixir"] = {
-						enable_close = false, -- set false si ves problemas
+						enable_close = false,
+					},
+					["xml"] = {
+						enable_close = true, -- ⬅️ Para archivos XML en Java
 					},
 				},
 			})

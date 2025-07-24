@@ -14,6 +14,7 @@ return {
 			svelte = { "eslint_d" },
 			vue = { "eslint_d" },
 			php = { "phpstan" },
+			java = { "checkstyle" },
 		}
 
 		eslint.args = {
@@ -50,6 +51,25 @@ return {
 			}),
 		}
 
+		lint.linters.checkstyle = {
+			cmd = "checkstyle", -- asegúrate que esté en tu $PATH
+			args = {
+				"-f",
+				"plain", -- formato simple que se puede parsear
+				"-c",
+				vim.fn.expand("~/.config/checkstyle/google_checks.xml"),
+				function()
+					return vim.fn.expand("%:p")
+				end,
+			},
+			stdin = false,
+			ignore_exitcode = true,
+			parser = require("lint.parser").from_errorformat("%f:%l: %m", {
+				source = "checkstyle",
+				severity = vim.diagnostic.severity.WARN,
+			}),
+		}
+
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 			group = lint_augroup,
 			callback = function()
@@ -73,10 +93,11 @@ return {
 				or ft == "svelte"
 			then
 				cmd = "eslint_d " .. file
+			elseif ft == "java" then
+				cmd = "checkstyle -f plain -c ~/.config/checkstyle/google_checks.xml " .. file
 			end
 
 			if cmd then
-				-- Abre un terminal abajo sin perder el buffer actual
 				vim.cmd("botright split")
 				vim.cmd("resize 10")
 				vim.cmd("terminal " .. cmd)
