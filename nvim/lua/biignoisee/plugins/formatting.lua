@@ -46,9 +46,6 @@ return {
 			formatters_by_ft = {
 				javascript = { "prettier" },
 				typescript = { "prettier" },
-				javascriptreact = { "prettier" },
-				typescriptreact = { "prettier" },
-				svelte = { "prettier" },
 				css = { "prettier" },
 				html = { "prettier" },
 				json = { "prettier" },
@@ -59,6 +56,7 @@ return {
 				["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
 				php = { "php-cs-fixer" },
 				blade = { "blade-formatter" },
+				java = { "lsp" }, -- 🟩 <-- esto es todo lo que necesitas
 			},
 
 			format_on_save = {

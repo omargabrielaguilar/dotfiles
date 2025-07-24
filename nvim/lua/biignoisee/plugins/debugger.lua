@@ -33,27 +33,6 @@ return {
 				},
 			})
 
-			-- Adapter para Python
-			dap.adapters.python = {
-				type = "executable",
-				command = os.getenv("VIRTUAL_ENV") and os.getenv("VIRTUAL_ENV") .. "/bin/python" or "python3",
-				args = { "-m", "debugpy.adapter" },
-			}
-
-			dap.configurations.python = {
-				{
-					type = "python",
-					request = "launch",
-					name = "Launch file",
-					program = "${file}",
-					justMyCode = false,
-					console = "integratedTerminal",
-					pythonPath = function()
-						return os.getenv("VIRTUAL_ENV") and os.getenv("VIRTUAL_ENV") .. "/bin/python" or "python3"
-					end,
-				},
-			}
-
 			-- Adapter para PHP
 			dap.adapters.php = {
 				type = "executable",
@@ -74,16 +53,15 @@ return {
 				},
 			}
 
-			local dap = require("dap")
-
-			dap.adapters.java = function(callback, config)
-				-- Adaptador de Microsoft Java Debug (funciona como un servidor)
-				callback({
-					type = "server",
-					host = "127.0.0.1",
-					port = config.port or 5005, -- Puerto para el debug
-				})
-			end
+			dap.configurations.java = {
+				{
+					type = "java",
+					request = "attach", -- ¡IMPORTANTE! "attach" para conectar al proceso ya lanzado
+					name = "Attach to Java Process",
+					hostName = "127.0.0.1",
+					port = 5005,
+				},
+			}
 
 			-- Auto abrir/cerrar UI
 			dap.listeners.after.event_initialized["dapui_config"] = function()
