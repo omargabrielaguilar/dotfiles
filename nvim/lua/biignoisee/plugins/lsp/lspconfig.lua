@@ -3,7 +3,6 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
-		-- "saghen/blink.cmp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 	},
 	config = function()
@@ -104,70 +103,6 @@ return {
 						},
 					},
 				},
-			},
-		})
-
-		lspconfig.jdtls.setup({
-			cmd = {
-				"jdtls",
-				"-data",
-				vim.fn.expand("~/.local/share/eclipse/") .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t"),
-			},
-
-			capabilities = capabilities,
-
-			filetypes = { "java" },
-
-			root_dir = function(fname)
-				return lspconfig.util.root_pattern("pom.xml", "build.gradle", ".git")(fname)
-					or lspconfig.util.find_git_ancestor(fname)
-					or vim.fn.getcwd()
-			end,
-
-			settings = {
-				java = {
-					format = {
-						enabled = true,
-						settings = {
-							profile = "GoogleStyle",
-							url = vim.fn.expand("~/.config/nvim/java-google-style.xml"), -- opcional
-						},
-					},
-					completion = {
-						favoriteStaticMembers = {
-							"org.assertj.core.api.Assertions.*",
-							"org.junit.Assert.*",
-							"java.util.Objects.requireNonNull",
-							"java.util.stream.Collectors.*",
-						},
-					},
-					contentProvider = { preferred = "fernflower" },
-					sources = {
-						organizeImports = {
-							starThreshold = 9999,
-							staticStarThreshold = 9999,
-						},
-					},
-					codeGeneration = {
-						toString = {
-							template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-						},
-						useBlocks = true,
-					},
-					signatureHelp = { enabled = true },
-				},
-			},
-
-			handlers = {
-				["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-					virtual_text = true,
-					signs = true,
-					update_in_insert = false,
-				}),
-			},
-
-			init_options = {
-				bundles = {}, -- si luego metes nvim-dap-java
 			},
 		})
 
@@ -321,12 +256,6 @@ return {
 			filetypes = { "dockerfile" },
 			root_dir = lspconfig.util.root_pattern("Dockerfile"),
 			single_file_support = true,
-		})
-
-		-- denols
-		lspconfig.denols.setup({
-			capabilities = capabilities,
-			root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 		})
 
 		-- ts_ls (replaces tsserver)

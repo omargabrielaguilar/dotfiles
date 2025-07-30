@@ -48,8 +48,6 @@ return {
 					},
 				},
 				layout = {
-					-- presets options : "default" , "ivy" , "ivy-split" , "telescope" , "vscode", "select" , "sidebar"
-					-- override picker layout in keymaps function as a param below
 					preset = "telescope", -- defaults to this layout unless overidden
 					cycle = false,
 				},
@@ -181,7 +179,7 @@ return {
 				desc = "Lazygit Logs",
 			},
 			{
-				"<leader>ñ",
+				"<leader>t",
 				function()
 					require("snacks").terminal()
 				end,
@@ -200,13 +198,6 @@ return {
 					require("snacks").bufdelete()
 				end,
 				desc = "Delete or Close Buffer  (Confirm)",
-			},
-			{
-				"<leader>es",
-				function()
-					require("snacks").explorer()
-				end,
-				desc = "Open Snacks Explorer",
 			},
 
 			-- Snacks Picker

@@ -1,5 +1,5 @@
 # 🖋️ Fuente
-font_family      VictorMono Nerd Font
+font_family      Mononoki Nerd Font
 bold_font        auto
 italic_font      auto
 font_size        12.5
@@ -48,6 +48,6 @@ window_margin_width 0
 
 
 # BEGIN_KITTY_THEME
-# Adapta Nokto Maia
+# Gruvbox Material Dark Hard
 include current-theme.conf
 # END_KITTY_THEME
