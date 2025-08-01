@@ -6,39 +6,40 @@ return {
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
 		local colors = {
-			bg = "#282828",
-			fg = "#ebdbb2",
-			yellow = "#fabd2f",
-			green = "#b8bb26",
-			blue = "#83a598",
-			red = "#fb4934",
-			gray = "#928374",
+			bg = "#181616",
+			fg = "#c5c9c5",
+			yellow = "#c4b28a",
+			green = "#8a9a7b",
+			blue = "#8ba4b0",
+			red = "#c4746e",
+			gray = "#727169",
 		}
+
 		local my_lualine_theme = {
 			normal = {
-				a = { fg = colors.bg, bg = colors.yellow, gui = "bold" },
-				b = { fg = colors.fg, bg = "#3c3836" },
-				c = { fg = colors.fg, bg = "#3c3836" },
+				a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
+				b = { fg = colors.fg, bg = "#1f1f1f" },
+				c = { fg = colors.fg, bg = "#1f1f1f" },
 			},
 			insert = {
 				a = { fg = colors.bg, bg = colors.green, gui = "bold" },
-				b = { fg = colors.fg, bg = "#3c3836" },
-				c = { fg = colors.fg, bg = "#3c3836" },
+				b = { fg = colors.fg, bg = "#1f1f1f" },
+				c = { fg = colors.fg, bg = "#1f1f1f" },
 			},
 			visual = {
-				a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
-				b = { fg = colors.fg, bg = "#3c3836" },
-				c = { fg = colors.fg, bg = "#3c3836" },
+				a = { fg = colors.bg, bg = colors.magenta, gui = "bold" },
+				b = { fg = colors.fg, bg = "#1f1f1f" },
+				c = { fg = colors.fg, bg = "#1f1f1f" },
 			},
 			replace = {
 				a = { fg = colors.bg, bg = colors.red, gui = "bold" },
-				b = { fg = colors.fg, bg = "#3c3836" },
-				c = { fg = colors.fg, bg = "#3c3836" },
+				b = { fg = colors.fg, bg = "#1f1f1f" },
+				c = { fg = colors.fg, bg = "#1f1f1f" },
 			},
 			inactive = {
-				a = { fg = colors.gray, bg = "#3c3836", gui = "bold" },
-				b = { fg = colors.gray, bg = "#3c3836" },
-				c = { fg = colors.gray, bg = "#3c3836" },
+				a = { fg = colors.gray, bg = "#1f1f1f", gui = "bold" },
+				b = { fg = colors.gray, bg = "#1f1f1f" },
+				c = { fg = colors.gray, bg = "#1f1f1f" },
 			},
 		}
 
