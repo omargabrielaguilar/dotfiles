@@ -48,6 +48,6 @@ window_margin_width 0
 
 
 # BEGIN_KITTY_THEME
-# Gruvbox Material Dark Hard
+# VSCode_Dark
 include current-theme.conf
 # END_KITTY_THEME

@@ -1,4 +1,46 @@
 return {
+	-- NOTE Catppuccin
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		config = function()
+			require("catppuccin").setup({
+				flavour = "mocha", -- latte, frappe, macchiato, mocha
+				transparent_background = true,
+				styles = {
+					comments = { "italic" },
+					conditionals = {},
+					loops = {},
+					functions = {},
+					keywords = {},
+					strings = {},
+					variables = {},
+					numbers = {},
+					booleans = {},
+					properties = {},
+					types = {},
+				},
+				integrations = {
+					cmp = true,
+					gitsigns = true,
+					nvimtree = true,
+					treesitter = true,
+					telescope = { enabled = true },
+				},
+			})
+		end,
+	},
+
+	--NOTE Everforest
+	{
+		"sainnhe/everforest",
+		config = function()
+			vim.g.everforest_background = "hard" -- 'hard', 'medium', 'soft'
+			vim.g.everforest_enable_italic = 0
+			vim.g.everforest_transparent_background = 1
+			vim.cmd("colorscheme everforest")
+		end,
+	},
 	-- NOTE: Rose pine
 	{
 		"rose-pine/neovim",
