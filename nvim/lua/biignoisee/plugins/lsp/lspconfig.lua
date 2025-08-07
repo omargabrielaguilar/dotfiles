@@ -12,7 +12,6 @@ return {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
 				local opts = { buffer = ev.buf, silent = true }
-
 				-- LSP keymaps con prefijo "l" por "lsp"
 				opts.desc = "Show LSP references"
 				vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", opts)
@@ -174,40 +173,11 @@ return {
 			},
 		})
 
-		-- emmet_language_server
-		lspconfig.emmet_ls.setup({
-			cmd = { "emmet-ls", "--stdio" },
+		-- jdtls (Java)
+		lspconfig.jdtls.setup({
+			cmd = { "jdtls" },
 			capabilities = capabilities,
-			filetypes = {
-				"html",
-				"css",
-				"typescriptreact",
-				"javascriptreact",
-				"svelte",
-				"less",
-				"sass",
-				"scss",
-			},
-			root_dir = function()
-				return vim.loop.cwd()
-			end,
-		})
-
-		-- ts_ls (replaces tsserver)
-		lspconfig.ts_ls.setup({
-			capabilities = capabilities,
-			root_dir = function(fname)
-				local util = lspconfig.util
-				return not util.root_pattern("deno.json", "deno.jsonc")(fname)
-					and util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")(fname)
-			end,
-			single_file_support = false,
-			init_options = {
-				preferences = {
-					includeCompletionsWithSnippetText = true,
-					includeCompletionsForImportStatements = true,
-				},
-			},
+			root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
 		})
 	end,
 }

@@ -5,7 +5,6 @@ ZSH_THEME="robbyrussell"
 plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
-    zsh-history-substring-search
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -32,3 +31,4 @@ alias lm='exa --icons -m'
 alias lr='exa --icons -R'
 alias lg='exa --icons -l --group-directories-first'
 
+stty -ixon

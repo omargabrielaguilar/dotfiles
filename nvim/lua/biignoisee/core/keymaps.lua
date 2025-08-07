@@ -86,6 +86,8 @@ vim.keymap.set("n", "<leader>fp", function()
 end, { desc = "Copy file path to clipboard" })
 
 vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Seleccionar todo el archivo" })
+vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file", silent = true })
+vim.keymap.set("i", "<C-s>", "<Esc><cmd>w<CR>a", { desc = "Save file", silent = true })
 
 -- Toggle LSP diagnostics visibility
 local isLspDiagnosticsVisible = true

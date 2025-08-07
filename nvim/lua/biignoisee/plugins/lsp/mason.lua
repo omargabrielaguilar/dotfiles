@@ -30,24 +30,13 @@ return {
 			-- servers for mason to install
 			ensure_installed = {
 				"lua_ls", -- Lua LSP
-				"ts_ls", -- TypeScript/JavaScript LSP
-				"html", -- HTML LSP
-				"cssls", -- CSS LSP
-				"tailwindcss", -- Tailwind CSS LSP
-				"emmet_ls", -- Emmet for HTML/CSS
 				"dockerls",
 				"intelephense", -- PHP LSP (alternative to intelephense)
-				"marksman", -- Markdown LSP
 			},
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"prettier", -- prettier formatter for JavaScript/HTML
-				"stylua", -- lua formatter
-				"denols", -- Deno LSP (for Deno/TypeScript)
-				"eslint_d", -- ESLint daemon
-				"phpcs", -- PHP CodeSniffer
 				"php-cs-fixer", -- PHP-CS-Fixer
 				"phpstan", -- PHP static analysis
 				"php-debug-adapter",

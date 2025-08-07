@@ -19,6 +19,9 @@ return {
 			input = {
 				enabled = true,
 			},
+			explorer = {
+				enabled = true,
+			},
 			quickfile = {
 				enabled = true,
 				exclude = { "latex" },
@@ -37,6 +40,11 @@ return {
 							level = false, -- show severity level
 							---@type "left"|"right"
 							pos = "right", -- position of the diagnostics
+						},
+						layout = {
+							layout = {
+								position = "right",
+							},
 						},
 					},
 				},
@@ -238,7 +246,13 @@ return {
 				end,
 				desc = "Pick and Switch Git Branches",
 			},
-
+			{
+				"<leader>es",
+				function()
+					require("snacks").picker.explorer()
+				end,
+				desc = "Pick Color Schemes",
+			},
 			-- Other Utils
 			{
 				"<leader>th",
