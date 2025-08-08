@@ -6,7 +6,14 @@ return {
 		lazy = false,
 		-- NOTE: Options
 		opts = {
-			-- Styling for each Item of Snacks
+			indent = {
+				priority = 1,
+				enabled = true, -- enable indent guides
+				char = "│",
+				only_scope = false, -- only show indent guides of the scope
+				only_current = false, -- only show indent guides in the current window
+				hl = "SnacksIndent",
+			},
 			styles = {
 				input = {
 					keys = {
@@ -25,6 +32,42 @@ return {
 			quickfile = {
 				enabled = true,
 				exclude = { "latex" },
+			},
+			terminal = {
+				bo = {
+					filetype = "snacks_terminal",
+				},
+				wo = {},
+				keys = {
+					q = "hide",
+					gf = function(self)
+						local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
+						if f == "" then
+							Snacks.notify.warn("No file under cursor")
+						else
+							self:hide()
+							vim.schedule(function()
+								vim.cmd("e " .. f)
+							end)
+						end
+					end,
+					term_normal = {
+						"<esc>",
+						function(self)
+							self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+							if self.esc_timer:is_active() then
+								self.esc_timer:stop()
+								vim.cmd("stopinsert")
+							else
+								self.esc_timer:start(200, 0, function() end)
+								return "<esc>"
+							end
+						end,
+						mode = "t",
+						expr = true,
+						desc = "Double escape to normal mode",
+					},
+				},
 			},
 			-- HACK: read picker docs @ https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
 			picker = {
