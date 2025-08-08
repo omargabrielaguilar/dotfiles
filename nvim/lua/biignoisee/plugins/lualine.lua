@@ -6,40 +6,41 @@ return {
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
 		local colors = {
-			bg = "#181616",
-			fg = "#c5c9c5",
-			yellow = "#c4b28a",
-			green = "#8a9a7b",
-			blue = "#8ba4b0",
-			red = "#c4746e",
-			gray = "#727169",
+			bg = "#2b3339", -- fondo oscuro principal
+			fg = "#d3c6aa", -- texto principal
+			yellow = "#dbbc7f", -- amarillo cálido
+			green = "#a7c080", -- verde suave bosque
+			blue = "#7fbbb3", -- azul verdoso
+			red = "#e67e80", -- rojo coral
+			gray = "#868d80", -- gris medio
+			magenta = "#d699b6", -- rosa/magenta suave
 		}
 
 		local my_lualine_theme = {
 			normal = {
 				a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
-				b = { fg = colors.fg, bg = "#1f1f1f" },
-				c = { fg = colors.fg, bg = "#1f1f1f" },
+				b = { fg = colors.fg, bg = "#3a454a" },
+				c = { fg = colors.fg, bg = "#3a454a" },
 			},
 			insert = {
 				a = { fg = colors.bg, bg = colors.green, gui = "bold" },
-				b = { fg = colors.fg, bg = "#1f1f1f" },
-				c = { fg = colors.fg, bg = "#1f1f1f" },
+				b = { fg = colors.fg, bg = "#3a454a" },
+				c = { fg = colors.fg, bg = "#3a454a" },
 			},
 			visual = {
 				a = { fg = colors.bg, bg = colors.magenta, gui = "bold" },
-				b = { fg = colors.fg, bg = "#1f1f1f" },
-				c = { fg = colors.fg, bg = "#1f1f1f" },
+				b = { fg = colors.fg, bg = "#3a454a" },
+				c = { fg = colors.fg, bg = "#3a454a" },
 			},
 			replace = {
 				a = { fg = colors.bg, bg = colors.red, gui = "bold" },
-				b = { fg = colors.fg, bg = "#1f1f1f" },
-				c = { fg = colors.fg, bg = "#1f1f1f" },
+				b = { fg = colors.fg, bg = "#3a454a" },
+				c = { fg = colors.fg, bg = "#3a454a" },
 			},
 			inactive = {
-				a = { fg = colors.gray, bg = "#1f1f1f", gui = "bold" },
-				b = { fg = colors.gray, bg = "#1f1f1f" },
-				c = { fg = colors.gray, bg = "#1f1f1f" },
+				a = { fg = colors.gray, bg = "#3a454a", gui = "bold" },
+				b = { fg = colors.gray, bg = "#3a454a" },
+				c = { fg = colors.gray, bg = "#3a454a" },
 			},
 		}
 

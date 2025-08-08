@@ -51,10 +51,6 @@ return {
 				variant = "main", -- auto, main, moon, or dawn
 				dark_variant = "main", -- main, moon, or dawn
 				dim_inactive_windows = false,
-				-- disable_background = true,
-				-- 	disable_nc_background = false,
-				-- 	disable_float_background = false,
-				-- extend_background_behind_borders = false,
 				styles = {
 					bold = true,
 					italic = false,
@@ -83,7 +79,6 @@ return {
 	-- NOTE: gruvbox
 	{
 		"ellisonleao/gruvbox.nvim",
-		-- priority = 1000 ,
 		config = function()
 			require("gruvbox").setup({
 				terminal_colors = true, -- add neovim terminal colors
@@ -152,13 +147,7 @@ return {
 						PmenuSbar = { bg = theme.ui.bg_m1 },
 						PmenuThumb = { bg = theme.ui.bg_p2 },
 
-						-- Save an hlgroup with dark background and dimmed foreground
-						-- so that you can use it where your still want darker windows.
-						-- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
 						NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
-
-						-- Popular plugins that open floats will link to NormalFloat by default;
-						-- set their background accordingly if you wish to keep them dark and borderless
 						LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
 						MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
 						TelescopeTitle = { fg = theme.ui.special, bold = true },
