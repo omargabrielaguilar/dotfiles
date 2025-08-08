@@ -25,7 +25,7 @@ vim.opt.background = "dark"
 vim.opt.scrolloff = 8
 vim.optsigncolumn = "yes"
 
-vim.opt.backspace = {"start", "eol", "indent" }
+vim.opt.backspace = { "start", "eol", "indent" }
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.isfname:append("@-@")
@@ -36,3 +36,10 @@ vim.opt.hlsearch = true
 vim.opt.mouse = "a"
 vim.g.editorconfig = true
 
+vim.opt.guicursor = {
+	"n-v-c:block-Cursor/lCursor-blinkwait700-blinkon400-blinkoff250",
+	"i-ci:ver25-Cursor/lCursor-blinkwait700-blinkon400-blinkoff250",
+	"r-cr:hor20-Cursor/lCursor",
+}
+
+vim.opt.scrolloff = 999 -- siempre centra el cursor
