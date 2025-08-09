@@ -14,22 +14,29 @@ return {
 		local mason_tool_installer = require("mason-tool-installer")
 
 		mason.setup({
-			ui = { icons = { package_installed = "✓", package_pending = "➜", package_uninstalled = "✗" } },
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
+				},
+			},
 		})
 
 		mason_lspconfig.setup({
 			ensure_installed = {
 				"lua_ls",
 				"dockerls",
-				"intelephense",
+				"phpactor", -- reemplaza intelephense
 			},
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
+				-- Opcionales pero recomendados:
 				"php-cs-fixer",
 				"phpstan",
-				"php-debug-adapter",
+				"php-debug-adapter", -- solo si vas a debuggear
 			},
 		})
 	end,
