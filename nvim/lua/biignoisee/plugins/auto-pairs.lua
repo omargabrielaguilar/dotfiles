@@ -13,10 +13,7 @@ return {
 			ts_config = {
 				lua = { "string" }, -- dont add pairs in lua string treesitter nodes
 				javascript = { "template_string" }, -- dont add pairs in javascript template_string treesitter nodes
-				java = { "string", "comment" },
-				go = { "string", "comment" }, -- dont add pairs in go strings and comments
 				php = { "string", "heredoc" }, -- dont add pairs in php strings and heredocs
-				python = { "string", "docstring" }, -- dont add pairs in python strings and docstrings
 			},
 		})
 		-- import nvim-autopairs completion functionality

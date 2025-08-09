@@ -14,7 +14,6 @@ return {
 			svelte = { "eslint_d" },
 			vue = { "eslint_d" },
 			php = { "phpstan" },
-			java = { "checkstyle" },
 		}
 
 		eslint.args = {
@@ -93,8 +92,6 @@ return {
 				or ft == "svelte"
 			then
 				cmd = "eslint_d " .. file
-			elseif ft == "java" then
-				cmd = "checkstyle -f plain -c ~/.config/checkstyle/google_checks.xml " .. file
 			end
 
 			if cmd then

@@ -48,7 +48,6 @@ return {
 				yaml = { "prettier" },
 				lua = { "stylua" },
 				php = { "php-cs-fixer" },
-				java = { "google-java-format" }, -- 🟩 <-- esto es todo lo que necesitas
 			},
 
 			format_on_save = {

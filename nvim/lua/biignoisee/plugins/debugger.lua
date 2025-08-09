@@ -52,17 +52,6 @@ return {
 					localSourceRoot = "${workspaceFolder}",
 				},
 			}
-
-			dap.configurations.java = {
-				{
-					type = "java",
-					request = "attach", -- ¡IMPORTANTE! "attach" para conectar al proceso ya lanzado
-					name = "Attach to Java Process",
-					hostName = "127.0.0.1",
-					port = 5005,
-				},
-			}
-
 			-- Auto abrir/cerrar UI
 			dap.listeners.after.event_initialized["dapui_config"] = function()
 				dapui.open()

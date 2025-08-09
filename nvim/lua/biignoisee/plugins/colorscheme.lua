@@ -222,4 +222,43 @@ return {
 			})
 		end,
 	},
+	{
+		"navarasu/onedark.nvim",
+		priority = 1000,
+		config = function()
+			require("onedark").setup({
+				style = "warm", -- opciones: dark, darker, cool, deep, warm, warmer, light
+				transparent = true, -- activa fondo transparente
+				term_colors = true, -- aplica en la terminal integrada
+				code_style = {
+					comments = "italic",
+					keywords = "none",
+					functions = "none",
+					strings = "none",
+					variables = "none",
+				},
+				lualine = { transparent = true }, -- barra de estado transparente
+				diagnostics = {
+					darker = true,
+					undercurl = true,
+					background = false,
+				},
+				colors = {}, -- si quieres sobreescribir la paleta
+				highlights = {
+					NormalFloat = { bg = "none" },
+					FloatBorder = { bg = "none" },
+					Pmenu = { bg = "none" },
+					SignColumn = { bg = "none" },
+					LineNr = { bg = "none" },
+					EndOfBuffer = { bg = "none" },
+					TelescopeNormal = { bg = "none" },
+					TelescopeBorder = { bg = "none" },
+					LazyNormal = { bg = "none" },
+					MasonNormal = { bg = "none" },
+				},
+			})
+
+			require("onedark").load()
+		end,
+	},
 }

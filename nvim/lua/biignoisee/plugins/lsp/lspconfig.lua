@@ -172,12 +172,5 @@ return {
 				},
 			},
 		})
-
-		-- jdtls (Java)
-		lspconfig.jdtls.setup({
-			cmd = { "jdtls" },
-			capabilities = capabilities,
-			root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
-		})
 	end,
 }

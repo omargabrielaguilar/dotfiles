@@ -6,41 +6,48 @@ return {
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
 		local colors = {
-			bg = "#2b3339", -- fondo oscuro principal
-			fg = "#d3c6aa", -- texto principal
-			yellow = "#dbbc7f", -- amarillo cálido
-			green = "#a7c080", -- verde suave bosque
-			blue = "#7fbbb3", -- azul verdoso
-			red = "#e67e80", -- rojo coral
-			gray = "#868d80", -- gris medio
-			magenta = "#d699b6", -- rosa/magenta suave
+			bg = "#1e222a", -- fondo principal
+			fg = "#abb2bf", -- texto normal
+			yellow = "#e5c07b",
+			green = "#98c379",
+			blue = "#61afef",
+			red = "#e06c75",
+			purple = "#c678dd",
+			cyan = "#56b6c2",
+			gray = "#5c6370",
+			alt_bg = "#2c323c", -- paneles laterales
 		}
 
 		local my_lualine_theme = {
 			normal = {
 				a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
-				b = { fg = colors.fg, bg = "#3a454a" },
-				c = { fg = colors.fg, bg = "#3a454a" },
+				b = { fg = colors.fg, bg = colors.alt_bg },
+				c = { fg = colors.fg, bg = colors.alt_bg },
 			},
 			insert = {
 				a = { fg = colors.bg, bg = colors.green, gui = "bold" },
-				b = { fg = colors.fg, bg = "#3a454a" },
-				c = { fg = colors.fg, bg = "#3a454a" },
+				b = { fg = colors.fg, bg = colors.alt_bg },
+				c = { fg = colors.fg, bg = colors.alt_bg },
 			},
 			visual = {
-				a = { fg = colors.bg, bg = colors.magenta, gui = "bold" },
-				b = { fg = colors.fg, bg = "#3a454a" },
-				c = { fg = colors.fg, bg = "#3a454a" },
+				a = { fg = colors.bg, bg = colors.purple, gui = "bold" },
+				b = { fg = colors.fg, bg = colors.alt_bg },
+				c = { fg = colors.fg, bg = colors.alt_bg },
 			},
 			replace = {
 				a = { fg = colors.bg, bg = colors.red, gui = "bold" },
-				b = { fg = colors.fg, bg = "#3a454a" },
-				c = { fg = colors.fg, bg = "#3a454a" },
+				b = { fg = colors.fg, bg = colors.alt_bg },
+				c = { fg = colors.fg, bg = colors.alt_bg },
+			},
+			command = {
+				a = { fg = colors.bg, bg = colors.yellow, gui = "bold" },
+				b = { fg = colors.fg, bg = colors.alt_bg },
+				c = { fg = colors.fg, bg = colors.alt_bg },
 			},
 			inactive = {
-				a = { fg = colors.gray, bg = "#3a454a", gui = "bold" },
-				b = { fg = colors.gray, bg = "#3a454a" },
-				c = { fg = colors.gray, bg = "#3a454a" },
+				a = { fg = colors.gray, bg = colors.alt_bg, gui = "bold" },
+				b = { fg = colors.gray, bg = colors.alt_bg },
+				c = { fg = colors.gray, bg = colors.alt_bg },
 			},
 		}
 

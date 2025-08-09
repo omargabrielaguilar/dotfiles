@@ -22,8 +22,6 @@ return {
 					"lua",
 					"dockerfile",
 					"gitignore",
-					"groovy",
-					"java", -- ⬅️ AÑADIDO
 					"xml", -- opcional si usas XML en Java EE
 				},
 				incremental_selection = {
@@ -45,7 +43,6 @@ return {
 		ft = {
 			"html",
 			"xml", -- ⬅️ Ya soportado por autotag
-			"java",
 			"php",
 			"blade",
 		},
@@ -60,11 +57,8 @@ return {
 					["php"] = {
 						enable_close = true,
 					},
-					["java"] = {
-						enable_close = true,
-					},
 					["xml"] = {
-						enable_close = true, -- ⬅️ Para archivos XML en Java
+						enable_close = true,
 					},
 				},
 			})

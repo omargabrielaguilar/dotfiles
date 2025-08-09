@@ -22,7 +22,6 @@ return {
 				"lua_ls",
 				"dockerls",
 				"intelephense",
-				"jdtls", -- 🟢 Java LSP
 			},
 		})
 
@@ -31,9 +30,6 @@ return {
 				"php-cs-fixer",
 				"phpstan",
 				"php-debug-adapter",
-				"google-java-format",
-				"java-debug-adapter", -- 🟢 Debugger para Java
-				"java-test", -- 🟢 Test Runner para Java
 			},
 		})
 	end,
