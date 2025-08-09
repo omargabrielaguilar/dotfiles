@@ -13,27 +13,16 @@ return {
 				indent = { enable = true },
 				ensure_installed = {
 					"json",
-					"javascript",
-					"typescript",
-					"tsx",
 					"yaml",
-					"html",
-					"css",
 					"php",
 					"http",
-					"markdown",
-					"markdown_inline",
-					"graphql",
 					"bash",
-					"blade",
 					"toml",
 					"phpdoc",
 					"lua",
 					"dockerfile",
 					"gitignore",
-					"query",
-					"vimdoc",
-					"elixir",
+					"groovy",
 					"java", -- ⬅️ AÑADIDO
 					"xml", -- opcional si usas XML en Java EE
 				},
@@ -56,11 +45,7 @@ return {
 		ft = {
 			"html",
 			"xml", -- ⬅️ Ya soportado por autotag
-			"javascript",
-			"typescript",
-			"javascriptreact",
-			"typescriptreact",
-			"elixir",
+			"java",
 			"php",
 			"blade",
 		},
@@ -72,20 +57,11 @@ return {
 					enable_close_on_slash = false,
 				},
 				per_filetype = {
-					["html"] = {
-						enable_close = true,
-					},
-					["typescriptreact"] = {
-						enable_close = true,
-					},
 					["php"] = {
 						enable_close = true,
 					},
-					["blade"] = {
+					["java"] = {
 						enable_close = true,
-					},
-					["elixir"] = {
-						enable_close = false,
 					},
 					["xml"] = {
 						enable_close = true, -- ⬅️ Para archivos XML en Java

@@ -44,19 +44,11 @@ return {
 			},
 
 			formatters_by_ft = {
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				css = { "prettier" },
-				html = { "prettier" },
 				json = { "prettier" },
 				yaml = { "prettier" },
-				graphql = { "prettier" },
 				lua = { "stylua" },
-				markdown = { "prettier" },
-				["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
 				php = { "php-cs-fixer" },
-				blade = { "blade-formatter" },
-				java = { "lsp" }, -- 🟩 <-- esto es todo lo que necesitas
+				java = { "google-java-format" }, -- 🟩 <-- esto es todo lo que necesitas
 			},
 
 			format_on_save = {
