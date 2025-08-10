@@ -1,3 +1,4 @@
+-- plugins/lsp.lua
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
@@ -10,14 +11,14 @@ return {
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-		-- Keymaps al conectar LSP
+		-- 📌 Keymaps LSP al conectar
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
+				local keymap = vim.keymap.set
 				local opts = { buffer = ev.buf, silent = true }
 
-				-- 📌 Navegación LSP
-				local keymap = vim.keymap.set
+				-- Navegación
 				keymap(
 					"n",
 					"<leader>lr",
@@ -44,11 +45,11 @@ return {
 					{ desc = "LSP Type Definitions", buffer = ev.buf }
 				)
 
-				-- 📌 Refactor / Acciones
+				-- Acciones
 				keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Actions", buffer = ev.buf })
 				keymap("n", "<leader>ln", vim.lsp.buf.rename, { desc = "Smart Rename", buffer = ev.buf })
 
-				-- 📌 Diagnósticos
+				-- Diagnósticos
 				keymap(
 					"n",
 					"<leader>lDg",
@@ -57,19 +58,16 @@ return {
 				)
 				keymap("n", "<leader>ldg", vim.diagnostic.open_float, { desc = "Line Diagnostics", buffer = ev.buf })
 
-				-- 📌 Docs
+				-- Docs
 				keymap("n", "<leader>lh", vim.lsp.buf.hover, { desc = "Hover Documentation", buffer = ev.buf })
 				keymap("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "Signature Help", buffer = ev.buf })
 
-				-- 📌 Formatting
+				-- Formatting
 				keymap("n", "<leader>lf", function()
 					vim.lsp.buf.format({ async = true })
 				end, { desc = "Format File", buffer = ev.buf })
 
-				-- 📌 Restart LSP
-				keymap("n", "<leader>llr", ":LspRestart<CR>", { desc = "Restart LSP", buffer = ev.buf })
-
-				-- 📌 Phpactor: Refactor y utilidades
+				-- Phpactor comandos extra
 				keymap(
 					"n",
 					"<leader>lp",
@@ -96,7 +94,6 @@ return {
 					":PhpactorRenameVariable<CR>",
 					{ desc = "Phpactor: Rename Variable", buffer = ev.buf }
 				)
-				keymap("n", "<leader>lpp", ":PhpactorCopyClass<CR>", { desc = "Phpactor: Copy Class", buffer = ev.buf })
 			end,
 		})
 
@@ -114,39 +111,60 @@ return {
 			update_in_insert = false,
 		})
 
-		-- Lua LSP
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-			settings = {
-				Lua = {
-					diagnostics = { globals = { "vim" } },
-					completion = { callSnippet = "Replace" },
-					workspace = {
-						library = {
-							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-							[vim.fn.stdpath("config") .. "/lua"] = true,
-						},
-					},
-				},
-			},
-		})
-
-		-- PHP con Phpactor (full power)
+		-- 🌟 PHP con Phpactor full tuneado
 		lspconfig.phpactor.setup({
 			capabilities = capabilities,
-			filetypes = { "php" },
+			filetypes = { "php", "blade" },
 			root_dir = function(fname)
 				return lspconfig.util.root_pattern("composer.json", ".git", ".phpactor.json")(fname) or vim.fn.getcwd()
 			end,
 			init_options = {
-				["language_server_phpstan.enabled"] = true, -- Si tienes PHPStan
-				["language_server_psalm.enabled"] = false, -- O ponlo en true si prefieres Psalm
-				["code_transform.refactor.extract_constant"] = true,
-				["code_transform.refactor.extract_method"] = true,
-				["code_transform.refactor.extract_class"] = true,
-				["language_server_completion.trim_leading_dollar"] = true,
-				["language_server.diagnostics_on_save"] = true,
-				["language_server_phpcsfixer.enabled"] = true,
+				["language_server_configuration.auto_config"] = false,
+				["language_server_worse_reflection.inlay_hints.enable"] = true,
+				["language_server_worse_reflection.inlay_hints.types"] = false,
+				["language_server_worse_reflection.inlay_hints.params"] = true,
+				["code_transform.import_globals"] = false,
+				["indexer.exclude_patterns"] = {
+					"/vendor/**/Tests/**/*",
+					"/vendor/**/tests/**/*",
+					"/vendor/composer/**/*",
+					"/vendor/laravel/fortify/workbench/**/*",
+					"/vendor/filament/**/.stubs.php",
+					"/storage/framework/cache/**/*",
+					"/storage/framework/views/**/*",
+					"vendor/kirschbaum-development/eloquent-power-joins/.stubs.php",
+					"/vendor/**/_ide_helpers.php",
+				},
+				["php_code_sniffer.enabled"] = false,
+				["language_server_phpstan.enabled"] = false,
+				["language_server_phpstan.level"] = "5",
+				["language_server_phpstan.bin"] = "%project_root%/vendor/bin/phpstan",
+				["language_server_phpstan.mem_limit"] = "2048M",
+			},
+			handlers = {
+				["textDocument/publishDiagnostics"] = function(err, result, ...)
+					if vim.endswith(result.uri, "Test.php") then
+						result.diagnostics = vim.tbl_filter(function(d)
+							return (not vim.startswith(d.message, 'Namespace should probably be "Tests'))
+								and (not vim.endswith(d.message, "PHPUnit\\Framework\\MockObject\\MockObject given."))
+						end, result.diagnostics)
+					end
+					if vim.endswith(result.uri, "blade.php") then
+						result.diagnostics = vim.tbl_filter(function(d)
+							return (not vim.startswith(d.message, 'Undefined variable "$this"'))
+						end, result.diagnostics)
+					end
+					vim.lsp.diagnostic.on_publish_diagnostics(err, result, ...)
+				end,
+				["textDocument/inlayHint"] = function(err, result, ...)
+					for _, res in ipairs(result or {}) do
+						if res.kind == 2 then
+							res.label = res.label .. ":"
+						end
+						res.label = res.label .. " "
+					end
+					vim.lsp.handlers["textDocument/inlayHint"](err, result, ...)
+				end,
 			},
 		})
 	end,
