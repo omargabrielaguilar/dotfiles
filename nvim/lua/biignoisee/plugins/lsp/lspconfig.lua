@@ -52,7 +52,7 @@ return {
 				-- Diagnósticos
 				keymap(
 					"n",
-					"<leader>lDg",
+					"<leader>ltg",
 					"<cmd>Telescope diagnostics bufnr=0<CR>",
 					{ desc = "Buffer Diagnostics", buffer = ev.buf }
 				)
@@ -66,34 +66,6 @@ return {
 				keymap("n", "<leader>lf", function()
 					vim.lsp.buf.format({ async = true })
 				end, { desc = "Format File", buffer = ev.buf })
-
-				-- Phpactor comandos extra
-				keymap(
-					"n",
-					"<leader>lp",
-					":PhpactorImportClass<CR>",
-					{ desc = "Phpactor: Import Class", buffer = ev.buf }
-				)
-				keymap("n", "<leader>lpc", ":PhpactorClassNew<CR>", { desc = "Phpactor: Class New", buffer = ev.buf })
-				keymap("n", "<leader>lpt", ":PhpactorTransform<CR>", { desc = "Phpactor: Transform", buffer = ev.buf })
-				keymap(
-					"n",
-					"<leader>lpm",
-					":PhpactorContextMenu<CR>",
-					{ desc = "Phpactor: Context Menu", buffer = ev.buf }
-				)
-				keymap(
-					"n",
-					"<leader>lpo",
-					":PhpactorGotoDefinition<CR>",
-					{ desc = "Phpactor: Goto Definition", buffer = ev.buf }
-				)
-				keymap(
-					"n",
-					"<leader>lpr",
-					":PhpactorRenameVariable<CR>",
-					{ desc = "Phpactor: Rename Variable", buffer = ev.buf }
-				)
 			end,
 		})
 

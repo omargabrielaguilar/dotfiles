@@ -22,7 +22,6 @@ return {
 		local laravel = require("laravel")
 		laravel.setup(opts)
 
-		-- Keymaps estilo Harpoon
 		vim.keymap.set("n", "<leader>va", ":Laravel artisan<CR>", { desc = "Laravel Artisan" })
 		vim.keymap.set("n", "<leader>vr", ":Laravel routes<CR>", { desc = "Laravel Routes" })
 		vim.keymap.set("n", "<leader>vm", ":Laravel related<CR>", { desc = "Laravel Related" })
