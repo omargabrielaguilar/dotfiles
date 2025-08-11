@@ -43,3 +43,8 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.pumheight = 10 -- menú de completado más compacto
 vim.opt.completeopt = "menuone,noinsert,noselect"
+--  fold
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99 -- Para que al abrir no se pliegue nada por defecto
+vim.opt.foldenable = true -- Fold activado

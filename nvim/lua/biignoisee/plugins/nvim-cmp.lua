@@ -208,7 +208,7 @@ return {
 				ghost_text = false,
 			},
 			completion = {
-				completeopt = "menu,menuone,noinsert",
+				completeopt = "menuone,noselect,noinsert",
 			},
 			window = {
 				documentation = {
@@ -340,12 +340,6 @@ return {
 
 					return vim_item
 				end,
-				-- format = lspkind.cmp_format({
-				--         maxwidth = 30,
-				--         ellipsis_char = "...",
-				--         before = require("tailwindcss-colorizer-cmp").formatter
-				-- }),
-				-- format = require("tailwindcss-colorizer-cmp").formatter
 			},
 		})
 

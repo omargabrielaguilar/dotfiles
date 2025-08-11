@@ -21,6 +21,8 @@ alias shtdw='shutdown now'
 export PATH="$PATH:/home/omar/.local/bin"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+export PHP_CS_FIXER_IGNORE_ENV=1
+alias php-cs-fixer-global='php-cs-fixer fix --config=$HOME/.config/php-cs-fixer.php --using-cache=no --allow-risky=yes'
 
 # ls  - exa
 alias ls='exa --icons'
@@ -30,5 +32,3 @@ alias la='exa --icons -A'
 alias lm='exa --icons -m'
 alias lr='exa --icons -R'
 alias lg='exa --icons -l --group-directories-first'
-
-stty -ixon

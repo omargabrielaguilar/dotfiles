@@ -13,9 +13,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "move up in buffer with cursor 
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
---Stars new tmux session from in here
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-
 -- prevent x delete from registering when next paste
 vim.keymap.set("n", "x", '"_x', opts)
 
@@ -72,3 +69,18 @@ vim.keymap.set("n", "<leader>lx", function()
 		underline = isLspDiagnosticsVisible,
 	})
 end, { desc = "Toggle LSP diagnostics" })
+
+-- Fold all (Alt+Shift+Z)
+vim.keymap.set("n", "<M-Z>", "zM", opts)
+
+-- Open all folds (Alt+Shift+O)
+vim.keymap.set("n", "<M-O>", "zR", opts)
+
+-- Close fold under cursor (Alt+z)
+vim.keymap.set("n", "<M-z>", "zc", opts)
+
+-- Open fold under cursor (Alt+o)
+vim.keymap.set("n", "<M-o>", "zo", opts)
+
+-- Toggle fold under cursor (Alt+x)
+vim.keymap.set("n", "<M-x>", "za", opts)

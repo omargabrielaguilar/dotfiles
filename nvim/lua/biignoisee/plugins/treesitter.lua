@@ -7,10 +7,9 @@ return {
 			local treesitter = require("nvim-treesitter.configs")
 
 			treesitter.setup({
-				highlight = {
-					enable = true,
-				},
+				highlight = { enable = true },
 				indent = { enable = true },
+				fold = { enable = true },
 				ensure_installed = {
 					"json",
 					"yaml",
@@ -22,7 +21,7 @@ return {
 					"lua",
 					"dockerfile",
 					"gitignore",
-					"xml", -- opcional si usas XML en Java EE
+					"xml",
 				},
 				incremental_selection = {
 					enable = true,
@@ -37,15 +36,9 @@ return {
 		end,
 	},
 
-	-- Autotag para HTML/XML/PHP/etc
 	{
 		"windwp/nvim-ts-autotag",
-		ft = {
-			"html",
-			"xml", -- ⬅️ Ya soportado por autotag
-			"php",
-			"blade",
-		},
+		ft = { "html", "xml", "php", "blade" },
 		config = function()
 			require("nvim-ts-autotag").setup({
 				opts = {
@@ -54,12 +47,8 @@ return {
 					enable_close_on_slash = false,
 				},
 				per_filetype = {
-					["php"] = {
-						enable_close = true,
-					},
-					["xml"] = {
-						enable_close = true,
-					},
+					["php"] = { enable_close = true },
+					["xml"] = { enable_close = true },
 				},
 			})
 		end,
