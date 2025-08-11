@@ -222,7 +222,7 @@ return {
 				desc = "Lazygit Logs",
 			},
 			{
-				"<leader>t",
+				"<leader>\\",
 				function()
 					require("snacks").terminal()
 				end,
