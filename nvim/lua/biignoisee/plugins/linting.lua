@@ -4,104 +4,94 @@ return {
 	config = function()
 		local lint = require("lint")
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-		local eslint = lint.linters.eslint_d
+		local ns = vim.api.nvim_create_namespace("phpstan_diagnostics")
+
+		local function get_project_root()
+			local root_files = { "composer.json", "artisan", "phpstan.neon", ".git" }
+			local found = vim.fs.find(root_files, {
+				upward = true,
+				stop = vim.loop.os_homedir(),
+				path = vim.fn.expand("%:p:h"),
+			})[1]
+			if found then
+				return vim.fs.dirname(found)
+			end
+			return vim.fn.getcwd()
+		end
+
+		local project_root = get_project_root()
+		local phpstan_bin = project_root .. "/vendor/bin/phpstan"
+
+		if vim.fn.filereadable(phpstan_bin) == 0 then
+			vim.notify(
+				"⚠️ No se encontró ./vendor/bin/phpstan — Instálalo con: composer require --dev phpstan/phpstan",
+				vim.log.levels.WARN
+			)
+			phpstan_bin = "phpstan"
+		end
+
+		lint.linters.phpstan = {
+			cmd = phpstan_bin,
+			args = { "analyse" },
+			stdin = false,
+			ignore_exitcode = false,
+			stream = "stdout",
+			parser = require("lint.parser").from_errorformat("%f:%l %m", {
+				source = "phpstan",
+				severity = vim.diagnostic.severity.ERROR,
+				namespace = ns,
+			}),
+			cwd = project_root,
+		}
 
 		lint.linters_by_ft = {
-			javascript = { "eslint_d" },
-			typescript = { "eslint_d" },
-			javascriptreact = { "eslint_d" },
-			typescriptreact = { "eslint_d" },
-			svelte = { "eslint_d" },
-			vue = { "eslint_d" },
 			php = { "phpstan" },
 		}
 
-		eslint.args = {
-			"--no-warn-ignored",
-			"--format",
-			"json",
-			"--stdin",
-			"--stdin-filename",
-			function()
-				return vim.fn.expand("%:p")
-			end,
-		}
-		eslint.format = "json"
-		eslint.stream = "stdin"
-
-		-- PHP: phpstan
-		lint.linters.phpstan = {
-			cmd = "phpstan",
-			args = {
-				"analyse",
-				"--error-format",
-				"raw",
-				"--no-progress",
-				function()
-					return vim.fn.expand("%:p")
-				end,
-			},
-			stdin = false,
-			ignore_exitcode = true,
-			parser = require("lint.parser").from_errorformat("%f:%l %m", {
-
-				source = "phpstan",
-				severity = vim.diagnostic.severity.WARN,
-			}),
-		}
-
-		lint.linters.checkstyle = {
-			cmd = "checkstyle", -- asegúrate que esté en tu $PATH
-			args = {
-				"-f",
-				"plain", -- formato simple que se puede parsear
-				"-c",
-				vim.fn.expand("~/.config/checkstyle/google_checks.xml"),
-				function()
-					return vim.fn.expand("%:p")
-				end,
-			},
-			stdin = false,
-			ignore_exitcode = true,
-			parser = require("lint.parser").from_errorformat("%f:%l: %m", {
-				source = "checkstyle",
-				severity = vim.diagnostic.severity.WARN,
-			}),
-		}
-
-		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
 			group = lint_augroup,
 			callback = function()
-				lint.try_lint()
+				if vim.bo.filetype == "php" then
+					vim.diagnostic.reset(ns)
+					lint.try_lint()
+				end
 			end,
 		})
 
-		-- Definición del mapeo de teclas para el líder 'l' en modo normal
-		vim.keymap.set("n", "<leader>l", function()
-			local ft = vim.bo.filetype
-			local file = vim.fn.expand("%:p")
-			local cmd = nil
-
-			if ft == "php" then
-				cmd = "phpstan analyse --error-format raw --no-progress " .. file
-			elseif
-				ft == "javascript"
-				or ft == "typescript"
-				or ft == "javascriptreact"
-				or ft == "typescriptreact"
-				or ft == "svelte"
-			then
-				cmd = "eslint_d " .. file
+		vim.keymap.set("n", "<F2>", function()
+			if vim.bo.filetype ~= "php" then
+				vim.notify("PHPStan solo funciona con archivos PHP", vim.log.levels.WARN)
+				return
 			end
 
-			if cmd then
-				vim.cmd("botright split")
-				vim.cmd("resize 10")
-				vim.cmd("terminal " .. cmd)
-				vim.cmd("startinsert")
-			else
-				vim.notify("No lint command defined for filetype: " .. ft, vim.log.levels.WARN)
-			end
-		end, { desc = "Run linter command in terminal (per filetype)" })
+			local buf = vim.api.nvim_create_buf(false, true)
+			local width = math.floor(vim.o.columns * 0.9)
+			local height = math.floor(vim.o.lines * 0.4)
+			local col = math.floor((vim.o.columns - width) / 2)
+			local row = math.floor((vim.o.lines - height) / 2)
+
+			local win = vim.api.nvim_open_win(buf, true, {
+				relative = "editor",
+				width = width,
+				height = height,
+				col = col,
+				row = row,
+				style = "minimal",
+				border = "rounded",
+			})
+
+			-- Abre terminal directamente
+			vim.fn.termopen(phpstan_bin .. " analyse", { cwd = project_root })
+
+			-- En modo terminal, mapear 'q' para cerrar
+			vim.keymap.set("t", "q", function()
+				if vim.api.nvim_win_is_valid(win) then
+					vim.api.nvim_win_close(win, true)
+				end
+			end, { buffer = buf, nowait = true })
+
+			-- Entrar en modo terminal para ver output live
+			vim.cmd("startinsert")
+		end, { desc = "Run PHPStan on full project in floating terminal" })
 	end,
 }

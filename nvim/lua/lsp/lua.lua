@@ -3,21 +3,21 @@ return function(lspconfig, capabilities)
 		capabilities = capabilities,
 		settings = {
 			Lua = {
-				diagnostics = {
-					globals = { "vim" }, -- para que no tire error con 'vim'
+				runtime = {
+					-- Tell the language server which version of Lua you're using
+					-- (most likely LuaJIT in the case of Neovim)
+					version = "LuaJIT",
 				},
-				completion = {
-					callSnippet = "Replace",
+				diagnostics = {
+					-- Get the language server to recognize the `vim` global
+					globals = {
+						"vim",
+						"require",
+					},
 				},
 				workspace = {
-					library = {
-						-- Neovim runtime Lua
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-						-- Tu configuración lua (init.lua y lua/*)
-						[vim.fn.stdpath("config") .. "/lua"] = true,
-					},
-					checkThirdParty = false, -- evita mensajes molestos de sumneko
+					-- Make the server aware of Neovim runtime files
+					library = vim.api.nvim_get_runtime_file("", true),
 				},
 				telemetry = {
 					enable = false, -- desactiva telemetry para que no mande datos
