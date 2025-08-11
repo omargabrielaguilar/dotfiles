@@ -33,25 +33,25 @@ return {
 				},
 			})
 
-			-- Adapter para PHP
+			-- Adapter PHP usando php-debug-adapter compilado
 			dap.adapters.php = {
 				type = "executable",
-				command = "php", -- O el path completo si no está en el PATH
-				args = { "path/to/php-debug-adapter", "debug" }, -- Ajusta el path según lo que hayas configurado para php-debug-adapter
+				command = "node",
+				args = { "/home/biignoisee/dev/tools/vscode-php-debug/out/phpDebug.js" },
 			}
 
 			dap.configurations.php = {
 				{
 					type = "php",
 					request = "launch",
-					name = "Launch PHP Script",
-					program = "${file}",
-					port = 8000, -- Asegúrate de que el puerto coincida con el configurado en tu IDE o servidor
-					stopOnEntry = true,
-					serverSourceRoot = "${workspaceFolder}",
-					localSourceRoot = "${workspaceFolder}",
+					name = "Listen for Xdebug",
+					port = 9003, -- igual que en xdebug.ini
+					pathMappings = {
+						[vim.fn.getcwd()] = vim.fn.getcwd(),
+					},
 				},
 			}
+
 			-- Auto abrir/cerrar UI
 			dap.listeners.after.event_initialized["dapui_config"] = function()
 				dapui.open()
