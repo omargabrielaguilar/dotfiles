@@ -154,6 +154,11 @@ return {
 			vim.api.nvim_feedkeys(rhs(keys), "nt", true)
 		end
 
+		local custom_snippets = require("biignoisee.snippets")
+		for ft, snippets in pairs(custom_snippets) do
+			luasnip.add_snippets(ft, snippets)
+		end
+
 		local select_next_item = function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
