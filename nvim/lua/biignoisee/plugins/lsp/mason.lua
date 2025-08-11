@@ -35,6 +35,7 @@ return {
 			ensure_installed = {
 				-- Opcionales pero recomendados:
 				"php-cs-fixer",
+				"stylua",
 				"phpstan",
 				"php-debug-adapter", -- solo si vas a debuggear
 			},
