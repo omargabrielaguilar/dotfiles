@@ -2,7 +2,7 @@ return {
 	-- Quickly Jump through the todo tags
 	"folke/todo-comments.nvim",
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = { "nvim-lua/plenary.nvim"},
+	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
 		local todo_comments = require("todo-comments")
 
@@ -23,7 +23,7 @@ return {
 			},
 		})
 
-        -- TODO
+		-- TODO
 		-- keymaps
 		vim.keymap.set("n", "]t", function()
 			todo_comments.jump_next()

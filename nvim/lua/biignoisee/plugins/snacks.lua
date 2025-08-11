@@ -261,16 +261,6 @@ return {
 			{
 				"<C-f>",
 				function()
-					require("snacks").picker.grep_word()
-				end,
-				desc = "Search in current file or visual selection",
-				mode = { "n", "x" }, -- normal y visual
-			},
-
-			-- Buscar en todo el proyecto (Ctrl+Shift+F)
-			{
-				"<leader>sf",
-				function()
 					require("snacks").picker.grep()
 				end,
 				desc = "Grep in project directory",
