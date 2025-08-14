@@ -125,8 +125,8 @@ return {
 						layout = {
 							box = "horizontal",
 							backdrop = false,
-							width = 0.8,
-							height = 0.9,
+							width = 0.7,
+							height = 0.8,
 							border = "none",
 							{
 								box = "vertical",
@@ -227,13 +227,6 @@ return {
 					require("snacks").terminal()
 				end,
 				"Toggle terminal",
-			},
-			{
-				"<leader>rN",
-				function()
-					require("snacks").rename.rename_file()
-				end,
-				desc = "Fast Rename Current File",
 			},
 			{
 				"<leader>dB",
