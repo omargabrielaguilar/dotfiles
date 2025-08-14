@@ -10,7 +10,7 @@ return {
 	cmd = { "Laravel" },
 	event = { "VeryLazy" },
 	opts = {
-		lsp_server = "phpactor",
+		lsp_server = "intelephense",
 		features = {
 			route_info = { enable = true, view = "top" },
 			model_info = { enable = true },
