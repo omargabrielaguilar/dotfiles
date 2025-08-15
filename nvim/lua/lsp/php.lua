@@ -8,9 +8,6 @@ return function(lspconfig, capabilities)
 		end,
 		settings = {
 			intelephense = {
-				-- ⚡ Activa tu licencia Premium
-				licenceKey = "00D0IEADQVBNA0K",
-
 				-- Entorno
 				environment = {
 					phpVersion = "8.4", -- o la versión que uses
