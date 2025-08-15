@@ -1,12 +1,12 @@
 # 🖋️ Fuente
-font_family      Maple Mono
+font_family      SpaceMono Nerd Font
 bold_font        auto
 italic_font      auto
 font_size        12.8
 enable_ligatures yes
 
 # 🎯 Transparencia (0.0 totalmente transparente, 1.0 opaco)
-background_opacity 0.95
+background_opacity 0.98
 
 # 🖱️ Scroll infinito (para no perder historial)
 scrollback_lines 100000
@@ -45,6 +45,6 @@ window_margin_width 0
 
 
 # BEGIN_KITTY_THEME
-# One Dark
+# One Half Dark
 include current-theme.conf
 # END_KITTY_THEME

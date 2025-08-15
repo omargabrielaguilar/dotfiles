@@ -43,6 +43,8 @@ return {
 			})
 		end,
 	},
+
+	-- NOTE: x
 	{
 		"navarasu/onedark.nvim",
 		priority = 1000,

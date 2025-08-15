@@ -235,8 +235,13 @@ return {
 				end,
 				desc = "Delete or Close Buffer  (Confirm)",
 			},
-
-			-- Snacks Picker
+			{
+				"<leader>pb",
+				function()
+					require("snacks").picker.buffers()
+				end,
+				desc = "Search in Current Buffer (Snacks Picker)",
+			},
 			{
 				"<leader>pf",
 				function()
