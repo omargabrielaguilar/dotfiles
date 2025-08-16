@@ -1,4 +1,5 @@
 -- ~/Documentos/omar/dotfiles/nvim/lua/lsp/php.lua
+local secrets = require("private.licence")
 return function(lspconfig, capabilities)
 	lspconfig.intelephense.setup({
 		capabilities = capabilities,
@@ -8,6 +9,7 @@ return function(lspconfig, capabilities)
 		end,
 		settings = {
 			intelephense = {
+				licenceKey = secrets.intelephense_key,
 				-- Entorno
 				environment = {
 					phpVersion = "8.4", -- o la versión que uses

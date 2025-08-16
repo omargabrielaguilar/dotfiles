@@ -2,8 +2,6 @@ return {
 	"mfussenegger/nvim-lint",
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
-		local lint = require("lint")
-		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 		local ns = vim.api.nvim_create_namespace("phpstan_diagnostics")
 
 		local function get_project_root()
@@ -30,34 +28,6 @@ return {
 			phpstan_bin = "phpstan"
 		end
 
-		lint.linters.phpstan = {
-			cmd = phpstan_bin,
-			args = { "analyse" },
-			stdin = false,
-			ignore_exitcode = false,
-			stream = "stdout",
-			parser = require("lint.parser").from_errorformat("%f:%l %m", {
-				source = "phpstan",
-				severity = vim.diagnostic.severity.ERROR,
-				namespace = ns,
-			}),
-			cwd = project_root,
-		}
-
-		lint.linters_by_ft = {
-			php = { "phpstan" },
-		}
-
-		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
-			group = lint_augroup,
-			callback = function()
-				if vim.bo.filetype == "php" then
-					vim.diagnostic.reset(ns)
-					lint.try_lint()
-				end
-			end,
-		})
-
 		vim.keymap.set("n", "<F2>", function()
 			if vim.bo.filetype ~= "php" then
 				vim.notify("PHPStan solo funciona con archivos PHP", vim.log.levels.WARN)
@@ -80,17 +50,17 @@ return {
 				border = "rounded",
 			})
 
-			-- Abre terminal directamente
+			-- Terminal en floating window corriendo PHPStan
 			vim.fn.termopen(phpstan_bin .. " analyse", { cwd = project_root })
 
-			-- En modo terminal, mapear 'q' para cerrar
+			-- Mapear 'q' para cerrar la ventana de terminal
 			vim.keymap.set("t", "q", function()
 				if vim.api.nvim_win_is_valid(win) then
 					vim.api.nvim_win_close(win, true)
 				end
 			end, { buffer = buf, nowait = true })
 
-			-- Entrar en modo terminal para ver output live
+			-- Entrar en modo insert para ver output live
 			vim.cmd("startinsert")
 		end, { desc = "Run PHPStan on full project in floating terminal" })
 	end,
