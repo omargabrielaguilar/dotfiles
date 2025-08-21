@@ -31,4 +31,18 @@ public function {}({}) {{
 			{ i(1, "methodName"), i(2, "params"), i(3, "// code...") }
 		)
 	),
+	s(
+		"phpc",
+		fmt(
+			[[
+<?php
+
+class {} 
+{{
+    {}
+}}
+]],
+			{ i(1, "ClassName"), i(2, "// code...") }
+		)
+	),
 }
