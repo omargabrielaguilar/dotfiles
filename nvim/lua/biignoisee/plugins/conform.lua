@@ -63,7 +63,7 @@ return {
 
 		local function php_formatter(bufnr)
 			local fname = vim.api.nvim_buf_get_name(bufnr)
-			if fname:match("views") then
+			if fname:match("%.blade%.php$") then
 				return { "blade-formatter" }
 			end
 
@@ -97,6 +97,7 @@ return {
 			formatters_by_ft = {
 				php = php_formatter,
 				json = { "prettier" },
+				blade = { "blade-formatter" },
 				yaml = { "prettier" },
 				lua = { "stylua" },
 			},

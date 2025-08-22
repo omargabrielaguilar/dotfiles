@@ -37,6 +37,7 @@ return {
 				"php-cs-fixer",
 				"stylua",
 				"phpstan",
+				"blade-formatter",
 				"php-debug-adapter", -- solo si vas a debuggear
 			},
 		})
