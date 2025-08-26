@@ -1,16 +1,35 @@
 return {
-	"adibhanna/laravel.nvim",
+	"adalessa/laravel.nvim",
+
+	enabled = true,
+
 	dependencies = {
+		"tpope/vim-dotenv",
+		"nvim-telescope/telescope.nvim",
 		"MunifTanjim/nui.nvim",
-		"nvim-lua/plenary.nvim",
+		"kevinhwang91/promise-async",
 	},
-	keys = {
-		{ "<leader>va", ":Artisan<cr>", desc = "Laravel Artisan" },
-		{ "<leader>vc", ":Composer<cr>", desc = "Composer" },
-		{ "<leader>vr", ":LaravelRoute<cr>", desc = "Laravel Routes" },
-		{ "<leader>vm", ":LaravelMake<cr>", desc = "Laravel Make" },
+
+	cmd = { "Laravel" },
+	event = { "VeryLazy" },
+	opts = {
+		lsp_server = "phpactor",
+		features = {
+			route_info = { enable = true, view = "top" },
+			model_info = { enable = true },
+			override = { enable = true },
+			pickers = { enable = true, provider = "telescope" },
+		},
 	},
-	config = function()
-		require("laravel").setup()
+
+	config = function(_, opts)
+		local laravel = require("laravel")
+		laravel.setup(opts)
+
+		vim.keymap.set("n", "<leader>va", ":Laravel artisan<CR>", { desc = "Laravel Artisan" })
+		vim.keymap.set("n", "<leader>vr", ":Laravel routes<CR>", { desc = "Laravel Routes" })
+		vim.keymap.set("n", "<leader>vm", ":Laravel related<CR>", { desc = "Laravel Related" })
+		vim.keymap.set("n", "<leader>vt", ":Laravel tinker<CR>", { desc = "Laravel Tinker" })
+		vim.keymap.set("n", "<leader>vv", ":Laravel view<CR>", { desc = "Laravel View" })
 	end,
 }
