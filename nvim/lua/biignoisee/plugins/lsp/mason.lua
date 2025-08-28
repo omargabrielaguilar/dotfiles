@@ -28,12 +28,12 @@ return {
 				"lua_ls",
 				"dockerls",
 				"intelephense",
+				"tailwindcss-language-server",
 			},
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				-- Opcionales pero recomendados:
 				"php-cs-fixer",
 				"stylua",
 				"phpstan",

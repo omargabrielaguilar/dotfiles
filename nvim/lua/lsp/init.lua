@@ -95,7 +95,7 @@ vim.diagnostic.config({
 local servers = {
 	lua = require("lsp.lua"),
 	php = require("lsp.php"),
-	-- rust = require("lsp.rust"),
+	tailwind = require("lsp.tailwind"),
 	-- typescript = require("lsp.typescript"),
 }
 
