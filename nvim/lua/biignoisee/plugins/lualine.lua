@@ -5,21 +5,21 @@ return {
 		local lualine = require("lualine")
 		local lazy_status = require("lazy.status")
 
-		-- Gruvbox Dark Hard colors
+		-- One Dark colors
 		local colors = {
-			bg = "#1d2021", -- fondo más oscuro
-			fg = "#ebdbb2",
-			yellow = "#d79921",
-			green = "#98971a",
-			blue = "#458588", -- azul Gruvbox original (más apagado)
-			red = "#cc241d",
-			purple = "#b16286",
-			cyan = "#83a598", -- celeste Gruvbox, más cálido que el anterior
-			gray = "#a89984",
-			alt_bg = "#3c3836",
+			bg = "#282c34", -- darker background
+			fg = "#abb2bf",
+			yellow = "#e5c07b",
+			green = "#98c379",
+			blue = "#61afef",
+			red = "#e06c75",
+			purple = "#c678dd",
+			cyan = "#56b6c2",
+			gray = "#5c6370",
+			alt_bg = "#3c4048",
 		}
 
-		-- Custom Gruvbox theme for lualine
+		-- Custom One Dark theme for lualine
 		local my_lualine_theme = {
 			normal = {
 				a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
