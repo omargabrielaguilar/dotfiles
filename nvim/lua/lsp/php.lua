@@ -104,7 +104,7 @@ return function(lspconfig, capabilities)
 					},
 				},
 				diagnostics = {
-					enable = true,
+					enable = false,
 				},
 			},
 		},

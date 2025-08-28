@@ -234,7 +234,7 @@ return {
 				{ name = "luasnip" }, -- snippets
 				{ name = "lazydev" },
 				{ name = "nvim_lsp" },
-				{ name = "buffer" }, -- text within current buffer
+				{ name = "buffer", keyword_length = 4, max_item_count = 5 }, -- text within current buffer
 				{ name = "path" }, -- file system paths
 				{ name = "tailwindcss-colorizer-cmp" },
 			}),
