@@ -28,7 +28,7 @@ return {
 				"lua_ls",
 				"dockerls",
 				"intelephense",
-				"tailwindcss-language-server",
+				"tailwindcss",
 			},
 		})
 

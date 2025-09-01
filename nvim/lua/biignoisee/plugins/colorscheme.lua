@@ -84,4 +84,55 @@ return {
 			require("onedark").load()
 		end,
 	},
+
+	{
+		"Mofiqul/dracula.nvim",
+		priority = 1000,
+		config = function()
+			require("dracula").setup({
+				transparent_bg = true,
+				italic_comment = true,
+				show_end_of_buffer = true,
+				overrides = {
+					Normal = { bg = "none" },
+					NormalFloat = { bg = "none" },
+					FloatBorder = { bg = "none" },
+					Pmenu = { bg = "none" },
+					PmenuSel = { bg = "#44475a" }, -- selección visible
+					SignColumn = { bg = "none" },
+					LineNr = { bg = "none" },
+					CursorLineNr = { bg = "none" },
+					EndOfBuffer = { bg = "none" },
+
+					-- 🚀 Fix para Telescope
+					TelescopeNormal = { bg = "none" },
+					TelescopeBorder = { fg = "#6272a4", bg = "none" },
+
+					TelescopePromptNormal = { bg = "#1e1f29" }, -- contraste oscuro
+					TelescopePromptBorder = { fg = "#6272a4", bg = "#1e1f29" },
+					TelescopePromptTitle = { fg = "#f8f8f2", bg = "#bd93f9", bold = true },
+
+					TelescopeResultsNormal = { bg = "#282a36" },
+					TelescopeResultsBorder = { fg = "#6272a4", bg = "#282a36" },
+					TelescopeResultsTitle = { fg = "#f8f8f2", bg = "#44475a", bold = true },
+
+					TelescopePreviewNormal = { bg = "#1e1f29" },
+					TelescopePreviewBorder = { fg = "#6272a4", bg = "#1e1f29" },
+					TelescopePreviewTitle = { fg = "#f8f8f2", bg = "#50fa7b", bold = true },
+
+					-- Otros plugins
+					LazyNormal = { bg = "none" },
+					MasonNormal = { bg = "none" },
+					WhichKeyFloat = { bg = "none" },
+				},
+				diagnostics = {
+					darker = true,
+					undercurl = true,
+					background = false,
+				},
+			})
+
+			vim.cmd("colorscheme dracula")
+		end,
+	},
 }

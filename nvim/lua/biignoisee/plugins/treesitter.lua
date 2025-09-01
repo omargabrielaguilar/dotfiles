@@ -7,10 +7,7 @@ return {
 			local treesitter = require("nvim-treesitter.configs")
 
 			treesitter.setup({
-				highlight = {
-					enable = true,
-					disable = { "php", "blade" }, -- quita lag al escribir
-				},
+				highlight = { enable = true },
 				indent = { enable = true },
 				fold = { enable = true },
 				ensure_installed = {

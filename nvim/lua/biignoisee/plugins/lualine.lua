@@ -5,54 +5,58 @@ return {
 		local lualine = require("lualine")
 		local lazy_status = require("lazy.status")
 
-		-- One Dark colors
+		-- Dracula colors
 		local colors = {
-			bg = "#282c34", -- darker background
-			fg = "#abb2bf",
-			yellow = "#e5c07b",
-			green = "#98c379",
-			blue = "#61afef",
-			red = "#e06c75",
-			purple = "#c678dd",
-			cyan = "#56b6c2",
-			gray = "#5c6370",
-			alt_bg = "#3c4048",
+			bg = "#282a36",
+			fg = "#f8f8f2",
+			selection = "#44475a",
+			comment = "#6272a4",
+			red = "#ff5555",
+			orange = "#ffb86c",
+			yellow = "#f1fa8c",
+			green = "#50fa7b",
+			purple = "#bd93f9",
+			cyan = "#8be9fd",
+			pink = "#ff79c6",
+			darker_bg = "#1e1f29",
+			alt_bg = "#343746",
 		}
 
-		-- Custom One Dark theme for lualine
+		-- Custom Dracula theme
 		local my_lualine_theme = {
 			normal = {
-				a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
+				a = { fg = colors.bg, bg = colors.purple, gui = "bold" },
 				b = { fg = colors.fg, bg = colors.alt_bg },
-				c = { fg = colors.fg, bg = colors.bg },
+				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
 			insert = {
 				a = { fg = colors.bg, bg = colors.green, gui = "bold" },
 				b = { fg = colors.fg, bg = colors.alt_bg },
-				c = { fg = colors.fg, bg = colors.bg },
+				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
 			visual = {
-				a = { fg = colors.bg, bg = colors.purple, gui = "bold" },
+				a = { fg = colors.bg, bg = colors.pink, gui = "bold" },
 				b = { fg = colors.fg, bg = colors.alt_bg },
-				c = { fg = colors.fg, bg = colors.bg },
+				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
 			replace = {
 				a = { fg = colors.bg, bg = colors.red, gui = "bold" },
 				b = { fg = colors.fg, bg = colors.alt_bg },
-				c = { fg = colors.fg, bg = colors.bg },
+				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
 			command = {
 				a = { fg = colors.bg, bg = colors.yellow, gui = "bold" },
 				b = { fg = colors.fg, bg = colors.alt_bg },
-				c = { fg = colors.fg, bg = colors.bg },
+				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
 			inactive = {
-				a = { fg = colors.gray, bg = colors.alt_bg, gui = "bold" },
-				b = { fg = colors.gray, bg = colors.alt_bg },
-				c = { fg = colors.gray, bg = colors.bg },
+				a = { fg = colors.comment, bg = colors.alt_bg, gui = "bold" },
+				b = { fg = colors.comment, bg = colors.alt_bg },
+				c = { fg = colors.comment, bg = colors.darker_bg },
 			},
 		}
 
+		-- Components
 		local mode = {
 			"mode",
 			fmt = function(str)
@@ -64,33 +68,57 @@ return {
 			"diff",
 			colored = true,
 			symbols = { added = " ", modified = " ", removed = " " },
+			diff_color = {
+				added = { fg = colors.green },
+				modified = { fg = colors.yellow },
+				removed = { fg = colors.red },
+			},
 		}
 
 		local filename = {
 			"filename",
 			file_status = true,
-			path = 1, -- relative path for cleaner look
+			path = 1,
+			color = { fg = colors.fg, bg = colors.darker_bg },
+			symbols = {
+				modified = "●",
+				readonly = "",
+				unnamed = "󰘓",
+				newfile = "",
+			},
 		}
 
 		local branch = {
 			"branch",
-			icon = { "", color = { fg = colors.yellow } },
-			separator = { right = "" },
+			icon = "",
+			color = { fg = colors.purple, bg = colors.alt_bg },
+		}
+
+		local diagnostics = {
+			"diagnostics",
+			sources = { "nvim_diagnostic" },
+			symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " },
+			diagnostics_color = {
+				error = { fg = colors.red },
+				warn = { fg = colors.yellow },
+				info = { fg = colors.cyan },
+				hint = { fg = colors.purple },
+			},
+			colored = true,
+			update_in_insert = false,
 		}
 
 		lualine.setup({
-			icons_enabled = true,
 			options = {
 				theme = my_lualine_theme,
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
-				disabled_filetypes = {},
 				globalstatus = true,
 			},
 			sections = {
 				lualine_a = { mode },
 				lualine_b = { branch },
-				lualine_c = { diff, filename },
+				lualine_c = { diff, filename, diagnostics },
 				lualine_x = {
 					{
 						function()
@@ -106,7 +134,7 @@ return {
 					{
 						lazy_status.updates,
 						cond = lazy_status.has_updates,
-						color = { fg = colors.yellow },
+						color = { fg = colors.orange },
 					},
 					"encoding",
 					"fileformat",
@@ -121,21 +149,22 @@ return {
 							end
 							return " " .. clients[1].name
 						end,
-						icon = "",
+						color = { fg = colors.green },
 					},
 				},
-				lualine_z = { "location" },
+				lualine_z = {
+					{ "location", color = { fg = colors.fg, bg = colors.purple, gui = "bold" } },
+					{ "progress", color = { fg = colors.fg, bg = colors.purple, gui = "bold" } },
+				},
 			},
 			inactive_sections = {
-				lualine_a = {},
-				lualine_b = {},
-				lualine_c = { "filename" },
-				lualine_x = { "location" },
-				lualine_y = {},
-				lualine_z = {},
+				lualine_c = {
+					{ "filename", color = { fg = colors.comment, bg = colors.darker_bg } },
+				},
+				lualine_x = {
+					{ "location", color = { fg = colors.comment, bg = colors.darker_bg } },
+				},
 			},
-			tabline = {},
-			extensions = {},
 		})
 	end,
 }

@@ -234,26 +234,12 @@ return {
 				{ name = "luasnip" }, -- snippets
 				{ name = "lazydev" },
 				{ name = "nvim_lsp" },
-				{ name = "buffer", keyword_length = 4, max_item_count = 5 }, -- text within current buffer
+				{ name = "buffer" }, -- text within current buffer
 				{ name = "path" }, -- file system paths
 				{ name = "tailwindcss-colorizer-cmp" },
 			}),
-			-- mapping = cmp.mapping.preset.insert({
-			--     ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-			--     ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
-			--     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-			--     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-			--     ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
-			--     ["<C-e>"] = cmp.mapping.abort(), -- close completion window
-			--     ["<CR>"] = cmp.mapping.confirm({ select = false }),
-			-- }),
-
 			-- NOTE: ! Experimenting with Customized Mappings ! --
 			mapping = cmp.mapping.preset.insert({
-				-- ['<BS>'] = cmp.mapping(function(_fallback)
-				--     smart_bs()
-				-- end, { 'i', 's' }),
-
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<C-d>"] = cmp.mapping(function()
 					cmp.close_docs()
