@@ -3,7 +3,7 @@ return {
 	{
 		"sainnhe/everforest",
 		config = function()
-			vim.g.everforest_background = "hard" -- 'hard', 'medium', 'soft'
+			vim.g.everforest_background = "soft" -- 'hard', 'medium', 'soft'
 			vim.g.everforest_enable_italic = 0
 			vim.g.everforest_transparent_background = 1
 			vim.cmd("colorscheme everforest")
@@ -32,8 +32,8 @@ return {
 				invert_signs = false,
 				invert_tabline = false,
 				invert_intend_guides = false,
-				inverse = true, -- invert background for search, diffs, statuslines and errors
-				contrast = "", -- can be "hard", "soft" or empty string
+				inverse = true,
+				contrast = "",
 				palette_overrides = {},
 				overrides = {
 					Pmenu = { bg = "" }, -- Completion menu background
@@ -44,7 +44,7 @@ return {
 		end,
 	},
 
-	-- NOTE: x
+	-- NOTE: onedark
 	{
 		"navarasu/onedark.nvim",
 		priority = 1000,
@@ -85,54 +85,61 @@ return {
 		end,
 	},
 
+	-- NOTE: Jellybeans
 	{
-		"Mofiqul/dracula.nvim",
-		priority = 1000,
+		"nanotech/jellybeans.vim",
 		config = function()
-			require("dracula").setup({
-				transparent_bg = true,
-				italic_comment = true,
-				show_end_of_buffer = true,
-				overrides = {
-					Normal = { bg = "none" },
-					NormalFloat = { bg = "none" },
-					FloatBorder = { bg = "none" },
-					Pmenu = { bg = "none" },
-					PmenuSel = { bg = "#44475a" }, -- selección visible
-					SignColumn = { bg = "none" },
-					LineNr = { bg = "none" },
-					CursorLineNr = { bg = "none" },
-					EndOfBuffer = { bg = "none" },
+			-- termguicolors para soporte full
+			vim.opt.termguicolors = true
 
-					-- 🚀 Fix para Telescope
-					TelescopeNormal = { bg = "none" },
-					TelescopeBorder = { fg = "#6272a4", bg = "none" },
+			-- overrides: fondo transparente
+			vim.g.jellybeans_overrides = {
+				background = { guibg = "none", ctermbg = "none" },
+				Pmenu = { guibg = "none" },
+				NormalFloat = { guibg = "none" },
+				SignColumn = { guibg = "none" },
+				LineNr = { guibg = "none" },
+				EndOfBuffer = { guibg = "none" },
+				TelescopeNormal = { guibg = "none" },
+				TelescopeBorder = { guibg = "none" },
+			}
 
-					TelescopePromptNormal = { bg = "#1e1f29" }, -- contraste oscuro
-					TelescopePromptBorder = { fg = "#6272a4", bg = "#1e1f29" },
-					TelescopePromptTitle = { fg = "#f8f8f2", bg = "#bd93f9", bold = true },
+			-- aplica esquema
+			vim.cmd("colorscheme jellybeans")
+		end,
+	},
 
-					TelescopeResultsNormal = { bg = "#282a36" },
-					TelescopeResultsBorder = { fg = "#6272a4", bg = "#282a36" },
-					TelescopeResultsTitle = { fg = "#f8f8f2", bg = "#44475a", bold = true },
+	-- NOTE: Sonokai
+	{
+		"sainnhe/sonokai",
+		config = function()
+			vim.opt.termguicolors = true
 
-					TelescopePreviewNormal = { bg = "#1e1f29" },
-					TelescopePreviewBorder = { fg = "#6272a4", bg = "#1e1f29" },
-					TelescopePreviewTitle = { fg = "#f8f8f2", bg = "#50fa7b", bold = true },
+			-- estilo de Sonokai: default / atlantis / andromeda / shusia / maia / espresso
+			vim.g.sonokai_style = "andromeda"
 
-					-- Otros plugins
-					LazyNormal = { bg = "none" },
-					MasonNormal = { bg = "none" },
-					WhichKeyFloat = { bg = "none" },
-				},
-				diagnostics = {
-					darker = true,
-					undercurl = true,
-					background = false,
-				},
-			})
+			-- transparencia + opciones recomendadas
+			vim.g.sonokai_transparent_background = 1
+			vim.g.sonokai_better_performance = 1
 
-			vim.cmd("colorscheme dracula")
+			-- aplica esquema
+			vim.cmd("colorscheme sonokai")
+
+			-- overrides manuales para asegurar transparencia (como jellybeans)
+			local groups = {
+				"Normal",
+				"NormalFloat",
+				"SignColumn",
+				"LineNr",
+				"EndOfBuffer",
+				"Pmenu",
+				"FloatBorder",
+				"TelescopeNormal",
+				"TelescopeBorder",
+			}
+			for _, group in ipairs(groups) do
+				vim.api.nvim_set_hl(0, group, { bg = "none" })
+			end
 		end,
 	},
 }

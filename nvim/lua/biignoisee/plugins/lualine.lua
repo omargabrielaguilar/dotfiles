@@ -5,27 +5,32 @@ return {
 		local lualine = require("lualine")
 		local lazy_status = require("lazy.status")
 
-		-- Dracula colors
+		-- Brogrammer (Kitty accurate)
 		local colors = {
-			bg = "#282a36",
-			fg = "#f8f8f2",
-			selection = "#44475a",
-			comment = "#6272a4",
-			red = "#ff5555",
-			orange = "#ffb86c",
-			yellow = "#f1fa8c",
-			green = "#50fa7b",
-			purple = "#bd93f9",
-			cyan = "#8be9fd",
-			pink = "#ff79c6",
-			darker_bg = "#1e1f29",
-			alt_bg = "#343746",
+			bg = "#1f1f1f",
+			darker_bg = "#161616",
+			alt_bg = "#2a2a2a",
+			fg = "#e0e0e0",
+			selection = "#3a3a3a",
+
+			-- sobrio accents
+			red = "#d75f5f",
+			orange = "#d7875f",
+			yellow = "#d7af5f", -- más apagado
+			green = "#5faf5f",
+			cyan = "#5f87af",
+			blue = "#5f87d7",
+			pink = "#af5faf",
+
+			-- neutrals
+			comment = "#808080",
+			accent = "#d7af5f", -- un dorado/marrón suave
 		}
 
-		-- Custom Dracula theme
+		-- Brogrammer Lualine
 		local my_lualine_theme = {
 			normal = {
-				a = { fg = colors.bg, bg = colors.purple, gui = "bold" },
+				a = { fg = colors.bg, bg = colors.accent, gui = "bold" },
 				b = { fg = colors.fg, bg = colors.alt_bg },
 				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
@@ -35,7 +40,7 @@ return {
 				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
 			visual = {
-				a = { fg = colors.bg, bg = colors.pink, gui = "bold" },
+				a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
 				b = { fg = colors.fg, bg = colors.alt_bg },
 				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
@@ -45,7 +50,7 @@ return {
 				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
 			command = {
-				a = { fg = colors.bg, bg = colors.yellow, gui = "bold" },
+				a = { fg = colors.bg, bg = colors.cyan, gui = "bold" },
 				b = { fg = colors.fg, bg = colors.alt_bg },
 				c = { fg = colors.fg, bg = colors.darker_bg },
 			},
@@ -55,7 +60,6 @@ return {
 				c = { fg = colors.comment, bg = colors.darker_bg },
 			},
 		}
-
 		-- Components
 		local mode = {
 			"mode",
@@ -153,8 +157,8 @@ return {
 					},
 				},
 				lualine_z = {
-					{ "location", color = { fg = colors.fg, bg = colors.purple, gui = "bold" } },
-					{ "progress", color = { fg = colors.fg, bg = colors.purple, gui = "bold" } },
+					{ "location", color = { fg = "#000000", bg = colors.accent, gui = "bold" } },
+					{ "progress", color = { fg = "#000000", bg = colors.accent, gui = "bold" } },
 				},
 			},
 			inactive_sections = {

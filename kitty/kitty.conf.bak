@@ -45,6 +45,6 @@ window_margin_width 0
 
 
 # BEGIN_KITTY_THEME
-# Doom One
+# Brogrammer
 include current-theme.conf
 # END_KITTY_THEME
