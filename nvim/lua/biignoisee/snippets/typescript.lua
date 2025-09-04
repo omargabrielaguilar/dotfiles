@@ -27,16 +27,26 @@ try {{
 		"fun",
 		fmt(
 			[[
-function {}({}) {{
+function {}({}): {} {{
   {}
 }}
 ]],
-			{ i(1, "myFunction"), i(2, "params"), i(3, "// code") }
+			{ i(1, "myFunction"), i(2, "params"), i(3, "void"), i(4, "// code") }
 		)
 	),
 
-	-- arrow function
-	s("af", fmt("const {} = ({}) => {{\n  {}\n}};", { i(1, "fnName"), i(2, "params"), i(3, "// code") })),
+	-- interface
+	s(
+		"iface",
+		fmt(
+			[[
+interface {} {{
+  {}: {};
+}}
+]],
+			{ i(1, "MyInterface"), i(2, "property"), i(3, "string") }
+		)
+	),
 
 	-- class
 	s(
