@@ -29,6 +29,9 @@ return {
 				"dockerls",
 				"intelephense",
 				"tailwindcss",
+				"ts_ls", -- typescript/javascript
+				"volar", -- Vue 3 LSP recomendado
+				"eslint",
 			},
 		})
 
@@ -39,6 +42,8 @@ return {
 				"phpstan",
 				"blade-formatter",
 				"php-debug-adapter", -- solo si vas a debuggear
+				"prettier", -- formateador JS/TS/Vue
+				"eslint_d", -- linting rápido
 			},
 		})
 	end,
