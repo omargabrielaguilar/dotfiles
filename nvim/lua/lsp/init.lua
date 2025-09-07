@@ -96,8 +96,8 @@ local servers = {
 	lua = require("lsp.lua"),
 	php = require("lsp.php"),
 	tailwind = require("lsp.tailwind"),
-	typescript = require("lsp.typescript"),
-	vue = require("lsp.vue"),
+	-- typescript = require("lsp.typescript"),
+	-- vue = require("lsp.vue"),
 }
 
 for _, setup_fn in pairs(servers) do

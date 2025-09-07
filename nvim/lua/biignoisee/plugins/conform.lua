@@ -15,16 +15,6 @@ return {
 			return stat and stat.type == "file"
 		end
 
-		local function eslint_exists()
-			local stat = uv.fs_stat(vim.fn.getcwd() .. "/node_modules/.bin/eslint")
-			return stat and stat.type == "file"
-		end
-
-		local function prettier_exists()
-			local stat = uv.fs_stat(vim.fn.getcwd() .. "/node_modules/.bin/prettier")
-			return stat and stat.type == "file"
-		end
-
 		local formatters = {
 			["markdown-toc"] = {
 				condition = function(_, ctx)
@@ -102,26 +92,6 @@ return {
 			return { "php-cs-fixer" }
 		end
 
-		local function js_formatter(bufnr)
-			if eslint_exists() then
-				return { "eslint_d" }
-			elseif prettier_exists() then
-				return { "prettier" }
-			else
-				-- notificar si ha pasado el cooldown
-				local now = os.time()
-				if now - last_notify_time > notify_cooldown then
-					last_notify_time = now
-					noice.notify(
-						"No encontré eslint ni prettier en este proyecto. Instala con `npm install -D eslint prettier`",
-						vim.log.levels.WARN,
-						{ title = "Formatter", timeout = 3000, replace = "formatter_notify" }
-					)
-				end
-				return {}
-			end
-		end
-
 		conform.setup({
 			formatters = formatters,
 			formatters_by_ft = {
@@ -129,11 +99,7 @@ return {
 				json = { "prettier" },
 				blade = { "blade-formatter" },
 				yaml = { "prettier" },
-				javascript = js_formatter,
-				typescript = js_formatter,
-				javascriptreact = js_formatter,
-				typescriptreact = js_formatter,
-				vue = js_formatter,
+				lua = { "stylua" },
 			},
 			format_on_save = {
 				lsp_fallback = false,
