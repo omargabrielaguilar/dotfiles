@@ -52,6 +52,48 @@ return {
 				},
 			}
 
+			-- Adapter JS/TS usando vscode-js-debug
+			dap.adapters["pwa-node"] = {
+				type = "server",
+				host = "127.0.0.1",
+				port = 9229,
+				executable = {
+					command = "node",
+					args = { "/home/biignoisee/dev/tools/vscode-js-debug/out/src/vsDebugServer.js", "9229" },
+				},
+			}
+
+			dap.configurations.javascript = {
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Launch file (JS)",
+					program = "${file}",
+					cwd = "${workspaceFolder}",
+				},
+				{
+					type = "pwa-node",
+					request = "attach",
+					name = "Attach (JS)",
+					processId = require("dap.utils").pick_process,
+					cwd = "${workspaceFolder}",
+				},
+			}
+
+			dap.configurations.typescript = {
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Launch file (TS)",
+					program = "${file}",
+					cwd = "${workspaceFolder}",
+					runtimeExecutable = "ts-node", -- necesitas ts-node instalado global o en el proyecto
+					sourceMaps = true,
+					protocol = "inspector",
+					console = "integratedTerminal",
+				},
+			}
+
 			-- Auto abrir/cerrar UI
 			dap.listeners.after.event_initialized["dapui_config"] = function()
 				dapui.open()
