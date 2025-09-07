@@ -1,15 +1,15 @@
 return function(lspconfig, capabilities)
-	-- Detecta si estamos en un proyecto Vue
+	-- Detecta si es un proyecto Vue (usa package.json y busca "vue")
 	local is_vue_project = lspconfig.util.root_pattern("package.json")(vim.fn.getcwd())
 		and vim.fn.filereadable(vim.fn.getcwd() .. "/package.json") == 1
-		and string.find(vim.fn.readfile("package.json")[1] or "", "vue")
+		and string.find(table.concat(vim.fn.readfile("package.json"), "\n"), "vue")
 
-	-- Si es Vue, no levantes tsserver
+	-- Si es Vue, no levantes ts_ls
 	if is_vue_project then
 		return
 	end
 
-	lspconfig.tsserver.setup({
+	lspconfig.ts_ls.setup({
 		capabilities = capabilities,
 		cmd = { "typescript-language-server", "--stdio" },
 		filetypes = {
