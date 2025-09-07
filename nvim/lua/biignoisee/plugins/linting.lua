@@ -1,11 +1,10 @@
+-- eslint-linting.lua
 return {
 	"mfussenegger/nvim-lint",
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
-		local ns = vim.api.nvim_create_namespace("phpstan_diagnostics")
-
 		local function get_project_root()
-			local root_files = { "composer.json", "artisan", "phpstan.neon", ".git" }
+			local root_files = { "package.json", "tsconfig.json", ".eslintrc.js", ".git", "composer.json" }
 			local found = vim.fs.find(root_files, {
 				upward = true,
 				stop = vim.loop.os_homedir(),
@@ -18,22 +17,43 @@ return {
 		end
 
 		local project_root = get_project_root()
-		local phpstan_bin = project_root .. "/vendor/bin/phpstan"
 
-		if vim.fn.filereadable(phpstan_bin) == 0 then
-			vim.notify(
-				"⚠️ No se encontró ./vendor/bin/phpstan — Instálalo con: composer require --dev phpstan/phpstan",
-				vim.log.levels.WARN
-			)
-			phpstan_bin = "phpstan"
-		end
+		-- Binarios locales
+		local eslint_d = project_root .. "/node_modules/.bin/eslint_d"
+		local eslint = project_root .. "/node_modules/.bin/eslint"
+		local phpstan = project_root .. "/vendor/bin/phpstan"
 
-		vim.keymap.set("n", "<F2>", function()
-			if vim.bo.filetype ~= "php" then
-				vim.notify("PHPStan solo funciona con archivos PHP", vim.log.levels.WARN)
+		-- 🔑 Floating lint runner (F4)
+		vim.keymap.set("n", "<F4>", function()
+			local ft = vim.bo.filetype
+			local cmd = nil
+
+			if ft == "javascript" or ft == "typescript" or ft == "javascriptreact" or ft == "typescriptreact" then
+				if vim.fn.filereadable(eslint_d) == 1 then
+					cmd = eslint_d .. " . --ext .js,.ts,.jsx,.tsx"
+				elseif vim.fn.filereadable(eslint) == 1 then
+					cmd = eslint .. " . --ext .js,.ts,.jsx,.tsx"
+				else
+					print(
+						"⚠️ No se encontró eslint/eslint_d en ./node_modules — instala con: npm i -D eslint eslint_d"
+					)
+					return
+				end
+			elseif ft == "php" then
+				if vim.fn.filereadable(phpstan) == 1 then
+					cmd = phpstan .. " analyse"
+				else
+					print(
+						"⚠️ No se encontró phpstan en ./vendor/bin — instala con: composer require --dev phpstan/phpstan"
+					)
+					return
+				end
+			else
+				print("⚠️ No hay linter configurado para este filetype (" .. ft .. ")")
 				return
 			end
 
+			-- Crear floating terminal
 			local buf = vim.api.nvim_create_buf(false, true)
 			local width = math.floor(vim.o.columns * 0.9)
 			local height = math.floor(vim.o.lines * 0.4)
@@ -50,18 +70,36 @@ return {
 				border = "rounded",
 			})
 
-			-- Terminal en floating window corriendo PHPStan
-			vim.fn.termopen(phpstan_bin .. " analyse", { cwd = project_root })
+			vim.fn.termopen(cmd, { cwd = project_root })
 
-			-- Mapear 'q' para cerrar la ventana de terminal
 			vim.keymap.set("t", "q", function()
 				if vim.api.nvim_win_is_valid(win) then
 					vim.api.nvim_win_close(win, true)
 				end
 			end, { buffer = buf, nowait = true })
 
-			-- Entrar en modo insert para ver output live
 			vim.cmd("startinsert")
-		end, { desc = "Run PHPStan on full project in floating terminal" })
+		end, { desc = "Run project linter in floating terminal" })
+
+		-- 🔑 nvim-lint setup (solo si existen los binarios)
+		local lint = require("lint")
+		lint.linters_by_ft = {}
+
+		if vim.fn.filereadable(eslint_d) == 1 then
+			lint.linters_by_ft.javascript = { "eslint_d" }
+			lint.linters_by_ft.typescript = { "eslint_d" }
+			lint.linters_by_ft.javascriptreact = { "eslint_d" }
+			lint.linters_by_ft.typescriptreact = { "eslint_d" }
+		end
+
+		if vim.fn.filereadable(phpstan) == 1 then
+			lint.linters_by_ft.php = { "phpstan" }
+		end
+
+		vim.api.nvim_create_autocmd("BufWritePost", {
+			callback = function()
+				require("lint").try_lint()
+			end,
+		})
 	end,
 }

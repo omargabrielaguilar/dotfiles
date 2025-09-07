@@ -1,18 +1,24 @@
 return {
 	{
 		"vim-test/vim-test",
-		ft = { "php" },
+		ft = { "php", "javascript", "typescript" },
 		config = function()
-			-- Opciones de vim-test, puedes ajustar si quieres
-			vim.g["test#strategy"] = "neovim" -- corre tests en terminal integrado de Neovim
-			vim.g["test#php#runner"] = "pest" -- usa pest para PHP
+			-- PHP
+			vim.g["test#php#runner"] = "pest"
 
-			-- Keymaps Alt+1..4 para vim-test
+			-- JS/TS
+			vim.g["test#javascript#runner"] = "jest"
+			vim.g["test#typescript#runner"] = "jest"
+
+			-- Estrategia: terminal dentro de Neovim
+			vim.g["test#strategy"] = "neovim"
+
+			-- Keymaps Alt+1..4 (funciona igual para PHP y JS/TS)
 			local opts = { noremap = true, silent = true }
-			vim.api.nvim_set_keymap("n", "<M-1>", ":TestNearest<CR>", opts) -- correr test cercano
-			vim.api.nvim_set_keymap("n", "<M-2>", ":TestFile<CR>", opts) -- correr tests archivo actual
-			vim.api.nvim_set_keymap("n", "<M-3>", ":TestSuite<CR>", opts) -- correr toda la suite
-			vim.api.nvim_set_keymap("n", "<M-4>", ":TestLast<CR>", opts) -- repetir último test
+			vim.api.nvim_set_keymap("n", "<M-1>", ":TestNearest<CR>", opts)
+			vim.api.nvim_set_keymap("n", "<M-2>", ":TestFile<CR>", opts)
+			vim.api.nvim_set_keymap("n", "<M-3>", ":TestSuite<CR>", opts)
+			vim.api.nvim_set_keymap("n", "<M-4>", ":TestLast<CR>", opts)
 		end,
 	},
 }

@@ -1,15 +1,15 @@
 return {
 	"hrsh7th/nvim-cmp",
-	-- event = "InsertEnter",
+	-- event = "insertenter",
 	branch = "main", -- fix for deprecated functions coming in nvim 0.13
 	dependencies = {
 		"hrsh7th/cmp-buffer", -- source for text in buffer
 		"hrsh7th/cmp-path", -- source for file system paths
 		"hrsh7th/cmp-cmdline",
 		{
-			"L3MON4D3/LuaSnip",
+			"l3mon4d3/luasnip",
 			-- follow latest release.
-			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+			version = "v2.*", -- replace <currentmajor> by the latest released major (first number of latest release)
 			-- install jsregexp (optional!).
 			build = "make install_jsregexp",
 		},
@@ -31,33 +31,33 @@ return {
 		end
 
 		local lsp_kinds = {
-			Class = " ",
-			Color = " ",
-			Constant = " ",
-			Constructor = " ",
-			Enum = " ",
-			EnumMember = " ",
-			Event = " ",
-			Field = " ",
-			File = " ",
-			Folder = " ",
-			Function = " ",
-			Interface = " ",
-			Keyword = " ",
-			Method = " ",
-			Module = " ",
-			Operator = " ",
-			Property = " ",
-			Reference = " ",
-			Snippet = " ",
-			Struct = " ",
-			Text = " ",
-			TypeParameter = " ",
-			Unit = " ",
-			Value = " ",
-			Variable = " ",
+			class = " ",
+			color = " ",
+			constant = " ",
+			constructor = " ",
+			enum = " ",
+			enummember = " ",
+			event = " ",
+			field = " ",
+			file = " ",
+			folder = " ",
+			function = " ",
+			interface = " ",
+			keyword = " ",
+			method = " ",
+			module = " ",
+			operator = " ",
+			property = " ",
+			reference = " ",
+			snippet = " ",
+			struct = " ",
+			text = " ",
+			typeparameter = " ",
+			unit = " ",
+			value = " ",
+			variable = " ",
 		}
-		-- Returns the current column number.
+		-- returns the current column number.
 		local column = function()
 			local _line, col = unpack(vim.api.nvim_win_get_cursor(0))
 			return col
@@ -105,22 +105,22 @@ return {
 			local keys = nil
 			if vim.o.expandtab then
 				if dedent then
-					keys = rhs("<C-D>")
+					keys = rhs("<c-d>")
 				else
-					keys = rhs("<BS>")
+					keys = rhs("<bs>")
 				end
 			else
 				local col = column()
 				local line = vim.api.nvim_get_current_line()
 				local prefix = line:sub(1, col)
 				if in_leading_indent() then
-					keys = rhs("<BS>")
+					keys = rhs("<bs>")
 				else
 					local previous_char = prefix:sub(#prefix, #prefix)
 					if previous_char ~= " " then
-						keys = rhs("<BS>")
+						keys = rhs("<bs>")
 					else
-						keys = rhs("<C-\\><C-o>:set expandtab<CR><BS><C-\\><C-o>:set noexpandtab<CR>")
+						keys = rhs("<c-\\><c-o>:set expandtab<cr><bs><c-\\><c-o>:set noexpandtab<cr>")
 					end
 				end
 			end
@@ -131,7 +131,7 @@ return {
 		local smart_tab = function(opts)
 			local keys = nil
 			if vim.o.expandtab then
-				keys = "<Tab>" -- Neovim will insert spaces.
+				keys = "<tab>" -- neovim will insert spaces.
 			else
 				local col = column()
 				local line = vim.api.nvim_get_current_line()
@@ -139,7 +139,7 @@ return {
 				local in_leading_indent = prefix:find("^%s*$")
 				if in_leading_indent then
 					-- inserts a hard tab.
-					keys = "<Tab>"
+					keys = "<tab>"
 				else
 					local sw = shift_width()
 					local previous_char = prefix:sub(#prefix, #prefix)
@@ -175,29 +175,29 @@ return {
 			end
 		end
 
-		-- NOTE: Until https://github.com/hrsh7th/nvim-cmp/issues/1716
-		-- (cmp.ConfirmBehavior.MatchSuffix) gets implemented, use this local wrapper
-		-- to choose between `cmp.ConfirmBehavior.Insert` and `cmp.ConfirmBehavior.Replace`:
+		-- note: until https://github.com/hrsh7th/nvim-cmp/issues/1716
+		-- (cmp.confirmbehavior.matchsuffix) gets implemented, use this local wrapper
+		-- to choose between `cmp.confirmbehavior.insert` and `cmp.confirmbehavior.replace`:
 		local confirm = function(entry)
-			local behavior = cmp.ConfirmBehavior.Replace
+			local behavior = cmp.confirmbehavior.replace
 			if entry then
 				local completion_item = entry.completion_item
-				local newText = ""
-				if completion_item.textEdit then
-					newText = completion_item.textEdit.newText
-				elseif type(completion_item.insertText) == "string" and completion_item.insertText ~= "" then
-					newText = completion_item.insertText
+				local newtext = ""
+				if completion_item.textedit then
+					newtext = completion_item.textedit.newtext
+				elseif type(completion_item.inserttext) == "string" and completion_item.inserttext ~= "" then
+					newtext = completion_item.inserttext
 				else
-					newText = completion_item.word or completion_item.label or ""
+					newtext = completion_item.word or completion_item.label or ""
 				end
 
 				-- checks how many characters will be different after the cursor position if we replace?
 				local diff_after = math.max(0, entry.replace_range["end"].character + 1) - entry.context.cursor.col
 
 				-- does the text that will be replaced after the cursor match the suffix
-				-- of the `newText` to be inserted ? if not, then `Insert` instead.
-				if entry.context.cursor_after_line:sub(1, diff_after) ~= newText:sub(-diff_after) then
-					behavior = cmp.ConfirmBehavior.Insert
+				-- of the `newtext` to be inserted ? if not, then `insert` instead.
+				if entry.context.cursor_after_line:sub(1, diff_after) ~= newtext:sub(-diff_after) then
+					behavior = cmp.confirmbehavior.insert
 				end
 			end
 			cmp.confirm({ select = true, behavior = behavior })
@@ -208,7 +208,7 @@ return {
 
 		cmp.setup({
 			experimental = {
-				-- HACK: experimenting with ghost text
+				-- hack: experimenting with ghost text
 				-- look at `toggle_ghost_text()` function below.
 				ghost_text = false,
 			},
@@ -238,23 +238,23 @@ return {
 				{ name = "path" }, -- file system paths
 				{ name = "tailwindcss-colorizer-cmp" },
 			}),
-			-- NOTE: ! Experimenting with Customized Mappings ! --
+			-- note: ! experimenting with customized mappings ! --
 			mapping = cmp.mapping.preset.insert({
-				["<C-e>"] = cmp.mapping.abort(), -- close completion window
-				["<C-d>"] = cmp.mapping(function()
+				["<c-e>"] = cmp.mapping.abort(), -- close completion window
+				["<c-d>"] = cmp.mapping(function()
 					cmp.close_docs()
 				end, { "i", "s" }),
 
-				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-b>"] = cmp.mapping.scroll_docs(-4),
-				["<C-j>"] = cmp.mapping(select_next_item),
-				["<C-k>"] = cmp.mapping(select_prev_item),
-				["<C-n>"] = cmp.mapping(select_next_item),
-				["<C-p>"] = cmp.mapping(select_prev_item),
-				["<Down>"] = cmp.mapping(select_next_item),
-				["<Up>"] = cmp.mapping(select_prev_item),
+				["<c-f>"] = cmp.mapping.scroll_docs(4),
+				["<c-b>"] = cmp.mapping.scroll_docs(-4),
+				["<c-j>"] = cmp.mapping(select_next_item),
+				["<c-k>"] = cmp.mapping(select_prev_item),
+				["<c-n>"] = cmp.mapping(select_next_item),
+				["<c-p>"] = cmp.mapping(select_prev_item),
+				["<down>"] = cmp.mapping(select_next_item),
+				["<up>"] = cmp.mapping(select_prev_item),
 
-				["<C-y>"] = cmp.mapping(function(fallback)
+				["<c-y>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						local entry = cmp.get_selected_entry()
 						confirm(entry)
@@ -263,7 +263,7 @@ return {
 					end
 				end, { "i", "s" }),
 
-				["<CR>"] = cmp.mapping(function(fallback)
+				["<cr>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						local entry = cmp.get_selected_entry()
 						confirm(entry)
@@ -272,7 +272,7 @@ return {
 					end
 				end, { "i", "s" }),
 
-				["<S-Tab>"] = cmp.mapping(function(fallback)
+				["<s-tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_prev_item()
 					elseif has_luasnip and in_snippet() and luasnip.jumpable(-1) then
@@ -286,7 +286,7 @@ return {
 					end
 				end, { "i", "s" }),
 
-				["<Tab>"] = cmp.mapping(function(_fallback)
+				["<tab>"] = cmp.mapping(function(_fallback)
 					if cmp.visible() then
 						-- if there is only one completion candidate then use it.
 						local entries = cmp.get_entries()
@@ -307,16 +307,16 @@ return {
 			-- setup lspkind for vscode pictograms in autocompletion dropdown menu
 			formatting = {
 				format = function(entry, vim_item)
-					-- Add custom lsp_kinds icons
+					-- add custom lsp_kinds icons
 					vim_item.kind = string.format("%s %s", lsp_kinds[vim_item.kind] or "", vim_item.kind)
 
-					-- add menu tags (e.g., [Buffer], [LSP])
+					-- add menu tags (e.g., [buffer], [lsp])
 					vim_item.menu = ({
-						buffer = "[Buffer]",
-						nvim_lsp = "[LSP]",
-						luasnip = "[LuaSnip]",
-						nvim_lua = "[Lua]",
-						latex_symbols = "[LaTeX]",
+						buffer = "[buffer]",
+						nvim_lsp = "[lsp]",
+						luasnip = "[luasnip]",
+						nvim_lua = "[lua]",
+						latex_symbols = "[latex]",
 					})[entry.source.name]
 
 					-- use lspkind and tailwindcss-colorizer-cmp for additional formatting
@@ -334,8 +334,8 @@ return {
 			},
 		})
 
-		-- NOTE: Added Ghost text stuff
-		-- Only show ghost text at word boundaries, not inside keywords. Based on idea
+		-- note: added ghost text stuff
+		-- only show ghost text at word boundaries, not inside keywords. based on idea
 		-- from: https://github.com/hrsh7th/nvim-cmp/issues/2035#issuecomment-2347186210
 
 		local config = require("cmp.config")
@@ -361,9 +361,9 @@ return {
 			end
 		end
 
-		vim.api.nvim_create_autocmd({ "InsertEnter", "CursorMovedI" }, {
+		vim.api.nvim_create_autocmd({ "insertenter", "cursormovedi" }, {
 			callback = toggle_ghost_text,
 		})
-		-- ! Ghost text stuff ! --
+		-- ! ghost text stuff ! --
 	end,
 }

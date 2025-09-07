@@ -40,6 +40,7 @@ return {
 				"phpstan",
 				"blade-formatter",
 				"prettier",
+				"eslint_d",
 			},
 		})
 	end,
