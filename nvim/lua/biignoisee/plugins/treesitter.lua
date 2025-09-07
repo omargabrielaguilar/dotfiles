@@ -20,6 +20,8 @@ return {
 					"bash",
 					"toml",
 					"phpdoc",
+					"typescript",
+					"javascript",
 					"lua",
 					"dockerfile",
 					"gitignore",

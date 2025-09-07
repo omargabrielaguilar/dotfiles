@@ -39,6 +39,7 @@ return {
 				"stylua",
 				"phpstan",
 				"blade-formatter",
+				"prettier",
 			},
 		})
 	end,

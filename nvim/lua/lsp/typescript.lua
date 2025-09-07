@@ -1,5 +1,6 @@
+-- lsp/typescript.lua
 return function(lspconfig, capabilities)
-	lspconfig.ts_ls.setup({
+	lspconfig.tsserver.setup({
 		capabilities = capabilities,
 		cmd = { "typescript-language-server", "--stdio" },
 		filetypes = {
@@ -22,7 +23,7 @@ return function(lspconfig, capabilities)
 					tabSize = 2,
 				},
 				preferences = {
-					importModuleSpecifier = "relative", -- usa rutas relativas
+					importModuleSpecifier = "relative", -- rutas relativas
 					quotePreference = "single", -- comillas simples
 				},
 			},
@@ -34,12 +35,9 @@ return function(lspconfig, capabilities)
 				},
 			},
 		},
-		on_attach = function(client, bufnr)
-			-- Desactiva el formateo nativo si vas a usar Prettier/ESLint
+		on_attach = function(client, _)
+			-- Desactiva el formateo nativo si usas prettier/eslint
 			client.server_capabilities.documentFormattingProvider = false
-
-			-- Aquí puedes añadir keymaps locales para TS/JS si quieres
-			-- ejemplo: vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
 		end,
 	})
 end
