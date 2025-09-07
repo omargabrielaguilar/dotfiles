@@ -30,7 +30,6 @@ return {
 				"intelephense",
 				"ts_ls",
 				"tailwindcss",
-				"volar",
 			},
 		})
 

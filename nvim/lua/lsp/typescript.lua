@@ -1,14 +1,4 @@
 return function(lspconfig, capabilities)
-	-- Detecta si es un proyecto Vue (usa package.json y busca "vue")
-	local is_vue_project = lspconfig.util.root_pattern("package.json")(vim.fn.getcwd())
-		and vim.fn.filereadable(vim.fn.getcwd() .. "/package.json") == 1
-		and string.find(table.concat(vim.fn.readfile("package.json"), "\n"), "vue")
-
-	-- Si es Vue, no levantes ts_ls
-	if is_vue_project then
-		return
-	end
-
 	lspconfig.ts_ls.setup({
 		capabilities = capabilities,
 		cmd = { "typescript-language-server", "--stdio" },
@@ -24,14 +14,22 @@ return function(lspconfig, capabilities)
 		init_options = { hostInfo = "neovim" },
 		settings = {
 			typescript = {
-				format = { indentSize = 2, convertTabsToSpaces = true, tabSize = 2 },
+				format = {
+					indentSize = 2,
+					convertTabsToSpaces = true,
+					tabSize = 2,
+				},
 				preferences = {
 					importModuleSpecifier = "relative",
 					quotePreference = "single",
 				},
 			},
 			javascript = {
-				format = { indentSize = 2, convertTabsToSpaces = true, tabSize = 2 },
+				format = {
+					indentSize = 2,
+					convertTabsToSpaces = true,
+					tabSize = 2,
+				},
 			},
 		},
 		on_attach = function(client, _)
