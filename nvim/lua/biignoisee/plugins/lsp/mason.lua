@@ -4,7 +4,7 @@ return {
 	lazy = false,
 	dependencies = {
 		"williamboman/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		"whoissethdaniel/mason-tool-installer.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		"neovim/nvim-lspconfig",
 	},
@@ -28,8 +28,9 @@ return {
 				"lua_ls",
 				"dockerls",
 				"intelephense",
-				"ts_ls",
+				"vtsls", -- TypeScript LSP
 				"tailwindcss",
+				"volar", -- Vue LSP (correcto)
 			},
 		})
 
