@@ -1,0 +1,39 @@
+- name: Install Neovim
+  hosts: localhost
+  tasks:
+   - name: Install Neovim dependencies
+     community.general.pacman:
+       name:
+         - cmake
+         - base-devel
+         - ninja
+         - tree-sitter
+         - unzip
+         - gettext
+         - lua51
+         - libtool
+         - pkgconf
+         - curl
+         - luarocks
+       state: present
+     become: yes
+
+   - name: Clone neovim
+     ansible.builtin.git:
+       repo: https://github.com/neovim/neovim.git
+       dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/personal/neovim"
+       single_branch: yes
+       version: stable
+       force: yes
+   
+   - name: Build Neovim
+     community.general.make:
+       chdir: "{{ lookup('ansible.builtin.env', 'HOME') }}/personal/neovim"
+       params:
+         CMAKE_BUILD_TYPE: "RelWithDebInfo"
+
+   - name: Install Neovim
+     community.general.make:
+       target: install
+       chdir: "{{ lookup('ansible.builtin.env', 'HOME') }}/personal/neovim"
+     become: yes
