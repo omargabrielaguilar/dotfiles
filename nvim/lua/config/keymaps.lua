@@ -46,5 +46,11 @@ end, { desc = "Save file" })
 vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
 
 -- File Explorer
---vim.keymap.set("n", "<leader>m", "<Cmd>NvimTreeFocus<CR>", { desc = "Focus on File Explorer" })
---vim.keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
+vim.keymap.set("n", "-", function()
+  require("oil").open()
+end, { desc = "Abrir Oil en el buffer actual" })
+
+-- Keymap para abrir Oil en modo flotante (con Shift -)
+vim.keymap.set("n", "_", function()
+  require("oil").open_float()
+end, { desc = "Abrir Oil en modo flotante" })
