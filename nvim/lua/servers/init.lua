@@ -22,4 +22,5 @@ vim.lsp.enable({
   'emmet_ls',
   'yamlls',
   'tailwindcss',
+  'efm'
 })
