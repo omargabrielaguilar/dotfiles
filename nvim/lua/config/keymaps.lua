@@ -54,3 +54,17 @@ end, { desc = "Abrir Oil en el buffer actual" })
 vim.keymap.set("n", "_", function()
   require("oil").open_float()
 end, { desc = "Abrir Oil en modo flotante" })
+
+
+-- ================================================================================================
+-- GitHub Copilot
+-- ================================================================================================
+
+-- Aceptar sugerencia de Copilot con Ctrl+L en modo Insert
+vim.keymap.set("i", "<C-l>", function()
+  local ok, copilot = pcall(require, "copilot.suggestion")
+  if ok then
+    copilot.accept()
+  end
+end, { desc = "Copilot: Accept suggestion" })
+
