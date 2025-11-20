@@ -1,5 +1,5 @@
 # 🖋️ Fuente
-font_family      Daddy Time Mono Nerd Font
+font_family      Maple Mono
 bold_font        auto
 italic_font      auto
 font_size        12.8
@@ -44,6 +44,6 @@ window_margin_width 0
 
 
 # BEGIN_KITTY_THEME
-# OneDark-Pro
+# Night Owl
 include current-theme.conf
 # END_KITTY_THEME

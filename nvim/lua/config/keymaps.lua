@@ -38,8 +38,8 @@ vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position"
 vim.keymap.set("n", "<leader>rc", "<Cmd>e ~/.config/nvim/init.lua<CR>", { desc = "Edit config" })
 
 -- Save file with Ctrl+S
-vim.keymap.set({"n", "i", "v"}, "<C-s>", function()
-  vim.cmd("silent! w")
+vim.keymap.set({ "n", "i", "v" }, "<C-s>", function()
+	vim.cmd("silent! w")
 end, { desc = "Save file" })
 
 -- Select all with Ctrl+A
@@ -47,14 +47,13 @@ vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
 
 -- File Explorer
 vim.keymap.set("n", "-", function()
-  require("oil").open()
+	require("oil").open()
 end, { desc = "Abrir Oil en el buffer actual" })
 
 -- Keymap para abrir Oil en modo flotante (con Shift -)
 vim.keymap.set("n", "_", function()
-  require("oil").open_float()
+	require("oil").open_float()
 end, { desc = "Abrir Oil en modo flotante" })
-
 
 -- ================================================================================================
 -- GitHub Copilot
@@ -62,9 +61,8 @@ end, { desc = "Abrir Oil en modo flotante" })
 
 -- Aceptar sugerencia de Copilot con Ctrl+L en modo Insert
 vim.keymap.set("i", "<C-l>", function()
-  local ok, copilot = pcall(require, "copilot.suggestion")
-  if ok then
-    copilot.accept()
-  end
+	local ok, copilot = pcall(require, "copilot.suggestion")
+	if ok then
+		copilot.accept()
+	end
 end, { desc = "Copilot: Accept suggestion" })
-

@@ -30,7 +30,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp-signature-help", -- function signatures
 	},
 	config = function()
-	  local lspkind = require("lspkind")
+		local lspkind = require("lspkind")
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 

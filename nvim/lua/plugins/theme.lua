@@ -1,18 +1,34 @@
 return {
-	"oxfist/night-owl.nvim",
+	"navarasu/onedark.nvim",
 	lazy = false,
 	priority = 1000,
 	config = function()
-		require("night-owl").setup()
-		vim.cmd.colorscheme("night-owl")
+		require("onedark").setup({
+			style = "darker", -- opciones: dark, darker, cool, deep, warm, warmer
+			transparent = true, -- transparencia nativa del theme 💎
+		})
+		require("onedark").load()
 
-		-- 💫 Forzar transparencia (funciona en TODOS los temas)
-		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-		vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-		vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
-		vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-		vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
-		vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+		-- 💫 Transparencia extra por si algún highlight se pone rebelde
+		local transparent_groups = {
+			"Normal",
+			"NormalNC",
+			"NormalFloat",
+			"FloatBorder",
+			"SignColumn",
+			"LineNr",
+			"Folded",
+			"EndOfBuffer",
+			"CursorLine",
+			"CursorLineNr",
+			"StatusLine",
+			"StatusLineNC",
+			"WinBar",
+			"WinBarNC",
+		}
+
+		for _, group in ipairs(transparent_groups) do
+			vim.api.nvim_set_hl(0, group, { bg = "none" })
+		end
 	end,
 }

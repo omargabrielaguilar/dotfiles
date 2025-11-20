@@ -43,6 +43,6 @@ require("lazy").setup({
 			"netrwPlugin",
 		},
 	},
-	install = { colorscheme = { "night-owl" } },
+	install = { colorscheme = { "onedark" } },
 	checker = { enabled = true },
 })

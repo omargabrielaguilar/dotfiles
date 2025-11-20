@@ -6,8 +6,8 @@
 
 --- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
 --- @return nil
-return function( capabilities)
-	vim.lsp.config('ts_ls', {
+return function(capabilities)
+	vim.lsp.config("ts_ls", {
 		capabilities = capabilities,
 		filetypes = {
 			"typescript",
@@ -15,11 +15,21 @@ return function( capabilities)
 			"typescriptreact",
 			"javascriptreact",
 		},
+		init_options = {
+			preferences = {
+				includeCompletionsForImportStatements = true,
+			},
+			plugins = {},
+		},
 		settings = {
 			typescript = {
-				indentStyle = "space",
-				indentSize = 2,
+				format = {
+					indentSize = 2,
+					convertTabsToSpaces = true,
+				},
+				preferences = {},
 			},
+			javascript = {},
 		},
 	})
 end
