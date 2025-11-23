@@ -9,18 +9,13 @@
 return function(capabilities)
 	vim.lsp.config("intelephense", {
 		capabilities = capabilities,
-
-		-- Init options (config de inicialización del server)
 		init_options = {
-			-- Opcionales, puedes omitirlos si no quieres paths custom.
 			-- storagePath = vim.fn.stdpath("cache") .. "/intelephense",
 			-- globalStoragePath = vim.fn.stdpath("data") .. "/intelephense",
 
 			licenceKey = "00D0IEADQVBNA0K",
 			clearCache = false,
 		},
-
-		-- Settings del server
 		settings = {
 			intelephense = {
 				files = {

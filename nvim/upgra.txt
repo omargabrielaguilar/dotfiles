@@ -1,0 +1,7 @@
+PHP FORMATTING NEW TOOLS
+------------------------
+
+-- pint => formatting php modern tool  on laravel projects > use php-cs-fixer
+-- peck => fixing typos
+-- phpstan => type checking
+-- pest => unit testing 
