@@ -8,7 +8,9 @@
 return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
-	opts = {},
+	opts = {
+		preset = "helix",
+	},
 	keys = {
 		{
 			"<leader>?",
