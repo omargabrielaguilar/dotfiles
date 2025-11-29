@@ -31,6 +31,7 @@ return {
         "markdown",
         "markdown_inline",
         "yaml",
+        "php"
       },
 
       -- auto instala parser cuando abras un nuevo lenguaje
