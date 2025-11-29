@@ -18,6 +18,7 @@ return function(capabilities)
 	local shfmt = require("efmls-configs.formatters.shfmt") -- bash formatter
 	local hadolint = require("efmls-configs.linters.hadolint") -- docker linter
 	local phpstan = require("efmls-configs.linters.phpstan") -- php linter
+	local blade_formatter = require("efmls-configs.formatters.blade_formatter")
 
 	-- Configuración principal de EFM
 	vim.lsp.config("efm", {
@@ -37,6 +38,7 @@ return function(capabilities)
 			"typescript",
 			"typescriptreact",
 			"vue",
+			"blade",
 			"php",
 		},
 		init_options = {
@@ -64,6 +66,7 @@ return function(capabilities)
 				typescriptreact = { eslint_d, prettier_d },
 				vue = { eslint_d, prettier_d },
 				php = { phpstan },
+				blade = { blade_formatter },
 			},
 		},
 	})

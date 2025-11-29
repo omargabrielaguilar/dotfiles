@@ -57,3 +57,8 @@ vim.keymap.set("i", "<C-l>", function()
 		copilot.accept()
 	end
 end, { desc = "Copilot: Accept suggestion" })
+
+-- ===============================================================================================
+-- Fold - unfold
+-- ===============================================================================================
+vim.keymap.set("n", "<leader>k", "za", { desc = "Toggle fold" })
