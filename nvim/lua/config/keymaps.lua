@@ -15,7 +15,7 @@ vim.keymap.set("n", "<leader>bp", "<Cmd>bprevious<CR>", { desc = "Previous buffe
 
 -- Splitting & Resizing
 vim.keymap.set("n", "<leader>sv", "<Cmd>vsplit<CR>", { desc = "Split window vertically" })
-vim.keymap.set("n", "<leader>sh", "<Cmd>split<CR>", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>st", "<Cmd>split<CR>", { desc = "Split window horizontally" })
 vim.keymap.set("n", "<C-Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
 
 -- Better indenting in visual mode
