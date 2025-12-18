@@ -4,6 +4,23 @@
 -- ================================================================================================
 local on_attach = require("utils.lsp").on_attach
 
+-- Autopairs casero
+local auto_pairs = {
+	["("] = ")",
+	["["] = "]",
+	["{"] = "}",
+	['"'] = '"',
+	["'"] = "'",
+	["`"] = "`",
+	["<"] = ">",
+}
+
+for open, close in pairs(auto_pairs) do
+	vim.keymap.set("i", open, function()
+		return open .. close .. "<Left>"
+	end, { expr = true })
+end
+
 -- Restore last cursor position when reopening a file
 local last_cursor_group = vim.api.nvim_create_augroup("LastCursorGroup", {})
 vim.api.nvim_create_autocmd("BufReadPost", {
