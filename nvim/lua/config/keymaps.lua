@@ -46,6 +46,10 @@ vim.keymap.set("n", "_", function()
 	require("oil").open_float()
 end, { desc = "Abrir Oil en modo flotante" })
 
+-- Window navigation (simple)
+vim.keymap.set("n", "<M-1>", "<C-w>h", { desc = "Window left" })
+vim.keymap.set("n", "<M-2>", "<C-w>l", { desc = "Window right" })
+
 -- ================================================================================================
 -- GitHub Copilot
 -- ================================================================================================
