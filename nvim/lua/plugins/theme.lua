@@ -1,28 +1,47 @@
 return {
-	"oxfist/night-owl.nvim",
-	name = "night-owl",
+	"navarasu/onedark.nvim",
 	lazy = false,
 	priority = 1001,
 	config = function()
-		require("night-owl").setup({
-			transparent_background = true,
-			italic = true, -- night-owl solo acepta un boolean, no tablas
-			bold = true, -- igual aquí
+		require("onedark").setup({
+			style = "dark", -- dark > darker para contrast clean
+			transparent = true, -- CLAVE
+			term_colors = true,
+
+			code_style = {
+				comments = "italic",
+				keywords = "none",
+				functions = "none",
+				strings = "none",
+				variables = "none",
+			},
+
+			diagnostics = {
+				darker = true,
+				undercurl = true,
+				background = false,
+			},
 		})
 
-		vim.cmd.colorscheme("night-owl")
+		vim.cmd.colorscheme("onedark")
 
-		-- Mantener floats y statusline transparentes
+		-- 🔎 Fuerza background NONE (por si algún plugin se pone pesado)
 		local transparent_groups = {
 			"Normal",
+			"NormalNC",
 			"NormalFloat",
 			"FloatBorder",
 			"SignColumn",
 			"LineNr",
 			"CursorLine",
 			"CursorLineNr",
+			"MsgArea",
 			"StatusLine",
 			"StatusLineNC",
+			"TelescopeNormal",
+			"TelescopeBorder",
+			"NvimTreeNormal",
+			"NvimTreeNormalNC",
 		}
 
 		for _, group in ipairs(transparent_groups) do

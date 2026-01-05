@@ -1,8 +1,7 @@
 # 🖋️ Fuente
-font_family      Maple Mono
-bold_font        auto
+font_family      Agave Nerd Font Mono
 italic_font      auto
-font_size        12.8
+font_size        14.8
 enable_ligatures yes
 
 # 🎯 Transparencia (0.0 totalmente transparente, 1.0 opaco)
@@ -44,6 +43,6 @@ window_margin_width 0
 
 
 # BEGIN_KITTY_THEME
-# Night Owl
+# One Dark
 include current-theme.conf
 # END_KITTY_THEME
