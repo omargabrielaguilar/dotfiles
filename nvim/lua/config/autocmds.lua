@@ -67,31 +67,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	group = lsp_on_attach_group,
 	callback = on_attach,
 })
-
--- PHP FILES
--- format on save using php-cs-fixer for PHP files
--- GLOBAL PHP-CS-FIXER FORMATTER
-local group = vim.api.nvim_create_augroup("PhpFixerFormatGlobal", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-	group = group,
-	pattern = "*.php",
-	callback = function(ev)
-		local filepath = ev.match
-
-		vim.fn.jobstart({
-			"php-cs-fixer",
-			"fix",
-			"--using-cache=no",
-			"--no-interaction",
-			"--quiet",
-			"--config=" .. vim.fn.expand("$HOME/.config/php-cs-fixer/.php-cs-fixer.php"),
-			filepath,
-		}, {
-			on_exit = function()
-				local pos = vim.api.nvim_win_get_cursor(0)
-				vim.cmd("checktime")
-				vim.api.nvim_win_set_cursor(0, pos)
-			end,
-		})
-	end,
-})
