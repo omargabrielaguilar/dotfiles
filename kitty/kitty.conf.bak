@@ -51,6 +51,6 @@ window_margin_width 0
 
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Mocha
+# Substrata
 include current-theme.conf
 # END_KITTY_THEME
