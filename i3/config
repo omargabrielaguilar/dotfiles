@@ -309,33 +309,32 @@ for_window [class="urxvt"] border pixel 1
 ######################################
 # color settings for bar and windows #
 ######################################
+# Nord (Dark)
+set $bg             #2e3440
+set $bg_bar         #3b4252
+set $fg             #eceff4
 
-######################################
-# color settings for bar and windows #
-######################################
-
-# Night Owl palette
-set $bg             #011627
-set $fg             #d6deeb
-set $accent_yellow  #ecc48d
-set $accent_green   #22da6e
-set $accent_blue    #82aaff
-set $accent_red     #ef5350
-set $accent_purple  #c792ea
-set $gray           #5f7e97
+set $accent_yellow  #ebcb8b
+set $accent_green   #a3be8c
+set $accent_blue    #81a1c1
+set $accent_red     #bf616a
+set $accent_purple  #b48ead
+set $accent_orange  #d08770
+set $gray           #4c566a
 
 # define colors for windows:
-client.focused              $accent_blue   $bg   $fg      $accent_yellow $accent_yellow
-client.unfocused            $bg            $bg   $gray    $bg            $bg
-client.focused_inactive     $bg            $bg   $gray    $bg            $bg
-client.urgent               $accent_red    $accent_red $fg $accent_yellow $accent_yellow
+#                       border          bg           text      indicator      child_border
+client.focused          $accent_blue   $bg          $fg       $accent_yellow $accent_blue
+client.unfocused        $bg            $bg          $gray     $bg            $bg
+client.focused_inactive $bg            $bg          $gray     $bg            $bg
+client.urgent           $accent_red    $accent_red  $fg       $accent_yellow $accent_red
 
 ############################################
 # bar settings (input comes from i3blocks) #
 ############################################
 
 bar {
-    font pango: Monofur 10
+    font pango: Monofur 7.7
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     position top
     tray_padding 0
@@ -343,20 +342,17 @@ bar {
     tray_output primary
 
     colors {
-        separator          $accent_blue
-        background         $bg
+        separator          $accent_orange
+        background         $bg_bar
         statusline         $fg
 
-        #               border          bg           text        indicator
-        focused_workspace  $accent_blue   $accent_blue   $bg         $accent_yellow
-        active_workspace   $accent_purple $accent_purple $bg         $accent_yellow
-        inactive_workspace $bg            $bg            $gray       $accent_yellow
-        urgent_workspace   $accent_red    $accent_red    $fg         $accent_yellow
+        #                    border          bg             text      indicator
+        focused_workspace   $accent_blue   $accent_blue    $bg       $accent_yellow
+        active_workspace    $accent_green  $accent_green   $bg       $accent_yellow
+        inactive_workspace  $bg_bar        $bg_bar         $gray     $accent_orange
+        urgent_workspace    $accent_red    $accent_red     $fg       $accent_yellow
     }
 }
-
-
-
 
 #####################################
 # Application menu handled by rofi: #
@@ -368,3 +364,7 @@ bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun \
 bindsym $mod+t exec --no-startup-id rofi -show window \
 		-config ~/.config/rofi/rofidmenu.rasi
 
+
+
+
+exec_always setxbamp latam
