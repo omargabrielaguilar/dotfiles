@@ -1,60 +1,47 @@
 return {
-	"ellisonleao/gruvbox.nvim",
-	lazy = false,
-	priority = 1000,
-	config = function()
-		require("gruvbox").setup({
-			terminal_colors = true,
-			undercurl = true,
-			underline = true,
-			bold = true,
+  "shaunsingh/nord.nvim",
+  lazy = false,
+  priority = 1000,
+  config = function()
+    vim.g.nord_contrast = true
+    vim.g.nord_borders = false
+    vim.g.nord_disable_background = true
+    vim.g.nord_italic = true
+    vim.g.nord_uniform_diff_background = true
 
-			italic = {
-				strings = true,
-				emphasis = true,
-				comments = true,
-				operators = false,
-				folds = true,
-			},
+    vim.cmd.colorscheme("nord")
 
-			strikethrough = true,
-			invert_selection = false,
-			invert_signs = false,
-			invert_tabline = false,
-			inverse = true,
+    -- 🔎 Fuerza transparencia (anti plugins)
+    local transparent_groups = {
+      "Normal",
+      "NormalNC",
+      "NormalFloat",
+      "FloatBorder",
+      "SignColumn",
+      "LineNr",
+      "CursorLineNr",
+      "MsgArea",
+      "StatusLine",
+      "StatusLineNC",
 
-			contrast = "hard", -- CLAVE: gruvbox hard
-			dim_inactive = false,
-			transparent_mode = true, -- CLAVE: transparencia nativa
-		})
+      -- Telescope
+      "TelescopeNormal",
+      "TelescopeBorder",
 
-		-- MUY IMPORTANTE: después del setup
-		vim.cmd.colorscheme("gruvbox")
+      -- Trees
+      "NvimTreeNormal",
+      "NvimTreeNormalNC",
 
-		-- 🔎 Fuerza transparencia (anti plugins)
-		local transparent_groups = {
-			"Normal",
-			"NormalNC",
-			"NormalFloat",
-			"FloatBorder",
-			"SignColumn",
-			"LineNr",
-			"CursorLineNr",
-			"MsgArea",
-			"StatusLine",
-			"StatusLineNC",
+      -- Popup menus
+      "Pmenu",
+      "PmenuSel",
+      "PmenuThumb",
+      "PmenuSbar",
+    }
 
-			-- Telescope
-			"TelescopeNormal",
-			"TelescopeBorder",
-
-			-- File trees
-			"NvimTreeNormal",
-			"NvimTreeNormalNC",
-		}
-
-		for _, group in ipairs(transparent_groups) do
-			vim.api.nvim_set_hl(0, group, { bg = "none" })
-		end
-	end,
+    for _, group in ipairs(transparent_groups) do
+      vim.api.nvim_set_hl(0, group, { bg = "none" })
+    end
+  end,
 }
+

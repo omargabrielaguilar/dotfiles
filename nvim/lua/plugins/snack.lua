@@ -16,12 +16,12 @@ return {
       enabled = true,
       preset = {
        header = [[
-          ███    ███ ███████ ███    ███ ███████ ███    ██ ███████ ████████  ██████      ████  ██████  ██████  ██ 
-          ████  ████ ██      ████  ████ ██      ████   ██ ██         ██    ██    ██    ████  ██  ██  ██  ██  ██ 
-          ██ ████ ██ █████   ██ ████ ██ █████   ██ ██  ██ █████      ██    ██    ██    ██    ██  ██  ██  ██  ██ 
-          ██  ██  ██ ██      ██  ██  ██ ██      ██  ██ ██ ██         ██    ██    ██    ██    ██  ██  ██  ██  ██ 
-          ██      ██ ███████ ██      ██ ███████ ██   ████ ███████    ██     ██████      ██     ████    ████  ████
-          MEMENTO                MORI
+          ███    ███ ███████ ███    ███ ███████ ███    ██ ███████ ████████  ██████
+          ████  ████ ██      ████  ████ ██      ████   ██ ██         ██    ██    ██
+          ██ ████ ██ █████   ██ ████ ██ █████   ██ ██  ██ █████      ██    ██    ██
+          ██  ██  ██ ██      ██  ██  ██ ██      ██  ██ ██ ██         ██    ██    ██
+          ██      ██ ███████ ██      ██ ███████ ██   ████ ███████    ██     ██████
+                              MEMENTO                MORI
         ]],
       },
       sections = {
@@ -55,7 +55,7 @@ return {
     { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
-    { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
+    { "<leader>nn", function() Snacks.picker.notifications() end, desc = "Notification History" },
     { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
     -- find
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
@@ -152,7 +152,6 @@ return {
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
-        -- Setup some globals for debugging (lazy-loaded)
         _G.dd = function(...)
           Snacks.debug.inspect(...)
         end

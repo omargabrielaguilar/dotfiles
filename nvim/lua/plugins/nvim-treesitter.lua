@@ -9,53 +9,31 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
 	event = { "BufReadPost", "BufNewFile" },
-	lazy = false,
 	config = function()
-		require("nvim-treesitter.configs").setup({
-			-- Lenguajes que quieres tener sí o sí
+		require("nvim-treesitter.config").setup({
 			ensure_installed = {
-				-- Core stack
-				"javascript",
-				"typescript",
-				"tsx", -- JSX / React / Next.js
+				"lua",
+				"vim",
+				"vimdoc",
+				"bash",
 				"json",
+				"yaml",
 				"html",
 				"css",
-
-				-- Backend / Infra
+				"javascript",
+				"typescript",
 				"sql",
 				"dockerfile",
-
-				-- Utilidades varias
-				"lua", -- para Neovim config
+				"php",
 				"markdown",
 				"markdown_inline",
-				"yaml",
-				"php",
 			},
 
-			-- auto instala parser cuando abras un nuevo lenguaje
 			auto_install = true,
 			sync_install = false,
 
-			highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = false,
-			},
-
-			indent = {
-				enable = true,
-			},
-
-			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "<CR>",
-					node_incremental = "<CR>",
-					scope_incremental = "<TAB>",
-					node_decremental = "<S-TAB>",
-				},
-			},
+			highlight = { enable = true },
+			indent = { enable = true },
 		})
 	end,
 }
