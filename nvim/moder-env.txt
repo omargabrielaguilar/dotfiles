@@ -1,0 +1,10 @@
+1. dap conf
+2. neotest conf
+3. lsp conf
+4. snack conf 
+5. linter conf
+6. formatter conf  pint 
+7. peck php
+8. phpstan and larastan
+9. laravel plugin
+
