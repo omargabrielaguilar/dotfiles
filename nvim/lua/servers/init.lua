@@ -10,10 +10,12 @@ require("servers.emmet_ls")(capabilities)
 require("servers.yamlls")(capabilities)
 require("servers.tailwindcss")(capabilities)
 require("servers.intelephense")(capabilities)
-require("servers.omnisharp")(capabilities)
 
 -- Linters & Formatters
 require("servers.efm-langserver")(capabilities)
+
+-- Dap
+require("servers.dap.php")
 
 vim.lsp.enable({
 	"lua_ls",

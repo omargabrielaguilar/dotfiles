@@ -31,8 +31,14 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>tn", function()
-			require("neotest").run.run()
-		end)
+		vim.keymap.set("n", "<leader>tn", neotest.run.run, { desc = "Test nearest" })
+		vim.keymap.set("n", "<leader>tf", function()
+			neotest.run.run(vim.fn.expand("%"))
+		end, { desc = "Test file" })
+		vim.keymap.set("n", "<leader>ts", function()
+			neotest.run.run({ suite = true })
+		end, { desc = "Test suite" })
+		vim.keymap.set("n", "<leader>to", neotest.output.open, { desc = "Test output" })
+		vim.keymap.set("n", "<leader>tp", neotest.summary.toggle, { desc = "Test panel" })
 	end,
 }

@@ -13,15 +13,27 @@ M.on_attach = function(event)
 		buffer = bufnr, -- restrict the keymap to the local buffer number
 	}
 
- -- Diagnostics
-  keymap("n", "<leader>D", function() vim.diagnostic.open_float({ scope = "line" }) end, opts)
-  keymap("n", "<leader>d", function() vim.diagnostic.open_float() end, opts)
-  keymap("n", "<leader>pd", function() vim.diagnostic.goto_prev() end, opts)
-  keymap("n", "<leader>nd", function() vim.diagnostic.goto_next() end, opts)
+	-- Diagnostics
+	keymap("n", "<leader>D", function()
+		vim.diagnostic.open_float({ scope = "line" })
+	end, opts)
+	keymap("n", "<leader>d", function()
+		vim.diagnostic.open_float()
+	end, opts)
+	keymap("n", "<leader>pd", function()
+		vim.diagnostic.goto_prev()
+	end, opts)
+	keymap("n", "<leader>nd", function()
+		vim.diagnostic.goto_next()
+	end, opts)
 
-  -- Code actions & rename
-  keymap("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-  keymap("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
+	-- Code actions & rename
+	keymap("n", "<leader>ca", function()
+		vim.lsp.buf.code_action()
+	end, opts)
+	keymap("n", "<leader>rn", function()
+		vim.lsp.buf.rename()
+	end, opts)
 
 	-- Order Imports (if supported by the client LSP)
 	if client:supports_method("textDocument/codeAction", bufnr) then
