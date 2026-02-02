@@ -28,5 +28,4 @@ vim.lsp.enable({
 	"tailwindcss",
 	"efm",
 	"intelephense",
-	"omnisharp",
 })
