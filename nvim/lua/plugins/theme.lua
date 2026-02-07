@@ -1,30 +1,21 @@
 return {
-	"navarasu/onedark.nvim",
+	"fcancelinha/nordern.nvim",
+	branch = "master",
 	lazy = false,
-	priority = 1000,
+	priority = 1001,
 	config = function()
 		vim.opt.termguicolors = true
 
-		require("onedark").setup({
-			style = "darker", -- "dark" | "darker" | "cool" | "deep" | "warm" | "warmer"
+		require("nordern").setup({
+			brighter_comments = false,
+			brighter_constants = false,
+			italic_comments = false,
 			transparent = true,
-			code_style = {
-				comments = "italic",
-				keywords = "italic",
-				functions = "none",
-				strings = "none",
-				variables = "none",
-			},
-			diagnostics = {
-				darker = true,
-				undercurl = true,
-				background = false,
-			},
 		})
 
-		require("onedark").load()
+		vim.cmd.colorscheme("nordern")
 
-		-- 🔎 Fuerza transparencia (anti plugins que pisan bg)
+		-- 🔎 Transparencia forzada (anti plugins que pisan bg)
 		local transparent_groups = {
 			"Normal",
 			"NormalNC",
@@ -41,10 +32,6 @@ return {
 			"SnacksNotifier",
 			"SnacksNotifierBorder",
 
-			-- Telescope / Pickers
-			"TelescopeNormal",
-			"TelescopeBorder",
-
 			-- File explorers
 			"NvimTreeNormal",
 			"NvimTreeNormalNC",
@@ -60,5 +47,22 @@ return {
 		for _, group in ipairs(transparent_groups) do
 			vim.api.nvim_set_hl(0, group, { bg = "none" })
 		end
+
+		-- 🎯 Snacks UI fix (contraste limpio)
+		local snacks_groups = {
+			"SnacksNormal",
+			"SnacksBorder",
+			"SnacksTitle",
+			"SnacksFooter",
+			"SnacksBackdrop",
+			"SnacksSelection",
+		}
+
+		for _, group in ipairs(snacks_groups) do
+			vim.api.nvim_set_hl(0, group, { bg = "none" })
+		end
+
+		vim.api.nvim_set_hl(0, "SnacksSelection", { bg = "#3B4252" }) -- Nord slate
 	end,
 }
+

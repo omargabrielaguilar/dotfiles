@@ -9,3 +9,37 @@
 9. laravel plugin
 1. checkhealth
 
+
+
+
+snack : 
+bigfile 
+bufdelete
+dashboard
+dim 
+explorer -> right and change 
+gh 
+git 
+gitbrowse
+image
+indent
+input
+keymap
+layout
+lazygit
+notifier
+notify
+picker
+profiler
+quickfile
+rename
+scope
+scratch
+scroll
+statuscolumn
+terminal
+toggle
+util
+win
+words
+zen
