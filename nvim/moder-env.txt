@@ -13,8 +13,6 @@
 
 
 snack : 
-bigfile 
-bufdelete
 dashboard
 dim 
 explorer -> right and change 
