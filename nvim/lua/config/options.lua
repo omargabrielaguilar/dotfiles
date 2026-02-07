@@ -1,6 +1,6 @@
 -- =============================================================================================================================
 -- TITLE : neovim options
--- ABOUT : basic setting to native neovim 
+-- ABOUT : basic setting to native neovim
 -- =============================================================================================================================
 
 -- Basic Settings
@@ -11,7 +11,7 @@ vim.opt.scrolloff = 10 -- Keep 10 lines above/below cursor
 vim.opt.sidescrolloff = 8 -- Keep 8 columns left/right of cursor
 vim.opt.wrap = false -- Don't wrap lines
 vim.opt.cmdheight = 1 -- Command line height
-vim.opt.spelllang = { "en", "de", "es"} -- Set language for spellchecking
+vim.opt.spelllang = { "en", "es" } -- Set language for spellchecking
 
 -- Tabbing / Indentation
 vim.opt.tabstop = 2 -- Tab width
@@ -32,7 +32,6 @@ vim.opt.incsearch = true -- Show matches as you type
 -- Visual Settings
 vim.opt.termguicolors = true -- Enable 24-bit colors
 vim.opt.signcolumn = "yes" -- Always show sign column
-vim.opt.colorcolumn = "100" -- Show column at 100 characters
 vim.opt.showmatch = true -- Highlight matching brackets
 vim.opt.matchtime = 2 -- How long to show matching bracket
 vim.opt.completeopt = "menuone,noinsert,noselect" -- Completion options
@@ -57,9 +56,9 @@ vim.opt.timeoutlen = 500 -- Time in ms to wait for mapped sequence
 vim.opt.ttimeoutlen = 0 -- No wait for key code sequences
 vim.opt.autoread = true -- Auto-reload file if changed outside
 vim.opt.autowrite = false -- Don't auto-save on some events
-vim.opt.diffopt:append("vertical") -- Vertical diff splits
-vim.opt.diffopt:append("algorithm:patience") -- Better diff algorithm
-vim.opt.diffopt:append("linematch:60") -- Better diff highlighting (smart line matching)
+vim.opt.diffopt:append "vertical" -- Vertical diff splits
+vim.opt.diffopt:append "algorithm:patience" -- Better diff algorithm
+vim.opt.diffopt:append "linematch:60" -- Better diff highlighting (smart line matching)
 
 -- Set undo directory and ensure it exists
 local undodir = "~/.local/share/nvim/undodir" -- Undo directory path
@@ -73,11 +72,11 @@ end
 vim.opt.errorbells = false -- Disable error sounds
 vim.opt.backspace = "indent,eol,start" -- Make backspace behave naturally
 vim.opt.autochdir = false -- Don't change directory automatically
-vim.opt.iskeyword:append("-") -- Treat dash as part of a word
-vim.opt.path:append("**") -- Search into subfolders with `gf`
+vim.opt.iskeyword:append "-" -- Treat dash as part of a word
+vim.opt.path:append "**" -- Search into subfolders with `gf`
 vim.opt.selection = "inclusive" -- Use inclusive selection
 vim.opt.mouse = "a" -- Enable mouse support
-vim.opt.clipboard:append("unnamedplus") -- Use system clipboard
+vim.opt.clipboard:append "unnamedplus" -- Use system clipboard
 vim.opt.modifiable = true -- Allow editing buffers
 vim.opt.encoding = "UTF-8" -- Use UTF-8 encoding
 vim.opt.wildmenu = true -- Enable command-line completion menu

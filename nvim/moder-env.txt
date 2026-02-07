@@ -13,17 +13,8 @@
 
 
 snack : 
-dashboard
-dim 
-explorer -> right and change 
-gh 
-git 
-gitbrowse
-image
 indent
-input
 keymap
-layout
 lazygit
 notifier
 notify

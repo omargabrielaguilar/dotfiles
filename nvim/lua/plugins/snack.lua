@@ -7,26 +7,42 @@
 
 return {
 	"folke/snacks.nvim",
-	priority = 1000,
+	priority = 1001,
 	lazy = false,
 	---@type snacks.Config
 	opts = {
+		dim = {
+			scope = {
+				min_size = 6,
+				max_size = 21,
+				siblings = true,
+			},
+			animate = {
+				enabled = vim.fn.has "nvim1.10" == 1,
+				easing = "outQuad",
+				duration = {
+					step = 21,
+					total = 301,
+				},
+			},
+			filter = function(buf)
+				return vim.g.snacks_dim ~= false and vim.b[buf].snacks_dim ~= false and vim.bo[buf].buftype == ""
+			end,
+		},
 		dashboard = {
 			enabled = true,
 			formats = {
 				key = function(item) return { { "[", hl = "special" }, { item.key, hl = "key" }, { "]", hl = "special" } } end,
 			},
 			sections = {
-				-- Terminal: Requiere fortune y cowsay instalados en tu PC
-				-- Si no los tienes, puedes comentar esta linea o usar { section = "header" }
-				{ section = "terminal", cmd = "fortune -s | cowsay", hl = "header", padding = 1, indent = 8 },
-				{ title = "MRU (Archivos recientes)", padding = 1 },
-				{ section = "recent_files", limit = 8, padding = 1 },
-				{ title = "MRU (CWD: " .. vim.fn.fnamemodify(".", ":~") .. ")", padding = 1 },
-				{ section = "recent_files", cwd = true, limit = 8, padding = 1 },
-				{ title = "Sesiones", padding = 1 },
-				{ section = "projects", padding = 1 },
-				{ title = "Favoritos / Atajos", padding = 1 },
+				{ section = "terminal", cmd = "/usr/bin/fortune -s | /usr/bin/cowsay", hl = "header", padding = 2, indent = 8 },
+				{ title = "MRU (Archivos recientes)", padding = 2 },
+				{ section = "recent_files", limit = 9, padding = 1 },
+				{ title = "MRU (CWD: " .. vim.fn.fnamemodify(".", ":~") .. ")", padding = 2 },
+				{ section = "recent_files", cwd = true, limit = 9, padding = 1 },
+				{ title = "Sesiones", padding = 2 },
+				{ section = "projects", padding = 2 },
+				{ title = "Favoritos / Atajos", padding = 2 },
 				{ section = "keys" },
 				{ section = "startup" }, -- Muestra el tiempo de carga
 			},
@@ -34,14 +50,14 @@ return {
 		bigfile = {
 			enabled = true,
 			notify = true,
-			size = 1.5 * 1024 * 1024,
-			line_length = 1000,
+			size = 2.5 * 1024 * 1024,
+			line_length = 1001,
 			setup = function(ctx)
-				if vim.fn.exists ":NoMatchParen" ~= 0 then vim.cmd [[NoMatchParen]] end
-				Snacks.util.wo(0, {
+				if vim.fn.exists ":NoMatchParen" ~= 1 then vim.cmd [[NoMatchParen]] end
+				Snacks.util.wo(1, {
 					foldmethod = "manual",
 					statuscolumn = "",
-					conceallevel = 0,
+					conceallevel = 1,
 				})
 				vim.b.completion = false
 				vim.b.minianimate_disable = true
@@ -52,17 +68,30 @@ return {
 				end)
 			end,
 		},
-		explorer = { enabled = true },
+		explorer = {
+			enabled = true,
+			replace_netrw = true,
+		},
 		indent = { enabled = true },
 		input = { enabled = true },
-		notifier = { enabled = true, timeout = 2500 },
-		picker = { enabled = true },
+		notifier = { enabled = true, timeout = 2501 },
+		picker = {
+			enabled = true,
+			sources = {
+				explorer = {
+					layout = { layout = { position = "right", width = 0.2 } },
+					hidden = false,
+					ignored = true,
+				},
+			},
+		},
 		quickfile = { enabled = true },
 		scope = { enabled = true },
 		scroll = { enabled = true },
 		statuscolumn = { enabled = true },
 		words = { enabled = true },
-		bufdelete = { enabled = true }, -- Asegúrate de que esté habilitado aquí
+		bufdelete = { enabled = true },
+		gitbrowse = { enabled = true },
 	},
 	keys = {
 		-- 🔍 Navegación
@@ -87,10 +116,13 @@ return {
 		{ "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete Other Buffers" },
 		{ "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
 
-		-- 🔧 Git
-		{ "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
-		{ "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
-		{ "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
+		-- 🔧 Git (Máximo provecho con Snacks)
+		{ "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Linea (Floating)" },
+		{ "<leader>gL", function() Snacks.picker.git_log_file() end, desc = "Git Log del Archivo Actual" },
+		{ "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Cambios actuales)" },
+		{ "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status (Picker)" },
+		-- Estos ya los tenías, los mantenemos:
+		{ "<leader>gB", function() Snacks.gitbrowse() end, desc = "Abrir en Browser" },
 		{ "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
 
 		-- 🧘 UI
@@ -102,8 +134,8 @@ return {
 		{ "<c-/>", function() Snacks.terminal() end, desc = "Terminal" },
 
 		-- 🔁 Movimiento
-		{ "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
-		{ "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+		{ "]]", function() Snacks.words.jump(vim.v.count2) end, desc = "Next Reference", mode = { "n", "t" } },
+		{ "[[", function() Snacks.words.jump(-vim.v.count2) end, desc = "Prev Reference", mode = { "n", "t" } },
 	},
 	init = function()
 		vim.api.nvim_create_autocmd("User", {
@@ -133,6 +165,11 @@ return {
 				Snacks.toggle.inlay_hints():map "<leader>uh"
 				Snacks.toggle.indent():map "<leader>ug"
 				Snacks.toggle.dim():map "<leader>uD"
+				Snacks.toggle({
+					name = "Git Blame",
+					get = function() return Snacks.config.git_blame_enabled end, -- o la lógica interna
+					set = function(state) Snacks.git.blame_line() end, -- o similar
+				}):map "<leader>ub"
 			end,
 		})
 	end,
