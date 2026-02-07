@@ -1,8 +1,6 @@
 -- ================================================================================================
 -- TITLE : oil.lua
 -- ABOUT : A file explorer tree for Neovim, written in Lua.
--- LINKS :
---   > github : https://github.com/stevearc/oil.lua
 -- ================================================================================================
 
 return {
@@ -29,7 +27,22 @@ return {
 	},
 	lazy = false,
 	config = function(_, opts)
-		local oil = require("oil")
+		local oil = require "oil"
 		oil.setup(opts)
+
+		-- 🚀 INTEGRACIÓN CON SNACKS RENAME
+		-- Esto hace que al guardar cambios en Oil, el LSP actualice las rutas
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "OilActionsPost",
+			callback = function(event)
+				local actions = event.data.actions
+				for _, action in ipairs(actions) do
+					if action.type == "move" then
+						-- Snacks detecta el cambio y avisa al LSP
+						Snacks.rename.on_rename_file(action.src_url, action.dest_url)
+					end
+				end
+			end,
+		})
 	end,
 }

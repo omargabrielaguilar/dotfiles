@@ -1,103 +1,63 @@
--- =============================================================================================================================
--- TITLE : neovim options
--- ABOUT : basic setting to native neovim
--- =============================================================================================================================
+-- ================================================================================================
+-- TITLE : options.lua
+-- ABOUT : Configuración nativa optimizada para Snacks, Oil y agilidad pura.
+-- ================================================================================================
 
--- Basic Settings
-vim.opt.number = true -- Line numbers
-vim.opt.relativenumber = true -- Relative line numbers
-vim.opt.cursorline = true -- Highlight current line
-vim.opt.scrolloff = 10 -- Keep 10 lines above/below cursor
-vim.opt.sidescrolloff = 8 -- Keep 8 columns left/right of cursor
-vim.opt.wrap = false -- Don't wrap lines
-vim.opt.cmdheight = 1 -- Command line height
-vim.opt.spelllang = { "en", "es" } -- Set language for spellchecking
+-- 🛠️ UI & Visuals
+vim.opt.number = true -- Números de línea
+vim.opt.relativenumber = true -- Números relativos (clave para saltos rápidos)
+vim.opt.cursorline = true -- Resaltar línea actual
+vim.opt.termguicolors = true -- Colores de 24 bits
+vim.opt.signcolumn = "yes" -- Evita saltos de la columna de signos
+vim.opt.showmode = false -- No mostrar mode (Lualine ya lo hace)
+vim.opt.laststatus = 3 -- Barra de estado global (más moderno)
+vim.opt.cmdheight = 0 -- Oculta la línea de comandos cuando no se usa (limpieza total)
 
--- Tabbing / Indentation
-vim.opt.tabstop = 2 -- Tab width
-vim.opt.shiftwidth = 2 -- Indent width
-vim.opt.softtabstop = 2 -- Soft tab stop
-vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.smartindent = true -- Smart auto-indenting
-vim.opt.autoindent = true -- Copy indent from current line
-vim.opt.grepprg = "rg --vimgrep" -- Use ripgrep if available
-vim.opt.grepformat = "%f:%l:%c:%m" -- filename, line number, column, content
+-- 🧠 Comportamiento de Edición
+vim.opt.scrolloff = 10 -- Mantiene el cursor centrado
+vim.opt.sidescrolloff = 8
+vim.opt.wrap = false -- No romper líneas
+vim.opt.smartindent = true -- Indentación inteligente
+vim.opt.expandtab = true -- Espacios en vez de Tabs
+vim.opt.shiftwidth = 2 -- Tamaño de indentación
+vim.opt.tabstop = 2
+vim.opt.mouse = "a" -- Mouse habilitado (útil para el Statuscolumn de Snacks)
+vim.opt.clipboard = "unnamedplus" -- Clipboard del sistema
+vim.opt.updatetime = 250 -- Respuesta más rápida del LSP y Git
+vim.opt.timeoutlen = 400 -- Menos espera para completar keymaps
 
--- Search Settings
-vim.opt.ignorecase = true -- Case-insensitive search
-vim.opt.smartcase = true -- Case-sensitive if uppercase in search
-vim.opt.hlsearch = false -- Don't highlight search results
-vim.opt.incsearch = true -- Show matches as you type
+-- 🔍 Búsqueda
+vim.opt.ignorecase = true -- Ignorar mayúsculas
+vim.opt.smartcase = true -- ...a menos que busques con una mayúscula
+vim.opt.hlsearch = false -- Limpia el resaltado automáticamente
+vim.opt.incsearch = true -- Salta al resultado mientras escribes
 
--- Visual Settings
-vim.opt.termguicolors = true -- Enable 24-bit colors
-vim.opt.signcolumn = "yes" -- Always show sign column
-vim.opt.showmatch = true -- Highlight matching brackets
-vim.opt.matchtime = 2 -- How long to show matching bracket
-vim.opt.completeopt = "menuone,noinsert,noselect" -- Completion options
-vim.opt.showmode = false -- Don't show mode in command line
-vim.opt.pumheight = 10 -- Popup menu height
-vim.opt.pumblend = 10 -- Popup menu transparency
-vim.opt.winblend = 0 -- Floating window transparency
-vim.opt.conceallevel = 0 -- Don't hide markup
-vim.opt.concealcursor = "" -- Show markup even on cursor line
-vim.opt.lazyredraw = false -- redraw while executing macros (butter UX)
-vim.opt.redrawtime = 10000 -- Timeout for syntax highlighting redraw
-vim.opt.maxmempattern = 20000 -- Max memory for pattern matching
-vim.opt.synmaxcol = 300 -- Syntax highlighting column limit
+-- 📂 Archivos y Undo (Persistencia)
+vim.opt.undofile = true -- Mantiene el historial de cambios tras cerrar
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
 
--- File Handling
-vim.opt.backup = false -- Don't create backup files
-vim.opt.writebackup = false -- Don't backup before overwriting
-vim.opt.swapfile = false -- Don't create swap files
-vim.opt.undofile = true -- Persistent undo
-vim.opt.updatetime = 300 -- Time in ms to trigger CursorHold
-vim.opt.timeoutlen = 500 -- Time in ms to wait for mapped sequence
-vim.opt.ttimeoutlen = 0 -- No wait for key code sequences
-vim.opt.autoread = true -- Auto-reload file if changed outside
-vim.opt.autowrite = false -- Don't auto-save on some events
-vim.opt.diffopt:append "vertical" -- Vertical diff splits
-vim.opt.diffopt:append "algorithm:patience" -- Better diff algorithm
-vim.opt.diffopt:append "linematch:60" -- Better diff highlighting (smart line matching)
+-- 📂 Configuración de Undo Dir (Auto-creado)
+local undodir = vim.fn.stdpath "data" .. "/undo"
+if vim.fn.isdirectory(undodir) == 0 then vim.fn.mkdir(undodir, "p") end
+vim.opt.undodir = undodir
 
--- Set undo directory and ensure it exists
-local undodir = "~/.local/share/nvim/undodir" -- Undo directory path
-vim.opt.undodir = vim.fn.expand(undodir) -- Expand to full path
-local undodir_path = vim.fn.expand(undodir)
-if vim.fn.isdirectory(undodir_path) == 0 then
-	vim.fn.mkdir(undodir_path, "p") -- Create if not exists
-end
+-- 📦 Splits y Ventanas
+vim.opt.splitbelow = true -- Splits horizontales abajo
+vim.opt.splitright = true -- Splits verticales a la derecha
 
--- Behavior Settings
-vim.opt.errorbells = false -- Disable error sounds
-vim.opt.backspace = "indent,eol,start" -- Make backspace behave naturally
-vim.opt.autochdir = false -- Don't change directory automatically
-vim.opt.iskeyword:append "-" -- Treat dash as part of a word
-vim.opt.path:append "**" -- Search into subfolders with `gf`
-vim.opt.selection = "inclusive" -- Use inclusive selection
-vim.opt.mouse = "a" -- Enable mouse support
-vim.opt.clipboard:append "unnamedplus" -- Use system clipboard
-vim.opt.modifiable = true -- Allow editing buffers
-vim.opt.encoding = "UTF-8" -- Use UTF-8 encoding
-vim.opt.wildmenu = true -- Enable command-line completion menu
-vim.opt.wildmode = "longest:full,full" -- Completion mode for command-line
-vim.opt.wildignorecase = true -- Case-insensitive tab completion in commands
+-- 🍿 Snacks & Modern Folds (Optimizado para Statuscolumn)
+vim.opt.foldcolumn = "1"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
--- Cursor Settings
-vim.opt.guicursor = {
-	"n-v-c:block", -- Normal, Visual, Command-line
-	"i-ci-ve:block", -- Insert, Command-line Insert, Visual-exclusive
-	"r-cr:hor20", -- Replace, Command-line Replace
-	"o:hor50", -- Operator-pending
-	"a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor", -- All modes: blinking & highlight groups
-	"sm:block-blinkwait175-blinkoff150-blinkon175", -- Showmatch mode
-}
+-- ⌨️ Cursor (Block everywhere, estilo Bromley: Sólido)
+vim.opt.guicursor = "n-v-c-i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250"
 
--- Folding Settings
-vim.opt.foldmethod = "expr" -- Use expression for folding
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use treesitter for folding
-vim.opt.foldlevel = 99 -- Keep all folds open by default
-
--- Split Behavior
-vim.opt.splitbelow = true -- Horizontal splits open below
-vim.opt.splitright = true -- Vertical splits open to the right
+-- 🚀 Performance
+vim.opt.lazyredraw = false -- En Neovim moderno, true a veces rompe el scroll de Snacks
+vim.opt.synmaxcol = 250 -- No procesar líneas larguísimas (evita lag)

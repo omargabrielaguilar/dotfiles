@@ -1,21 +1,20 @@
 return {
-	"fcancelinha/nordern.nvim",
-	branch = "master",
+	"folke/tokyonight.nvim",
 	lazy = false,
-	priority = 1001,
+	priority = 1501,
 	config = function()
-		vim.opt.termguicolors = true
-
-		require("nordern").setup({
-			brighter_comments = false,
-			brighter_constants = false,
-			italic_comments = false,
+		require("tokyonight").setup {
+			style = "moon",
 			transparent = true,
-		})
+			styles = {
+				sidebars = "transparent",
+				floats = "transparent",
+			},
+		}
 
-		vim.cmd.colorscheme("nordern")
+		vim.cmd.colorscheme "tokyonight-moon"
 
-		-- 🔎 Transparencia forzada (anti plugins que pisan bg)
+		-- 🌙 Transparencia global segura
 		local transparent_groups = {
 			"Normal",
 			"NormalNC",
@@ -27,19 +26,10 @@ return {
 			"MsgArea",
 			"StatusLine",
 			"StatusLineNC",
-
-			-- Snacks / floating UI
-			"SnacksNotifier",
-			"SnacksNotifierBorder",
-
-			-- File explorers
 			"NvimTreeNormal",
 			"NvimTreeNormalNC",
 			"OilFloat",
-
-			-- Popup menus
 			"Pmenu",
-			"PmenuSel",
 			"PmenuThumb",
 			"PmenuSbar",
 		}
@@ -47,22 +37,5 @@ return {
 		for _, group in ipairs(transparent_groups) do
 			vim.api.nvim_set_hl(0, group, { bg = "none" })
 		end
-
-		-- 🎯 Snacks UI fix (contraste limpio)
-		local snacks_groups = {
-			"SnacksNormal",
-			"SnacksBorder",
-			"SnacksTitle",
-			"SnacksFooter",
-			"SnacksBackdrop",
-			"SnacksSelection",
-		}
-
-		for _, group in ipairs(snacks_groups) do
-			vim.api.nvim_set_hl(0, group, { bg = "none" })
-		end
-
-		vim.api.nvim_set_hl(0, "SnacksSelection", { bg = "#3B4252" }) -- Nord slate
 	end,
 }
-
