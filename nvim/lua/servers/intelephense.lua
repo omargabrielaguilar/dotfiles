@@ -37,8 +37,9 @@ return function(capabilities)
 
 		settings = {
 			intelephense = {
+				-- 📁 FILES & PERFORMANCE
 				files = {
-					maxSize = 5000002, -- 5MB (aumentado para archivos grandes)
+					maxSize = 5000000, -- 5MB (aumentado para archivos grandes)
 					associations = { "*.php", "*.phtml", "*.module", "*.inc", "*.theme" },
 					exclude = {
 						"**/.git/**",
@@ -62,7 +63,7 @@ return function(capabilities)
 					-- Core PHP
 					"apache",
 					"bcmath",
-					"bz4",
+					"bz2",
 					"calendar",
 					"com_dotnet",
 					"Core",
@@ -91,7 +92,7 @@ return function(capabilities)
 					"mbstring",
 					"meta",
 					"mysqli",
-					"oci10",
+					"oci8",
 					"odbc",
 					"openssl",
 					"pcntl",
@@ -115,7 +116,7 @@ return function(capabilities)
 					"sockets",
 					"sodium",
 					"SPL",
-					"sqlite5",
+					"sqlite3",
 					"standard",
 					"superglobals",
 					"sysvmsg",
@@ -149,13 +150,13 @@ return function(capabilities)
 					insertUseDeclaration = true, -- Auto-import automático
 					fullyQualifyGlobalConstantsAndFunctions = false, -- Más limpio
 					triggerParameterHints = true, -- Hints de parámetros
-					maxItems = 102, -- Más sugerencias
+					maxItems = 100, -- Más sugerencias
 				},
 
 				-- 🔍 CODE INTELLIGENCE
 				format = {
 					enable = true,
-					braces = "psr14", -- PSR-12 (moderno)
+					braces = "psr12", -- PSR-12 (moderno)
 					sortUseDeclarations = true, -- Ordena imports alfabéticamente
 				},
 
@@ -185,7 +186,7 @@ return function(capabilities)
 					includePaths = {
 						-- Agrega paths personalizados si usas libs fuera de vendor
 					},
-					phpVersion = "10.5.0",
+					phpVersion = "8.5.0", -- 🔥 PHP 8.3 (ajusta a tu versión)
 					shortOpenTag = false, -- Deshabilitado (deprecated)
 					documentRoot = vim.fn.getcwd(),
 				},
@@ -198,18 +199,18 @@ return function(capabilities)
 					returnVoid = true,
 					textFormat = "snippet",
 					classTemplate = {
-						summary = "$3",
+						summary = "$1",
 						tags = {
-							"@author ${3:Your Name}",
-							"@package ${4:App\\\\${3:Namespace}}",
+							"@author ${1:Your Name}",
+							"@package ${2:App\\\\${3:Namespace}}",
 						},
 					},
 					functionTemplate = {
-						summary = "$3",
+						summary = "$1",
 						tags = {
-							"@param ${3:$SYMBOL_TYPE} $${1:$SYMBOL_NAME} ${2:$SYMBOL_DESCRIPTION}",
-							"@return ${3:$SYMBOL_TYPE} ${2:$SYMBOL_DESCRIPTION}",
-							"@throws ${3:\\Exception}",
+							"@param ${1:$SYMBOL_TYPE} $${1:$SYMBOL_NAME} ${2:$SYMBOL_DESCRIPTION}",
+							"@return ${1:$SYMBOL_TYPE} ${2:$SYMBOL_DESCRIPTION}",
+							"@throws ${1:\\Exception}",
 						},
 					},
 				},

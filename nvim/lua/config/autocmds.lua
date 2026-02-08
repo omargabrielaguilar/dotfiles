@@ -48,36 +48,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- format on save using efm langserver and configured formatters
-local lsp_fmt_group = vim.api.nvim_create_augroup("FormatOnSaveGroup", {})
+local lsp_fmt_group = vim.api.nvim_create_augroup("FormatOnSaveGroup", { clear = true })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = lsp_fmt_group,
 	callback = function()
-		-- 1. Forzar que Neovim sepa si el archivo cambió en disco
 		vim.cmd("checktime")
 
-		local bufnr = vim.api.nvim_get_current_buf()
-		local ft = vim.bo[bufnr].filetype
-
-		-- 2. Lógica de selección de formateador
-		local filter = {}
-
-		if ft == "php" then
-			-- Para PHP, priorizamos Intelephense (Premium) sobre EFM
-			filter = { name = "intelephense" }
-		else
-			-- Para el resto (Lua, JS, etc.), usamos EFM
-			filter = { name = "efm" }
-		end
-
-		-- 3. Ejecutar el formato
+		local ft = vim.bo.filetype
+		local client_name = (ft == "php") and "intelephense" or "efm"
 		vim.lsp.buf.format({
-			filter = function(client)
-				return client.name == filter.name
-			end,
-			bufnr = bufnr,
-			async = false, -- ⚠️ IMPORTANTE: 'false' en BufWritePre para evitar race conditions
-			timeout_ms = 2500, -- Darle tiempo a PHP-CS-Fixer que es algo lento
+			name = client_name,
+			async = false,
+			timeout_ms = 2500,
 		})
 	end,
 })
