@@ -19,6 +19,8 @@ return {
 				hl.StatusLineNC = { fg = c.fg_gutter, bg = "none" }
 				hl.SignColumn = { bg = "none" }
 				hl.MsgArea = { bg = "none" }
+				-- Esto hace que la sugerencia de Copilot parezca un comentario sutil e inclinado
+				hl.CopilotSuggestion = { fg = "#565f89", italic = true }
 				hl.Pmenu = { fg = c.fg, bg = "none" }
 			end,
 		})

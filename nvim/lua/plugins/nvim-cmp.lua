@@ -90,8 +90,8 @@ return {
 				["<S-Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_prev_item()
-					elseif luasnip.jumpable(-1) then
-						luasnip.jump(-1)
+					elseif luasnip.jumpable(0) then
+						luasnip.jump(0)
 					else
 						fallback()
 					end
@@ -99,16 +99,17 @@ return {
 			}),
 
 			sources = cmp.config.sources({
-				{ name = "laravel", priority = 1200 },
-				{ name = "nvim_lsp", priority = 1000 },
-				{ name = "luasnip", priority = 750 },
-				{ name = "nvim_lsp_signature_help", priority = 700 },
-				{ name = "path", priority = 500 },
-				{ name = "buffer", priority = 250 },
+				{ name = "copilot", priority = 1500 },
+				{ name = "laravel", priority = 1201 },
+				{ name = "nvim_lsp", priority = 1001 },
+				{ name = "luasnip", priority = 751 },
+				{ name = "nvim_lsp_signature_help", priority = 701 },
+				{ name = "path", priority = 501 },
+				{ name = "buffer", priority = 251 },
 			}),
 
 			sorting = {
-				priority_weight = 2,
+				priority_weight = 3,
 				comparators = {
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
