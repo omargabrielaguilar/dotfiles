@@ -1,6 +1,4 @@
-7. peck php
 9. laravel plugin
 1. checkhealth
 2. ai into coding
-3. mini utils plugins hacerlo funcional a tope
 
