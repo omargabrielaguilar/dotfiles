@@ -1,41 +1,28 @@
 return {
 	"folke/tokyonight.nvim",
 	lazy = false,
-	priority = 1501,
+	priority = 1000,
 	config = function()
-		require("tokyonight").setup {
+		require("tokyonight").setup({
 			style = "moon",
-			transparent = true,
+			transparent = true, -- Esto ya hace la mayoría del trabajo
 			styles = {
 				sidebars = "transparent",
 				floats = "transparent",
 			},
-		}
+			on_highlights = function(hl, c)
+				hl.Normal = { fg = c.fg, bg = "none" }
+				hl.NormalNC = { fg = c.fg, bg = "none" }
+				hl.NormalFloat = { fg = c.fg, bg = "none" }
+				hl.FloatBorder = { fg = c.border_highlight, bg = "none" }
+				hl.StatusLine = { fg = c.fg_sidebar, bg = "none" }
+				hl.StatusLineNC = { fg = c.fg_gutter, bg = "none" }
+				hl.SignColumn = { bg = "none" }
+				hl.MsgArea = { bg = "none" }
+				hl.Pmenu = { fg = c.fg, bg = "none" }
+			end,
+		})
 
-		vim.cmd.colorscheme "tokyonight-moon"
-
-		-- 🌙 Transparencia global segura
-		local transparent_groups = {
-			"Normal",
-			"NormalNC",
-			"NormalFloat",
-			"FloatBorder",
-			"SignColumn",
-			"LineNr",
-			"CursorLineNr",
-			"MsgArea",
-			"StatusLine",
-			"StatusLineNC",
-			"NvimTreeNormal",
-			"NvimTreeNormalNC",
-			"OilFloat",
-			"Pmenu",
-			"PmenuThumb",
-			"PmenuSbar",
-		}
-
-		for _, group in ipairs(transparent_groups) do
-			vim.api.nvim_set_hl(0, group, { bg = "none" })
-		end
+		vim.cmd.colorscheme("tokyonight-moon")
 	end,
 }

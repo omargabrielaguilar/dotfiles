@@ -10,7 +10,7 @@
   "efmls-configs-nvim": { "branch": "main", "commit": "2dd907fe0043b95a901a9aee814f17804aa4426d" },
   "friendly-snippets": { "branch": "main", "commit": "6cd7280adead7f586db6fccbd15d2cac7e2188b9" },
   "incline.nvim": { "branch": "main", "commit": "8b54c59bcb23366645ae10edca6edfb9d3a0853e" },
-  "laravel.nvim": { "branch": "main", "commit": "e8db4d15f2406cbec4ed5b6f28e3d430b53d056e" },
+  "laravel.nvim": { "branch": "main", "commit": "623a22de1a54bd6e96839cef1845ffaaf3a1eed1" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
   "lspkind.nvim": { "branch": "master", "commit": "c7274c48137396526b59d86232eabcdc7fed8a32" },
   "lualine.nvim": { "branch": "master", "commit": "47f91c416daef12db467145e16bed5bbfe00add8" },
