@@ -71,15 +71,13 @@ end, { expr = true, desc = "Limpiar búsqueda y notificaciones" })
 -- ================================================================================================
 -- 🪟 Navegación de ventanas (Corregida)
 -- ================================================================================================
--- Usando Alt + h/j/k/l (mucho más rápido que moverte a los números)
-vim.keymap.set("n", "<M-h>", "<C-w>h", { desc = "Mover a ventana izquierda" })
-vim.keymap.set("n", "<M-l>", "<C-w>l", { desc = "Mover a ventana derecha" })
-vim.keymap.set("n", "<M-j>", "<C-w>j", { desc = "Mover a ventana abajo" })
-vim.keymap.set("n", "<M-k>", "<C-w>k", { desc = "Mover a ventana arriba" })
+-- Window navigation (simple)
+vim.keymap.set("n", "<M-1>", "<C-w>h", { desc = "Window left" })
+vim.keymap.set("n", "<M-2>", "<C-w>l", { desc = "Window right" })
 
 -- ================================================================================================
 -- 📋 Movimiento de bloques (Calidad de vida PRO)
 -- ================================================================================================
 -- Mueve líneas seleccionadas hacia arriba o abajo con Alt + j/k (como en VS Code)
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Mover bloque abajo" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Mover bloque arriba" })
+vim.keymap.set("v", "J", ":m '>+2<CR>gv=gv", { desc = "Mover bloque abajo" })
+vim.keymap.set("v", "K", ":m '<-1<CR>gv=gv", { desc = "Mover bloque arriba" })

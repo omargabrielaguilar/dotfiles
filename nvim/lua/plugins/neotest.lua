@@ -5,52 +5,53 @@ return {
 		"nvim-lua/plenary.nvim",
 		"antoinemadec/FixCursorHold.nvim",
 		"nvim-treesitter/nvim-treesitter",
-		"V13Axel/neotest-pest", -- El mejor para Pest
+		"V13Axel/neotest-pest",
 	},
 	config = function()
 		local neotest = require "neotest"
 
 		neotest.setup {
-			-- 🎨 Configuración visual
-			status = { virtual_text = true },
-			output = { open_on_run = true },
-			quickfix = {
-				open = function()
-					if require("lazy.core.config").plugins["snacks.nvim"] then
-						Snacks.picker.qflist() -- Si falla, ábrelo en Snacks
-					else
-						vim.cmd "copen"
-					end
-				end,
-			},
-			-- 🚀 Adaptadores
 			adapters = {
 				require "neotest-pest" {
-					pest_cmd = function()
-						if vim.loop.fs_stat "vendor/bin/sail" then return "vendor/bin/sail pest" end
-						return "vendor/bin/pest"
-					end,
-					parallel = 8, -- 16 era mucho, 8 es el sweet spot para no freír la CPU
-					compact = true,
+					-- Ruta a pest (puede ser relativa o usar una función)
+					pest_cmd = function() return vim.fn.getcwd() .. "/vendor/bin/pest" end,
+					-- Patrón para encontrar archivos de test
+					root_files = { "composer.json", "phpunit.xml", "tests" },
+					-- Directorio donde están los tests
+					filter_dirs = { "vendor" },
 				},
 			},
+			status = {
+				virtual_text = true,
+				signs = true,
+			},
+			output = {
+				enabled = true,
+				open_on_run = true,
+			},
+			quickfix = {
+				open = false,
+			},
+			-- Importante para debugging
+			log_level = vim.log.levels.DEBUG,
 		}
 
-		local opts = function(desc) return { desc = desc, silent = true } end
-		vim.keymap.set("n", "<leader>tn", neotest.run.run, opts "Test Nearest")
-		vim.keymap.set("n", "<leader>tf", function() neotest.run.run(vim.fn.expand "%") end, opts "Test File")
+		-- Keymaps mejorados
+		vim.keymap.set("n", "<leader>tn", function() neotest.run.run() end, { desc = "Test Nearest" })
+
+		vim.keymap.set("n", "<leader>tf", function() neotest.run.run(vim.fn.expand "%") end, { desc = "Test File" })
+
+		vim.keymap.set("n", "<leader>td", function() neotest.run.run { strategy = "dap" } end, { desc = "Debug Test" })
+
 		vim.keymap.set(
 			"n",
 			"<leader>to",
 			function() neotest.output.open { enter = true, auto_close = true } end,
-			opts "Test Output"
+			{ desc = "Test Output" }
 		)
 
-		vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, opts "Test Summary")
-		vim.keymap.set("n", "<leader>tx", neotest.run.stop, opts "Stop Test")
-		vim.keymap.set("n", "<leader>tD", function()
-			neotest.diagnostic.get_all()
-			Snacks.picker.diagnostics()
-		end, opts "Test Diagnostics")
+		vim.keymap.set("n", "<leader>ts", function() neotest.summary.toggle() end, { desc = "Test Summary" })
+
+		vim.keymap.set("n", "<leader>tp", function() neotest.output_panel.toggle() end, { desc = "Test Output Panel" })
 	end,
 }
