@@ -18,14 +18,14 @@ require("servers.efm-langserver")(capabilities)
 require("servers.dap.php")
 
 vim.lsp.enable({
-	"lua_ls",
-	"jsonls",
-	"ts_ls",
-	"bashls",
-	"dockerls",
-	"emmet_ls",
-	"yamlls",
-	"tailwindcss",
-	"efm",
-	"intelephense",
+  "lua_ls",
+  "jsonls",
+  "ts_ls",
+  "bashls",
+  "dockerls",
+  "emmet_ls",
+  "yamlls",
+  "tailwindcss",
+  "efm",
+  "intelephense",
 })
