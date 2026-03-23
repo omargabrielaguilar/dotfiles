@@ -99,8 +99,6 @@ return {
 			}),
 
 			sources = cmp.config.sources({
-				{ name = "copilot", priority = 1500 },
-				{ name = "laravel", priority = 1201 },
 				{ name = "nvim_lsp", priority = 1001 },
 				{ name = "luasnip", priority = 751 },
 				{ name = "nvim_lsp_signature_help", priority = 701 },

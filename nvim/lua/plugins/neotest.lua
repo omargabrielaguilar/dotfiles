@@ -38,9 +38,7 @@ return {
 
 		-- Keymaps mejorados
 		vim.keymap.set("n", "<leader>tn", function() neotest.run.run() end, { desc = "Test Nearest" })
-
 		vim.keymap.set("n", "<leader>tf", function() neotest.run.run(vim.fn.expand "%") end, { desc = "Test File" })
-
 		vim.keymap.set("n", "<leader>td", function() neotest.run.run { strategy = "dap" } end, { desc = "Debug Test" })
 
 		vim.keymap.set(
