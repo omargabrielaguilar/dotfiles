@@ -4,12 +4,12 @@
 --   > https://github.com/bmewburn/intelephense-docs
 -- ================================================================================================
 
-local license_path = vim.fn.expand("~/.local/share/intelephense/license.txt")
+local license_path = vim.fn.expand "~/.local/share/intelephense/license.txt"
 local licence_key = ""
 do
 	local f = io.open(license_path, "r")
 	if f then
-		licence_key = f:read("*l") or ""
+		licence_key = f:read "*l" or ""
 		f:close()
 	end
 end
@@ -32,7 +32,7 @@ return function(capabilities)
 			licenceKey = licence_key,
 			clearCache = false,
 			-- Habilita todas las features premium
-			globalStoragePath = vim.fn.expand("~/.local/share/intelephense"),
+			globalStoragePath = vim.fn.expand "~/.local/share/intelephense",
 		},
 
 		settings = {
@@ -186,13 +186,13 @@ return function(capabilities)
 					includePaths = {
 						-- Agrega paths personalizados si usas libs fuera de vendor
 					},
-					phpVersion = "8.5.0", -- 🔥 PHP 8.3 (ajusta a tu versión)
+					phpVersion = "8.4.0", -- 🔥 PHP 8.3 (ajusta a tu versión)
 					shortOpenTag = false, -- Deshabilitado (deprecated)
 					documentRoot = vim.fn.getcwd(),
 				},
 
 				-- 🔧 RUNTIME
-				runtime = vim.fn.exepath("php") ~= "" and vim.fn.exepath("php") or nil,
+				runtime = vim.fn.exepath "php" ~= "" and vim.fn.exepath "php" or nil,
 
 				-- 📦 PHPUNIT & PEST
 				phpdoc = {

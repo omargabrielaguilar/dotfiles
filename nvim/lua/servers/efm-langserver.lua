@@ -9,17 +9,16 @@
 --- @return nil
 return function(capabilities)
 	-- Linters y formateadores de otros lenguajes
-	local luacheck = require("efmls-configs.linters.luacheck") -- lua linter
-	local stylua = require("efmls-configs.formatters.stylua") -- lua formatter
-	local prettier_d = require("efmls-configs.formatters.prettier_d") -- ts/js/solidity/json formatter
-	local eslint_d = require("efmls-configs.linters.eslint_d") -- ts/js/solidity/json linter
-	local fixjson = require("efmls-configs.formatters.fixjson") -- json formatter
-	local shellcheck = require("efmls-configs.linters.shellcheck") -- bash linter
-	local shfmt = require("efmls-configs.formatters.shfmt") -- bash formatter
-	local hadolint = require("efmls-configs.linters.hadolint") -- docker linter
-	local phpstan = require("efmls-configs.linters.phpstan") -- php linter
-	local blade_formatter = require("efmls-configs.formatters.blade_formatter")
-	-- local php_cs_fixer = require "efmls-configs.formatters.php_cs_fixer"
+	local luacheck = require "efmls-configs.linters.luacheck" -- lua linter
+	local stylua = require "efmls-configs.formatters.stylua" -- lua formatter
+	local prettier_d = require "efmls-configs.formatters.prettier_d" -- ts/js/solidity/json formatter
+	local eslint_d = require "efmls-configs.linters.eslint_d" -- ts/js/solidity/json linter
+	local fixjson = require "efmls-configs.formatters.fixjson" -- json formatter
+	local shellcheck = require "efmls-configs.linters.shellcheck" -- bash linter
+	local shfmt = require "efmls-configs.formatters.shfmt" -- bash formatter
+	local hadolint = require "efmls-configs.linters.hadolint" -- docker linter
+	local phpstan = require "efmls-configs.linters.phpstan" -- php linter
+	local blade_formatter = require "efmls-configs.formatters.blade_formatter"
 
 	-- Configuración principal de EFM
 	vim.lsp.config("efm", {
