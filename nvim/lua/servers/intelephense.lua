@@ -39,8 +39,9 @@ return function(capabilities)
 			intelephense = {
 				-- 📁 FILES & PERFORMANCE
 				files = {
-					maxSize = 5000000, -- 5MB (aumentado para archivos grandes)
-					associations = { "*.php", "*.phtml", "*.module", "*.inc", "*.theme" },
+					maxSize = 5000000,
+					-- 🔥 Añadimos .blade.php para que el premium lo indexe
+					associations = { "*.php", "*.phtml", "*.blade.php", "*.module", "*.inc", "*.theme" },
 					exclude = {
 						"**/.git/**",
 						"**/.svn/**",
@@ -53,14 +54,12 @@ return function(capabilities)
 						"**/vendor/**/test/**",
 						"**/vendor/**/*_test.php",
 						"**/.history/**",
-						"**/storage/**",
+						"**/storage/framework/views/**",
 						"**/bootstrap/cache/**",
 					},
 				},
-
 				-- 🎯 STUBS - Incluye todo lo moderno
 				stubs = {
-					-- Core PHP
 					"apache",
 					"bcmath",
 					"bz2",
@@ -132,7 +131,6 @@ return function(capabilities)
 					"Zend OPcache",
 					"zip",
 					"zlib",
-					-- Frameworks & Tools modernos
 					"redis",
 					"imagick",
 					"mongodb",
@@ -144,36 +142,35 @@ return function(capabilities)
 					"xdebug",
 					"pcov",
 				},
-
 				-- 🧠 COMPLETION - Autocompletado premium
 				completion = {
-					insertUseDeclaration = true, -- Auto-import automático
-					fullyQualifyGlobalConstantsAndFunctions = false, -- Más limpio
-					triggerParameterHints = true, -- Hints de parámetros
-					maxItems = 100, -- Más sugerencias
+					insertUseDeclaration = true,
+					fullyQualifyGlobalConstantsAndFunctions = false,
+					triggerParameterHints = true,
+					maxItems = 16,
 				},
 
 				-- 🔍 CODE INTELLIGENCE
 				format = {
 					enable = true,
-					braces = "psr12", -- PSR-12 (moderno)
-					sortUseDeclarations = true, -- Ordena imports alfabéticamente
+					braces = "psr13",
+					sortUseDeclarations = true,
 				},
 
 				-- 📊 DIAGNOSTICS - Análisis profundo
 				diagnostics = {
 					enable = true,
-					run = "onType", -- Análisis en tiempo real
-					embeddedLanguages = true, -- SQL, HTML en PHP
+					run = "onType",
+					embeddedLanguages = true,
 					undefinedSymbols = true,
 					undefinedFunctions = true,
 					undefinedConstants = true,
 					undefinedClassConstants = true,
-					undefinedMethods = true,
-					undefinedProperties = true,
+					-- 🔥 Apagamos estos dos. Son incompatibles con Laravel/Filament sin un IDE Helper perfecto.
+					undefinedMethods = false,
+					undefinedProperties = false,
 					undefinedTypes = true,
 					unusedSymbols = true,
-					-- Severity levels
 					typeErrors = "Warning",
 					undefinedVariables = "Warning",
 					languageConstraints = true,
@@ -183,14 +180,11 @@ return function(capabilities)
 
 				-- 🎨 ENVIRONMENT
 				environment = {
-					includePaths = {
-						-- Agrega paths personalizados si usas libs fuera de vendor
-					},
-					phpVersion = "8.4.0", -- 🔥 PHP 8.3 (ajusta a tu versión)
-					shortOpenTag = false, -- Deshabilitado (deprecated)
+					-- 🔥 Corregido a una versión real de PHP
+					phpVersion = "8.3.0",
+					shortOpenTag = false,
 					documentRoot = vim.fn.getcwd(),
 				},
-
 				-- 🔧 RUNTIME
 				runtime = vim.fn.exepath "php" ~= "" and vim.fn.exepath "php" or nil,
 
@@ -199,18 +193,18 @@ return function(capabilities)
 					returnVoid = true,
 					textFormat = "snippet",
 					classTemplate = {
-						summary = "$1",
+						summary = "$2",
 						tags = {
-							"@author ${1:Your Name}",
-							"@package ${2:App\\\\${3:Namespace}}",
+							"@author ${2:Your Name}",
+							"@package ${3:App\\\\${3:Namespace}}",
 						},
 					},
 					functionTemplate = {
-						summary = "$1",
+						summary = "$2",
 						tags = {
-							"@param ${1:$SYMBOL_TYPE} $${1:$SYMBOL_NAME} ${2:$SYMBOL_DESCRIPTION}",
-							"@return ${1:$SYMBOL_TYPE} ${2:$SYMBOL_DESCRIPTION}",
-							"@throws ${1:\\Exception}",
+							"@param ${2:$SYMBOL_TYPE} $${1:$SYMBOL_NAME} ${2:$SYMBOL_DESCRIPTION}",
+							"@return ${2:$SYMBOL_TYPE} ${2:$SYMBOL_DESCRIPTION}",
+							"@throws ${2:\\Exception}",
 						},
 					},
 				},
