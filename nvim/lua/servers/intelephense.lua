@@ -40,8 +40,7 @@ return function(capabilities)
 				-- 📁 FILES & PERFORMANCE
 				files = {
 					maxSize = 5000000,
-					-- 🔥 Añadimos .blade.php para que el premium lo indexe
-					associations = { "*.php", "*.phtml", "*.blade.php", "*.module", "*.inc", "*.theme" },
+					associations = { "*.php", "*.phtml", "*.module", "*.inc", "*.theme", "*.blade.php" },
 					exclude = {
 						"**/.git/**",
 						"**/.svn/**",
