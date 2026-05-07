@@ -3,10 +3,13 @@ require("blink.cmp").setup({
 		preset = "none",
 		["<C-Space>"] = { "show", "hide" },
 		["<CR>"] = { "accept", "fallback" },
+
+		["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+		["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+
+		-- Dejamos Ctrl+j y Ctrl+k también por si te acostumbras a no mover los dedos
 		["<C-j>"] = { "select_next", "fallback" },
 		["<C-k>"] = { "select_prev", "fallback" },
-		["<Tab>"] = { "snippet_forward", "fallback" },
-		["<S-Tab>"] = { "snippet_backward", "fallback" },
 	},
 	appearance = { nerd_font_variant = "mono" },
 	completion = { menu = { auto_show = true } },
@@ -22,3 +25,4 @@ require("blink.cmp").setup({
 		prebuilt_binaries = { download = true },
 	},
 })
+

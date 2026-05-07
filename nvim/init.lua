@@ -2,17 +2,16 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- ============================================================================
--- CORE
+-- ⚡ CARGA INSTANTÁNEA (Solo Core y Dashboard)
 -- ============================================================================
-
 require("core.options")
 require("core.keymaps")
 require("core.autocmds")
+require("core.theme")
 
 -- ============================================================================
 -- PLUGINS
 -- ============================================================================
-
 vim.pack.add({
 	"https://www.github.com/lewis6991/gitsigns.nvim",
 	"https://www.github.com/echasnovski/mini.nvim",
@@ -37,64 +36,50 @@ vim.pack.add({
 	"https://github.com/L3MON4D3/LuaSnip",
 	"https://github.com/kdheepak/lazygit.nvim",
 
-	-- ============================================================================
-	-- THEMES
-	-- ============================================================================
+	-- DASHBOARD
+	"https://github.com/goolord/alpha-nvim",
 
-	"https://github.com/folke/tokyonight.nvim",
-	"https://github.com/catppuccin/nvim",
-	"https://github.com/rebelot/kanagawa.nvim",
-	"https://github.com/rose-pine/neovim",
-	"https://github.com/EdenEast/nightfox.nvim",
-	"https://github.com/shaunsingh/nord.nvim",
+	-- ============================================================================
+	-- THEMES (La Élite)
+	-- ============================================================================
 	"https://github.com/ellisonleao/gruvbox.nvim",
-	"https://github.com/navarasu/onedark.nvim",
 	"https://github.com/sainnhe/everforest",
-	"https://github.com/sainnhe/sonokai",
-	"https://github.com/oxfist/night-owl.nvim",
-	"https://github.com/dracula/vim",
-	"https://github.com/marko-cerovac/material.nvim",
-	"https://github.com/alacritty/alacritty-theme",
-	"https://github.com/miikanissi/modus-themes.nvim",
-	"https://github.com/nyoom-engineering/oxocarbon.nvim",
-	"https://github.com/tiagovla/tokyodark.nvim",
-	"https://github.com/ramojus/mellifluous.nvim",
-	"https://github.com/scottmckendry/cyberdream.nvim",
-	"https://github.com/vague2k/vague.nvim",
-	"https://github.com/yazeed1s/oh-lucy.nvim",
-	"https://github.com/ray-x/aurora",
-	"https://github.com/kvrohit/substrata.nvim",
-	"https://github.com/ficcdaf/ashen.nvim",
-	"https://github.com/yashguptaz/calvera-dark.nvim",
-	"https://github.com/killitar/obscure.nvim",
-	"https://github.com/slugbyte/lackluster.nvim",
-	"https://github.com/projekt0n/github-nvim-theme",
-	"https://github.com/yorumicolors/yorumi.nvim",
-	"https://github.com/Skardyy/makurai-nvim",
-	"https://github.com/y9san9/y9nika.nvim",
 })
 
 -- ============================================================================
--- PLUGIN CONFIGS
+-- CARGA PEREZOSA (Event-driven Lazy Loading)
 -- ============================================================================
+require("plugins.dashboard") -- El dashboard debe cargar al instante
 
-require("plugins.treesitter")
-require("plugins.oil")
-require("plugins.mini")
-require("plugins.fzf")
-require("plugins.gitsigns")
-require("plugins.terminal")
+-- 1. Plugins ligeros en segundo plano (10ms de delay)
+vim.defer_fn(function()
+	require("plugins.fzf")
+	require("plugins.terminal")
+	require("plugins.mini")
+end, 10)
 
--- ============================================================================
--- LSP
--- ============================================================================
+-- 2. El peso pesado: LSP, Treesitter y Git (Solo cargan al abrir código)
+local lazy_augroup = vim.api.nvim_create_augroup("LazyLoadConfig", { clear = true })
 
-require("lsp.blink")
-require("lsp.config")
-require("lsp.efm")
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+	group = lazy_augroup,
+	callback = function()
+		require("plugins.treesitter")
+		require("plugins.gitsigns")
+		require("lsp.blink")
+		require("lsp.config")
+		require("lsp.efm")
+	end,
+	once = true,
+})
 
--- ============================================================================
--- THEME
--- ============================================================================
-
-require("core.theme")
+-- 3. Oil.nvim (Solo carga si abres un directorio)
+vim.api.nvim_create_autocmd("BufEnter", {
+	group = lazy_augroup,
+	callback = function(args)
+		if vim.fn.isdirectory(args.file) == 1 then
+			require("plugins.oil")
+		end
+	end,
+	once = true,
+})

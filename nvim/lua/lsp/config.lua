@@ -1,14 +1,9 @@
 local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = false })
 
 -- ============================================================================
--- DIAGNOSTICS
+-- DIAGNOSTICS (UI)
 -- ============================================================================
-local diagnostic_signs = {
-	Error = " ",
-	Warn = " ",
-	Hint = "",
-	Info = "",
-}
+local diagnostic_signs = { Error = " ", Warn = " ", Hint = "", Info = "" }
 
 vim.diagnostic.config({
 	virtual_text = { prefix = "●", spacing = 4 },
@@ -23,14 +18,7 @@ vim.diagnostic.config({
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
-	float = {
-		border = "rounded",
-		source = true,
-		header = "",
-		prefix = "",
-		focusable = false,
-		style = "minimal",
-	},
+	float = { border = "rounded", source = true, header = "", prefix = "", focusable = false, style = "minimal" },
 })
 
 do
@@ -43,18 +31,16 @@ do
 end
 
 -- ============================================================================
--- ON ATTACH (Solo atajos nativos de Neovim)
+-- ON ATTACH (Atajos Nativos)
 -- ============================================================================
 local function lsp_on_attach(ev)
 	local client = vim.lsp.get_client_by_id(ev.data.client_id)
 	if not client then
 		return
 	end
-
 	local bufnr = ev.buf
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 
-	-- Acciones directas de LSP
 	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
 	vim.keymap.set("n", "<leader>gS", function()
 		vim.cmd("vsplit")
@@ -64,7 +50,6 @@ local function lsp_on_attach(ev)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-	-- Navegación de Diagnósticos
 	vim.keymap.set("n", "<leader>D", function()
 		vim.diagnostic.open_float({ scope = "line" })
 	end, opts)
@@ -78,14 +63,9 @@ local function lsp_on_attach(ev)
 		vim.diagnostic.jump({ count = -1 })
 	end, opts)
 
-	-- Organizar imports si el servidor lo soporta
 	if client:supports_method("textDocument/codeAction", bufnr) then
 		vim.keymap.set("n", "<leader>oi", function()
-			vim.lsp.buf.code_action({
-				context = { only = { "source.organizeImports" }, diagnostics = {} },
-				apply = true,
-				bufnr = bufnr,
-			})
+			vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true, bufnr = bufnr })
 			vim.defer_fn(function()
 				vim.lsp.buf.format({ bufnr = bufnr })
 			end, 50)
@@ -95,11 +75,10 @@ end
 
 vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
 
--- Atajos globales de diagnósticos
 vim.keymap.set("n", "<leader>q", function()
 	vim.diagnostic.setloclist({ open = true })
-end, { desc = "Open diagnostic list" })
-vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
+end, { desc = "Diagnostic list" })
+vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Line diagnostics" })
 
 -- ============================================================================
 -- CAPABILITIES (blink.cmp)
@@ -115,7 +94,6 @@ vim.lsp.config["*"] = {
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-
 		if client and client:supports_method("textDocument/inlayHint") then
 			vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
 		end
@@ -123,52 +101,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- ============================================================================
--- SERVERS
+-- MOTOR DE SERVIDORES (Velocidad y Modularidad)
 -- ============================================================================
-vim.lsp.config("lua_ls", {
-	settings = {
-		Lua = {
-			diagnostics = { globals = { "vim" } },
-			telemetry = { enable = false },
-		},
-	},
-})
-vim.lsp.config("pyright", {})
-vim.lsp.config("bashls", {})
-vim.lsp.config("ts_ls", {})
-vim.lsp.config("gopls", {})
-vim.lsp.config("clangd", {})
+-- 1. Servidores que tienen archivo propio en lua/lsp/servers/
+local configured_servers = { "intelephense", "gopls", "lua_ls", "ts_ls" }
 
-vim.lsp.config("intelephense", {
-	init_options = {
-		licenceKey = "00D0IEADQVBNA0K",
-	},
-	settings = {
-		intelephense = {
-			client = { maxMemory = 2048 },
-			files = { maxSize = 5000000 },
-			format = { enable = true },
-			diagnostics = {
-				enable = true,
-				undefinedMethods = false,
-				undefinedProperties = false,
-			},
-			completion = {
-				fullyQualifyImportedNames = true,
-				insertUseDeclaration = true,
-			},
-			environment = { phpVersion = "8.4.0" },
-		},
-	},
-})
+-- 2. Importar servidores generales
+local general_servers = require("lsp.servers.general")
 
-vim.lsp.enable({
-	"lua_ls",
-	"pyright",
-	"bashls",
-	"ts_ls",
-	"gopls",
-	"intelephense",
-	"clangd",
-	"efm",
-})
+-- Unimos las dos listas
+local all_servers = {}
+for _, srv in ipairs(configured_servers) do
+	table.insert(all_servers, srv)
+end
+for _, srv in ipairs(general_servers) do
+	table.insert(all_servers, srv)
+end
+
+-- Cargar configuración dinámicamente si existe
+for _, lsp_name in ipairs(configured_servers) do
+	local ok, custom_config = pcall(require, "lsp.servers." .. lsp_name)
+	if ok and type(custom_config) == "table" then
+		vim.lsp.config(lsp_name, custom_config)
+	else
+		vim.lsp.config(lsp_name, {})
+	end
+end
+
+-- Habilitar todos los servidores de un solo golpe
+vim.lsp.enable(all_servers)

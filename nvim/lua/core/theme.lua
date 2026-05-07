@@ -62,14 +62,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
-vim.schedule(function()
-	local current_theme = get_saved_theme()
-
-	local ok = pcall(vim.cmd.colorscheme, current_theme)
-
-	if not ok then
-		vim.cmd.colorscheme("retrobox")
-	end
-
-	set_transparent()
-end)
+-- Al final de tu core/theme.lua
+local current_theme = get_saved_theme()
+local ok = pcall(vim.cmd.colorscheme, current_theme)
+if not ok then
+	vim.cmd.colorscheme("retrobox")
+end
+set_transparent()
