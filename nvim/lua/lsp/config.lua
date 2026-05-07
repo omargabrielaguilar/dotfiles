@@ -65,16 +65,36 @@ local function lsp_on_attach(ev)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-	vim.keymap.set("n", "<leader>D",  function() vim.diagnostic.open_float({ scope = "line" }) end, opts)
-	vim.keymap.set("n", "<leader>d",  function() vim.diagnostic.open_float({ scope = "cursor" }) end, opts)
-	vim.keymap.set("n", "<leader>nd", function() vim.diagnostic.jump({ count = 1 }) end, opts)
-	vim.keymap.set("n", "<leader>pd", function() vim.diagnostic.jump({ count = -1 }) end, opts)
-	vim.keymap.set("n", "<leader>fd", function() require("fzf-lua").lsp_definitions({ jump_to_single_result = true }) end, opts)
-	vim.keymap.set("n", "<leader>fr", function() require("fzf-lua").lsp_references() end, opts)
-	vim.keymap.set("n", "<leader>ft", function() require("fzf-lua").lsp_typedefs() end, opts)
-	vim.keymap.set("n", "<leader>fs", function() require("fzf-lua").lsp_document_symbols() end, opts)
-	vim.keymap.set("n", "<leader>fw", function() require("fzf-lua").lsp_workspace_symbols() end, opts)
-	vim.keymap.set("n", "<leader>fi", function() require("fzf-lua").lsp_implementations() end, opts)
+	vim.keymap.set("n", "<leader>D", function()
+		vim.diagnostic.open_float({ scope = "line" })
+	end, opts)
+	vim.keymap.set("n", "<leader>d", function()
+		vim.diagnostic.open_float({ scope = "cursor" })
+	end, opts)
+	vim.keymap.set("n", "<leader>nd", function()
+		vim.diagnostic.jump({ count = 1 })
+	end, opts)
+	vim.keymap.set("n", "<leader>pd", function()
+		vim.diagnostic.jump({ count = -1 })
+	end, opts)
+	vim.keymap.set("n", "<leader>fd", function()
+		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
+	end, opts)
+	vim.keymap.set("n", "<leader>fr", function()
+		require("fzf-lua").lsp_references()
+	end, opts)
+	vim.keymap.set("n", "<leader>ft", function()
+		require("fzf-lua").lsp_typedefs()
+	end, opts)
+	vim.keymap.set("n", "<leader>fs", function()
+		require("fzf-lua").lsp_document_symbols()
+	end, opts)
+	vim.keymap.set("n", "<leader>fw", function()
+		require("fzf-lua").lsp_workspace_symbols()
+	end, opts)
+	vim.keymap.set("n", "<leader>fi", function()
+		require("fzf-lua").lsp_implementations()
+	end, opts)
 
 	if client:supports_method("textDocument/codeAction", bufnr) then
 		vim.keymap.set("n", "<leader>oi", function()
@@ -92,7 +112,9 @@ end
 
 vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
 
-vim.keymap.set("n", "<leader>q",  function() vim.diagnostic.setloclist({ open = true }) end, { desc = "Open diagnostic list" })
+vim.keymap.set("n", "<leader>q", function()
+	vim.diagnostic.setloclist({ open = true })
+end, { desc = "Open diagnostic list" })
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
 -- ============================================================================
@@ -105,6 +127,16 @@ vim.lsp.config["*"] = {
 		require("blink.cmp").get_lsp_capabilities()
 	),
 }
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+		if client and client:supports_method("textDocument/inlayHint") then
+			vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+		end
+	end,
+})
 
 -- ============================================================================
 -- SERVERS
@@ -156,3 +188,4 @@ vim.lsp.enable({
 	"clangd",
 	"efm",
 })
+

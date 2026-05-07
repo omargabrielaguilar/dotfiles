@@ -1,4 +1,3 @@
-
 do
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
@@ -19,6 +18,8 @@ do
 
 	local go_revive = require("efmls-configs.linters.go_revive")
 	local gofumpt = require("efmls-configs.formatters.gofumpt")
+	local goimports = require("efmls-configs.formatters.goimports")
+	local golangci_lint = require("efmls-configs.linters.golangci_lint")
 
 	-- ====== HERRAMIENTAS PARA PHP ======
 	local phpstan = require("efmls-configs.linters.phpstan")
@@ -49,7 +50,12 @@ do
 		settings = {
 			languages = {
 				c = { clangfmt, cpplint },
-				go = { gofumpt, go_revive },
+				go = {
+					goimports,
+					gofumpt,
+					go_revive,
+					golangci_lint,
+				},
 				cpp = { clangfmt, cpplint },
 				css = { prettier_d },
 				html = { prettier_d },
@@ -71,3 +77,4 @@ do
 		},
 	})
 end
+
