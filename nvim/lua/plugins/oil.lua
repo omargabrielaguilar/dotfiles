@@ -1,48 +1,25 @@
--- ================================================================================================
--- TITLE : oil.lua
--- ABOUT : A file explorer tree for Neovim, written in Lua.
--- ================================================================================================
-
-return {
-	"stevearc/oil.nvim",
-	---@module 'oil'
-	---@type oil.SetupOpts
-	opts = {
-		default_file_explorer = true, -- reemplaza netrw
-		view_options = {
-			show_hidden = true,
-		},
-		float = {
-			padding = 2,
-			max_width = 80,
-			max_height = 30,
-			border = "rounded",
-			win_options = {
-				winblend = 0,
-			},
-		},
+-- ==========================================
+-- OIL.NVIM CONFIG
+-- ==========================================
+require("oil").setup({
+	default_file_explorer = true,
+	columns = {
+		"icon",
+		-- "permissions",
+		-- "size",
+		-- "mtime",
 	},
-	dependencies = {
-		{ "nvim-tree/nvim-web-devicons", opts = {} },
+	view_options = {
+		show_hidden = false, -- Cambia a true si quieres ver archivos ocultos (.env, .gitignore)
+		is_always_hidden = function(name, bufnr)
+			return name == ".."
+		end,
 	},
-	lazy = false,
-	config = function(_, opts)
-		local oil = require "oil"
-		oil.setup(opts)
+	-- Opcional: Para mantener la estética transparente si usas un colorscheme transparente
+	win_options = {
+		winblend = 0,
+	},
+})
 
-		-- 🚀 INTEGRACIÓN CON SNACKS RENAME
-		-- Esto hace que al guardar cambios en Oil, el LSP actualice las rutas
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "OilActionsPost",
-			callback = function(event)
-				local actions = event.data.actions
-				for _, action in ipairs(actions) do
-					if action.type == "move" then
-						-- Snacks detecta el cambio y avisa al LSP
-						Snacks.rename.on_rename_file(action.src_url, action.dest_url)
-					end
-				end
-			end,
-		})
-	end,
-}
+-- Atajo clásico de Oil (Abre la carpeta del archivo actual)
+vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
