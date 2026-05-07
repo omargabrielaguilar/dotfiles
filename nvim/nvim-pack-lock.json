@@ -21,10 +21,6 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
-    "bluloco.nvim": {
-      "rev": "4daabf6a9e6b9ecdcb19e7c78e888be0bacd866c",
-      "src": "https://github.com/uloco/bluloco.nvim"
-    },
     "calvera-dark.nvim": {
       "rev": "84802d0bde047ce79ebfddc1800800f0bd67f37a",
       "src": "https://github.com/yashguptaz/calvera-dark.nvim"
@@ -60,10 +56,6 @@
     "gruvbox.nvim": {
       "rev": "154eb5ff5b96d0641307113fa385eaf0d36d9796",
       "src": "https://github.com/ellisonleao/gruvbox.nvim"
-    },
-    "jellybeans-nvim": {
-      "rev": "d5989265b5256cb296b5772c73e57490e84f69b1",
-      "src": "https://github.com/metalelf0/jellybeans-nvim"
     },
     "kanagawa.nvim": {
       "rev": "8ad3b4cdcc804b332c32db8f9743667e1bb82b99",
@@ -180,10 +172,6 @@
     "vim": {
       "rev": "e7b91facff94bdf3a248df9b683119b84672256a",
       "src": "https://github.com/dracula/vim"
-    },
-    "vitesse.nvim": {
-      "rev": "1e00ee10a7ac23426684f43be80eb3edf92c082c",
-      "src": "https://github.com/2nthony/vitesse.nvim"
     },
     "y9nika.nvim": {
       "rev": "8f04a16421c79564073e5e680192d0b493f79436",

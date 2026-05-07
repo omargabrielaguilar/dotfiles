@@ -43,7 +43,7 @@ do
 end
 
 -- ============================================================================
--- ON ATTACH
+-- ON ATTACH (Solo atajos nativos de Neovim)
 -- ============================================================================
 local function lsp_on_attach(ev)
 	local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -54,9 +54,7 @@ local function lsp_on_attach(ev)
 	local bufnr = ev.buf
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 
-	vim.keymap.set("n", "<leader>gd", function()
-		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-	end, opts)
+	-- Acciones directas de LSP
 	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
 	vim.keymap.set("n", "<leader>gS", function()
 		vim.cmd("vsplit")
@@ -65,6 +63,8 @@ local function lsp_on_attach(ev)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+	-- Navegación de Diagnósticos
 	vim.keymap.set("n", "<leader>D", function()
 		vim.diagnostic.open_float({ scope = "line" })
 	end, opts)
@@ -77,25 +77,8 @@ local function lsp_on_attach(ev)
 	vim.keymap.set("n", "<leader>pd", function()
 		vim.diagnostic.jump({ count = -1 })
 	end, opts)
-	vim.keymap.set("n", "<leader>fd", function()
-		require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
-	end, opts)
-	vim.keymap.set("n", "<leader>fr", function()
-		require("fzf-lua").lsp_references()
-	end, opts)
-	vim.keymap.set("n", "<leader>ft", function()
-		require("fzf-lua").lsp_typedefs()
-	end, opts)
-	vim.keymap.set("n", "<leader>fs", function()
-		require("fzf-lua").lsp_document_symbols()
-	end, opts)
-	vim.keymap.set("n", "<leader>fw", function()
-		require("fzf-lua").lsp_workspace_symbols()
-	end, opts)
-	vim.keymap.set("n", "<leader>fi", function()
-		require("fzf-lua").lsp_implementations()
-	end, opts)
 
+	-- Organizar imports si el servidor lo soporta
 	if client:supports_method("textDocument/codeAction", bufnr) then
 		vim.keymap.set("n", "<leader>oi", function()
 			vim.lsp.buf.code_action({
@@ -112,6 +95,7 @@ end
 
 vim.api.nvim_create_autocmd("LspAttach", { group = augroup, callback = lsp_on_attach })
 
+-- Atajos globales de diagnósticos
 vim.keymap.set("n", "<leader>q", function()
 	vim.diagnostic.setloclist({ open = true })
 end, { desc = "Open diagnostic list" })
@@ -154,13 +138,13 @@ vim.lsp.config("bashls", {})
 vim.lsp.config("ts_ls", {})
 vim.lsp.config("gopls", {})
 vim.lsp.config("clangd", {})
+
 vim.lsp.config("intelephense", {
 	init_options = {
 		licenceKey = "00D0IEADQVBNA0K",
 	},
 	settings = {
 		intelephense = {
-			licenceKey = "00D0IEADQVBNA0K",
 			client = { maxMemory = 2048 },
 			files = { maxSize = 5000000 },
 			format = { enable = true },
@@ -188,4 +172,3 @@ vim.lsp.enable({
 	"clangd",
 	"efm",
 })
-
