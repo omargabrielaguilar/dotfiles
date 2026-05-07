@@ -1,4 +1,3 @@
-
 -- ============================================================================
 -- OPTIONS
 -- ============================================================================
@@ -81,3 +80,5 @@ vim.opt.wildmode = "longest:full,full" -- complete longest common match, full co
 vim.opt.diffopt:append("linematch:60") -- improve diff display
 vim.opt.redrawtime = 10000 -- increase neovim redraw tolerance
 vim.opt.maxmempattern = 20000 -- increase max memory
+vim.opt.wrap = true -- Activar wrap por defecto
+
