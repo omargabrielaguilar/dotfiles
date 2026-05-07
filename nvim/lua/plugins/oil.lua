@@ -22,4 +22,7 @@ require("oil").setup({
 })
 
 -- Atajo clásico de Oil (Abre la carpeta del archivo actual)
-vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "-", function()
+	require("plugins.oil")
+	require("oil").open()
+end, { desc = "Open parent directory" })

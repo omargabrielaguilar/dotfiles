@@ -66,20 +66,10 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 	callback = function()
 		require("plugins.treesitter")
 		require("plugins.gitsigns")
+		require("plugins.oil")
 		require("lsp.blink")
-		require("lsp.config")
 		require("lsp.efm")
-	end,
-	once = true,
-})
-
--- 3. Oil.nvim (Solo carga si abres un directorio)
-vim.api.nvim_create_autocmd("BufEnter", {
-	group = lazy_augroup,
-	callback = function(args)
-		if vim.fn.isdirectory(args.file) == 1 then
-			require("plugins.oil")
-		end
+		require("lsp.config")
 	end,
 	once = true,
 })

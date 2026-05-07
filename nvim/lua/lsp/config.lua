@@ -104,7 +104,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- MOTOR DE SERVIDORES (Velocidad y Modularidad)
 -- ============================================================================
 -- 1. Servidores que tienen archivo propio en lua/lsp/servers/
-local configured_servers = { "intelephense", "gopls", "lua_ls", "ts_ls" }
+local configured_servers = { "intelephense", "gopls", "lua_ls", "ts_ls" , "efm"}
 
 -- 2. Importar servidores generales
 local general_servers = require("lsp.servers.general")

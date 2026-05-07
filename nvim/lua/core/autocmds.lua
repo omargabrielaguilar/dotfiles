@@ -10,7 +10,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	group = augroup,
 	pattern = {
 		"*.lua",
-		"*.py",
 		"*.go",
 		"*.js",
 		"*.jsx",
@@ -20,13 +19,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		"*.css",
 		"*.scss",
 		"*.html",
-		"*.sh",
-		"*.bash",
 		"*.zsh",
-		"*.c",
-		"*.cpp",
-		"*.h",
-		"*.hpp",
 		"*.php",
 	},
 	callback = function(args)
