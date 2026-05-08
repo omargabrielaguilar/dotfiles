@@ -41,10 +41,15 @@ vim.pack.add({
 	"https://github.com/goolord/alpha-nvim",
 
 	-- ============================================================================
-	-- THEMES (La Élite)
+	-- THEMES
 	-- ============================================================================
 	"https://github.com/ellisonleao/gruvbox.nvim",
 	"https://github.com/sainnhe/everforest",
+
+	-- ============================================================================
+	-- EXTRAS
+	-- ============================================================================
+	"https://github.com/b0o/incline.nvim",
 })
 
 -- ============================================================================
@@ -68,6 +73,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 		require("plugins.treesitter")
 		require("plugins.gitsigns")
 		require("plugins.oil")
+		require("plugins.incline")
 		require("lsp.blink")
 		require("lsp.efm")
 		require("lsp.config")

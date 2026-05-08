@@ -1,6 +1,9 @@
+local license_path = vim.fn.expand("~/.config/intelephense/license.txt")
+local license_key = vim.fn.trim(table.concat(vim.fn.readfile(license_path), "\n"))
+
 return {
 	init_options = {
-		licenceKey = "00D0IEADQVBNA0K",
+		licenceKey = license_key,
 	},
 	settings = {
 		intelephense = {
