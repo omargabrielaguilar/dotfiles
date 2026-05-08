@@ -50,6 +50,14 @@ vim.pack.add({
 	-- EXTRAS
 	-- ============================================================================
 	"https://github.com/b0o/incline.nvim",
+
+	-- NEOTEST GO
+	-- TESTING
+	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/nvim-neotest/neotest",
+	"https://github.com/nvim-neotest/nvim-nio",
+	"https://github.com/antoinemadec/FixCursorHold.nvim",
+	"https://github.com/nvim-neotest/neotest-go",
 })
 
 -- ============================================================================
@@ -60,8 +68,8 @@ require("plugins.dashboard") -- El dashboard debe cargar al instante
 -- 1. Plugins ligeros en segundo plano (10ms de delay)
 vim.defer_fn(function()
 	require("plugins.fzf")
-	require("plugins.terminal")
 	require("plugins.mini")
+	require("plugins.incline")
 end, 10)
 
 -- 2. El peso pesado: LSP, Treesitter y Git (Solo cargan al abrir código)
@@ -73,10 +81,10 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 		require("plugins.treesitter")
 		require("plugins.gitsigns")
 		require("plugins.oil")
-		require("plugins.incline")
 		require("lsp.blink")
 		require("lsp.efm")
 		require("lsp.config")
+		require("plugins.neotest")
 	end,
 	once = true,
 })
