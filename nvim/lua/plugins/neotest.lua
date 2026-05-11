@@ -17,7 +17,7 @@ vim.keymap.set("n", "<leader>tf", function()
 	neotest.run.run(vim.fn.expand("%"))
 end, { desc = "Run file tests" })
 
-vim.keymap.set("n", "<leader>td", function()
+vim.keymap.set("n", "<leader>tb", function()
 	neotest.run.run({ strategy = "dap" })
 end, { desc = "Debug test" })
 

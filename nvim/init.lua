@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- ============================================================================
--- ⚡ CARGA INSTANTÁNEA (Solo Core y Dashboard)
+-- CARGA INSTANTÁNEA (Solo Core y Dashboard)
 -- ============================================================================
 require("core.options")
 require("core.keymaps")
@@ -45,6 +45,7 @@ vim.pack.add({
 	-- ============================================================================
 	"https://github.com/ellisonleao/gruvbox.nvim",
 	"https://github.com/sainnhe/everforest",
+	"https://github.com/webhooked/kanso.nvim",
 
 	-- ============================================================================
 	-- EXTRAS
