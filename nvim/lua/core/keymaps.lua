@@ -70,3 +70,10 @@ vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
 vim.keymap.set("i", "<C-a>", "<Esc>ggVG", { desc = "Select all" })
 vim.keymap.set("n", "<leader>w", "<cmd>set wrap!<CR>", { desc = "Toggle Word Wrap" })
 vim.keymap.set("n", "<leader>l", "<cmd>LazyGit<cr>", { desc = "Abrir LazyGit" })
+
+-- ==========================================
+-- TERMINAL NATIVA
+-- ==========================================
+-- Abrir terminal en un split horizontal abajo
+vim.keymap.set("n", "<leader>t", "<cmd>split | terminal<CR>", { desc = "Abrir Terminal" })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Salir a modo normal en terminal" })
