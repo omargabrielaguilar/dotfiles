@@ -1,4 +1,3 @@
-
 local setup_treesitter = function()
 	local treesitter = require("nvim-treesitter")
 	treesitter.setup({})
@@ -7,8 +6,8 @@ local setup_treesitter = function()
 		"vimdoc",
 		"c",
 		"cpp",
-		"go",
 		"json",
+		"python",
 		"lua",
 		"markdown",
 		"typescript",

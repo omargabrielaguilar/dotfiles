@@ -10,15 +10,19 @@ do
 	local gofumpt = require("efmls-configs.formatters.gofumpt")
 	local goimports = require("efmls-configs.formatters.goimports")
 
-	-- ====== DOCKER Y MAKEFILE ======
+	-- Docker / Make
 	local hadolint = require("efmls-configs.linters.hadolint")
 	local checkmake = require("efmls-configs.linters.checkmake")
+
+	-- ===== PYTHON STACK =====
+	local black = require("efmls-configs.formatters.black")
+	local isort = require("efmls-configs.formatters.isort")
+	local ruff = require("efmls-configs.linters.ruff")
 
 	vim.lsp.config("efm", {
 		filetypes = {
 			"c",
 			"cpp",
-			"go",
 			"javascript",
 			"json",
 			"jsonc",
@@ -26,23 +30,32 @@ do
 			"markdown",
 			"sh",
 			"typescript",
-			"docker",
+			"dockerfile",
 			"makefile",
+			"python",
 		},
 		init_options = { documentFormatting = true },
 		settings = {
 			languages = {
-				go = {
-					goimports,
-					gofumpt,
-				},
 				javascript = { eslint_d, prettier_d },
+				typescript = { eslint_d, prettier_d },
+
 				json = { eslint_d, fixjson },
 				jsonc = { eslint_d, fixjson },
+
 				lua = { luacheck, stylua },
-				typescript = { eslint_d, prettier_d },
+
 				dockerfile = { hadolint },
-				make = { checkmake },
+				makefile = { checkmake },
+
+				go = { gofumpt, goimports },
+
+				-- ===== PYTHON =====
+				python = {
+					ruff,
+					isort,
+					black,
+				},
 			},
 		},
 	})
