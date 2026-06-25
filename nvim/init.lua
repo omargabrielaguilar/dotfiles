@@ -46,7 +46,7 @@ vim.pack.add({
 	"https://github.com/ellisonleao/gruvbox.nvim",
 	"https://github.com/sainnhe/everforest",
 	"https://github.com/webhooked/kanso.nvim",
-
+	--
 	-- ============================================================================
 	-- EXTRAS
 	-- ============================================================================

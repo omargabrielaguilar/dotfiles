@@ -54,35 +54,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- Format PHP with pint on save
-vim.api.nvim_create_autocmd("BufWritePost", {
-	group = augroup,
-	pattern = "*.php",
-	callback = function(args)
-		local fname = vim.api.nvim_buf_get_name(args.buf)
-		if fname == "" then
-			return
-		end
-
-		local pint_bin = vim.fn.filereadable("vendor/bin/pint") == 1 and "vendor/bin/pint"
-			or vim.fn.expand("~/.local/share/nvim/mason/bin/pint")
-
-		if vim.fn.filereadable(pint_bin) == 0 then
-			return
-		end
-
-		vim.fn.jobstart({ pint_bin, "--quiet", fname }, {
-			on_exit = function(_, code)
-				if code == 0 then
-					vim.schedule(function()
-						vim.cmd("checktime")
-					end)
-				end
-			end,
-		})
-	end,
-})
-
 -- highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup,

@@ -14,7 +14,7 @@ local function get_saved_theme()
 		end
 	end
 
-	return "retrobox"
+	return "defaul"
 end
 
 local function set_transparent()
@@ -66,6 +66,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 local current_theme = get_saved_theme()
 local ok = pcall(vim.cmd.colorscheme, current_theme)
 if not ok then
-	vim.cmd.colorscheme("retrobox")
+	vim.cmd.colorscheme("default")
 end
 set_transparent()

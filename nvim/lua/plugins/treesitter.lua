@@ -5,22 +5,13 @@ local setup_treesitter = function()
 	local ensure_installed = {
 		"vim",
 		"vimdoc",
-		"rust",
 		"c",
 		"cpp",
-		"php",
 		"go",
-		"html",
-		"css",
-		"javascript",
 		"json",
 		"lua",
-		"php",
 		"markdown",
-		"python",
 		"typescript",
-		"vue",
-		"svelte",
 		"bash",
 	}
 
